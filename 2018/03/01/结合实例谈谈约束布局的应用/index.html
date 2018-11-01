@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="布局,">
 
 
 
@@ -79,13 +79,44 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://kaelinvoker.github.io/Blog/index.html">
+<meta name="description" content="结合实际例子谈谈约束布局的应用概述​      约束布局ConstraintLayout是谷歌2016年I/O大会发布的新型的layout布局，旨在最大化的减少复杂布局的层级嵌套，实现布局的扁平化，提升页面的渲染速度。   在AS2.2的版本以上，默认为App依赖了最新的约束布局库，在创建布局文件时也会默认为约束布局，这从侧面反映出来官方推荐开发者使用约束布局。  与传统布局相比的优势">
+<meta name="keywords" content="布局">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结合实例谈谈约束布局的应用">
+<meta property="og:url" content="https://kaelinvoker.github.io/Blog/2018/03/01/结合实例谈谈约束布局的应用/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="结合实际例子谈谈约束布局的应用概述​      约束布局ConstraintLayout是谷歌2016年I/O大会发布的新型的layout布局，旨在最大化的减少复杂布局的层级嵌套，实现布局的扁平化，提升页面的渲染速度。   在AS2.2的版本以上，默认为App依赖了最新的约束布局库，在创建布局文件时也会默认为约束布局，这从侧面反映出来官方推荐开发者使用约束布局。  与传统布局相比的优势">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://i.imgur.com/a8xXMEg.png">
+<meta property="og:image" content="https://i.imgur.com/T0fbkYX.png">
+<meta property="og:image" content="https://i.imgur.com/6H0wd0g.png">
+<meta property="og:image" content="https://i.imgur.com/8n7Pg16.png">
+<meta property="og:image" content="https://i.imgur.com/E1YcriR.png">
+<meta property="og:image" content="https://i.imgur.com/wNW1MFO.png">
+<meta property="og:image" content="https://i.imgur.com/P5iH0Yw.png">
+<meta property="og:image" content="https://i.imgur.com/INWn6hO.png">
+<meta property="og:image" content="https://i.imgur.com/xrEX7Rz.png">
+<meta property="og:image" content="https://i.imgur.com/lnmn0yI.png">
+<meta property="og:image" content="https://i.imgur.com/XQ3diQQ.png">
+<meta property="og:image" content="https://i.imgur.com/D101BUN.png">
+<meta property="og:image" content="https://i.imgur.com/aCIGsAP.png">
+<meta property="og:image" content="https://i.imgur.com/RSOBuJd.png">
+<meta property="og:image" content="https://i.imgur.com/3qJtmjc.png">
+<meta property="og:image" content="https://i.imgur.com/28jJ82m.png">
+<meta property="og:image" content="https://i.imgur.com/E1YcriR.png">
+<meta property="og:image" content="https://i.imgur.com/nmNOhZ3.png">
+<meta property="og:image" content="https://i.imgur.com/6waSHGQ.png">
+<meta property="og:image" content="https://i.imgur.com/gzbMKXl.png">
+<meta property="og:image" content="https://i.imgur.com/4qAgvX6.png">
+<meta property="og:image" content="https://i.imgur.com/UEkbTZb.png">
+<meta property="og:image" content="https://i.imgur.com/bkDIcsR.png">
+<meta property="og:image" content="https://i.imgur.com/U1QCNAA.png">
+<meta property="og:image" content="https://i.imgur.com/jxoX94X.png">
+<meta property="og:updated_time" content="2018-11-01T13:30:28.294Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="结合实例谈谈约束布局的应用">
+<meta name="twitter:description" content="结合实际例子谈谈约束布局的应用概述​      约束布局ConstraintLayout是谷歌2016年I/O大会发布的新型的layout布局，旨在最大化的减少复杂布局的层级嵌套，实现布局的扁平化，提升页面的渲染速度。   在AS2.2的版本以上，默认为App依赖了最新的约束布局库，在创建布局文件时也会默认为约束布局，这从侧面反映出来官方推荐开发者使用约束布局。  与传统布局相比的优势">
+<meta name="twitter:image" content="https://i.imgur.com/a8xXMEg.png">
 
 
 
@@ -115,13 +146,13 @@
 
 
 
-  <link rel="canonical" href="https://kaelinvoker.github.io/Blog/">
+  <link rel="canonical" href="https://kaelinvoker.github.io/Blog/2018/03/01/结合实例谈谈约束布局的应用/">
 
 
 
 
 
-  <title>Hexo</title>
+  <title>结合实例谈谈约束布局的应用 | Hexo</title>
   
 
 
@@ -140,8 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -214,9 +244,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/Blog/2018/03/01/结合实例谈谈约束布局的应用/" itemprop="url">结合实例谈谈约束布局的应用</a></h1>
+          <h1 class="post-title" itemprop="name headline">结合实例谈谈约束布局的应用</h1>
         
 
         <div class="post-meta">
@@ -298,9 +326,7 @@
       
 
       
-        
-          
-            <h3 id="结合实际例子谈谈约束布局的应用"><a href="#结合实际例子谈谈约束布局的应用" class="headerlink" title="结合实际例子谈谈约束布局的应用"></a>结合实际例子谈谈约束布局的应用</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>​    </p>
+        <h3 id="结合实际例子谈谈约束布局的应用"><a href="#结合实际例子谈谈约束布局的应用" class="headerlink" title="结合实际例子谈谈约束布局的应用"></a>结合实际例子谈谈约束布局的应用</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>​    </p>
 <blockquote>
 <p>约束布局ConstraintLayout是谷歌2016年I/O大会发布的新型的layout布局，旨在最大化的减少复杂布局的层级嵌套，实现布局的扁平化，提升页面的渲染速度。</p>
 </blockquote>
@@ -454,8 +480,6 @@
 <hr>
 <p>###参考链接：<br><a href="https://juejin.im/post/5b3cec1ee51d4519596b488e" target="_blank" rel="noopener">Android ConstraintLayout 最新使用小结</a><br><br><a href="https://juejin.im/post/5adc8bd251882567236e58c1#heading-3" target="_blank" rel="noopener">Android 约束布局（ConstraintLayout）1.1.0 版详解</a> <br><br><a href="https://www.jianshu.com/p/4b23e789befb" target="_blank" rel="noopener">约束布局（ConstraintLayout）1.1.2 版本的新特性</a><br><br><a href="https://www.jianshu.com/p/88481a872424" target="_blank" rel="noopener">Android ConstraintLayout的使用</a><br><a href="https://blog.csdn.net/lmj623565791/article/details/78011599" target="_blank" rel="noopener">ConstraintLayout 完全解析 快来优化你的布局吧</a><br><br><a href="https://juejin.im/entry/5a59c6d151882573473db6ae" target="_blank" rel="noopener">Android 约束布局（ConstraintLayout）详解</a></p>
 
-          
-        
       
     </div>
     
@@ -470,14 +494,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/布局/" rel="tag"># 布局</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -487,10 +517,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -498,6 +529,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -518,8 +553,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -570,6 +614,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#结合实际例子谈谈约束布局的应用"><span class="nav-number">1.</span> <span class="nav-text">结合实际例子谈谈约束布局的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#约束布局的具体使用"><span class="nav-number">1.2.</span> <span class="nav-text">约束布局的具体使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -710,6 +770,10 @@
 
 
   
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
