@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/Blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/Blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/Blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="robust,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="美团Robust调研最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—">
+<meta name="keywords" content="robust">
+<meta property="og:type" content="article">
+<meta property="og:title" content="美团Robust调研">
+<meta property="og:url" content="https://kaelinvoker.github.io/Blog/2017/05/26/美团Robust调研/index.html">
+<meta property="og:site_name" content="二两五花肉-个人博客">
+<meta property="og:description" content="美团Robust调研最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i.imgur.com/mBx6AzO.png">
+<meta property="og:image" content="http://i.imgur.com/k6Xj8BZ.png">
+<meta property="og:image" content="http://i.imgur.com/QCtXEad.png">
+<meta property="og:image" content="http://i.imgur.com/aby3aYG.png">
+<meta property="og:updated_time" content="2018-11-26T16:34:48.272Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="美团Robust调研">
+<meta name="twitter:description" content="美团Robust调研最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—">
+<meta name="twitter:image" content="http://i.imgur.com/mBx6AzO.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kaelinvoker.github.io/Blog/2017/05/26/美团Robust调研/">
+
+
+
+
+
+  <title>美团Robust调研 | 二两五花肉-个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">二两五花肉-个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/Blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/Blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/Blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/Blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kaelinvoker.github.io/Blog/Blog/2017/05/26/美团Robust调研/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaer">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/Blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="二两五花肉-个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">美团Robust调研</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-26T21:18:35+08:00">
+                2017-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/热修复/" itemprop="url" rel="index">
+                    <span itemprop="name">热修复</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="美团Robust调研"><a href="#美团Robust调研" class="headerlink" title="美团Robust调研"></a>美团Robust调研</h2><p>最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。</p>
+<h3 id="Robust简介"><a href="#Robust简介" class="headerlink" title="Robust简介"></a>Robust简介</h3><blockquote>
+<p>2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一代热更新系统Robust，对Android版本无差别兼容。无需发版就可以做到随时修改线上bug，快速对重大线上问题作出反应，补丁修补成功率高达99.9%。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li><p>优点</p>
+<p>支持Android2.3-7.X版本   </p>
+<pre><code>高兼容性、高稳定性，修复成功率高达三个九  
+</code></pre><p>  补丁下发立即生效，不需要重新启动  </p>
+<pre><code>支持方法级别的修复，包括静态方法  
+</code></pre><p>  支持增加方法和类<br>  支持ProGuard的混淆、内联、优化等操作</p>
+</li>
+<li><p>缺点</p>
+<p>暂时不支持新增字段，但可以通过新增类解决<br>暂时不支持资源和 so 修复，不过这个问题不大，因为独立于 dex 补丁，已经有很成熟的方案     了，就看怎么打到补丁包中以及 diff 方案。<br>对于返回值是 this 的方法支持不太好<br>没有安全校验，需要开发者在加载补丁之前自己做验证<br>运行效率、方法数、包体积产生了一些副作用</p>
+</li>
+</ul>
+<h3 id="流行热修复库比较"><a href="#流行热修复库比较" class="headerlink" title="流行热修复库比较"></a>流行热修复库比较</h3><p><img src="http://i.imgur.com/mBx6AzO.png" alt=""><br>​            </p>
+<h3 id="大致工作流程"><a href="#大致工作流程" class="headerlink" title="大致工作流程"></a>大致工作流程</h3><p><img src="http://i.imgur.com/k6Xj8BZ.png" alt="">    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.集成了Robust后，生成apk。保存期间的混淆文件 mapping.txt，以及 Robust 生成记录文件 methodMap.robust</span><br><span class="line">2.使用注解 @Modify 或者方法 RobustModify.modify() 标注需要修复的方法</span><br><span class="line">3.开启补丁插件，执行生成 apk 命令，获得补丁包 patch.jar </span><br><span class="line">4.通过推送或者接口的形式，通知 app 有补丁，需要修复</span><br><span class="line">5.加载补丁文件不需要重新启动应用</span><br></pre></td></tr></table></figure>
+<h3 id="集成步骤"><a href="#集成步骤" class="headerlink" title="集成步骤"></a>集成步骤</h3><ol>
+<li>添加依赖<br>在整个项目的build.gradle加入classpath</li>
+</ol>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">         classpath <span class="string">'com.meituan.robust:gradle-plugin:0.4.7'</span></span><br><span class="line">         classpath <span class="string">'com.meituan.robust:auto-patch-plugin:0.4.7'</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    在App的build.gradle，加入如下依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//制作补丁时将这个打开，auto-patch-plugin紧跟着com.android.application</span></span><br><span class="line"><span class="comment">//apply plugin: 'auto-patch-plugin'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'robust'</span></span><br><span class="line">compile <span class="string">'com.meituan.robust:robust:0.4.7'</span></span><br><span class="line">（<span class="number">0.4</span><span class="number">.7</span>官方文档似有误，改为<span class="number">0.4</span><span class="number">.5</span>）</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>手动Copy一份robust.xml的配置文件到项目的src同级目录下,该文件各个配置注释的很清楚，若没特殊要求，不需要修改 </p>
+<p>主要配置了Robust相关的内容，如是否打开Robust,是否强制插入代码，需要热补的包名或类名，是否开启混淆，补丁的包名等。<br>这里主要注意下需要热补的包名hotfixPackage和补丁的包名patchPackname。</p>
+<p><font color="red" size="4">patchPackname</font>需要在修复的配置类PatchManipulateImp中设置下PatchesInfoImplClassFullName，也就是最终生成的补丁类所在包名，补丁类是PatchesInfo的实现类    </p>
+</li>
+<li><p>打正式包，并生成mapping.txt文件和methodsMap.robust文件：</p>
+<p>先将项目进行混淆，执行如下命令打成正式包：</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew clean  assembleRelease --stacktrace --no-daemon</span><br></pre></td></tr></table></figure>
+<p>​    得到mapping.txt文件和methodsMap.robust文件之后，将得到的以上两个文件放到app/robust文件夹下,也    就是和src同级的目录。</p>
+<p><img src="http://i.imgur.com/QCtXEad.png" alt=""></p>
+<p><img src="http://i.imgur.com/aby3aYG.png" alt=""></p>
+<ol>
+<li><p>制作patch.jar补丁包文件</p>
+<p>打开自动补丁插件，并sync now!</p>
+</li>
+</ol>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'auto-patch-plugin'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'robust'</span></span><br></pre></td></tr></table></figure>
+<pre><code>执行打包命令，会抛出异常并看到Java.lang.RuntimeException: auto patch end successfully。
+</code></pre><p>​    说明补丁包生成成功。在outputs/robust/文件夹下会看到两个文件，patch.dex和patch.jar。</p>
+<p>​    提示：如果看到的结果是“patch method is empty ,please check your Modify annotation…”，建议先clean    下工程再重新尝试打包命令。</p>
+<p>5.验证补丁包</p>
+<p>​     将outputs/robust/patch.jar包push到手机对应的/sdcard/robust/patch_temp.jar上。</p>
+<h3 id="生成补丁常见问题"><a href="#生成补丁常见问题" class="headerlink" title="生成补丁常见问题"></a>生成补丁常见问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1.补丁生效问题。</span><br><span class="line">	补丁每次在apply后生效，此时app如果被杀死重启补丁会失效。因为杀死进程之后，内存中所有的信息都被清除了，所以需要应用每次启动都去加载本地缓存的补丁</span><br><span class="line">	因此，我们应在合适的时机apply甚至可以将apply的时机提前到application的oncreate方法或者更早的时机。</span><br><span class="line">2.RuntimeException(&quot;mapping line info is error &quot;</span><br><span class="line">	原因: mapping文件格式读取出错，请重新下载mapping文件，不要编辑mapping文件</span><br><span class="line"></span><br><span class="line">3.RuntimeException(&quot;getInLineMemberString cannot find inline class ,origin class is</span><br><span class="line">	原因:这个问题理论上不可能出现，出现就是大锅,直接去官网提isuue</span><br><span class="line"></span><br><span class="line">4.RuntimeException(&quot; something wrong with mappingfile ,cannot find class </span><br><span class="line">	原因:mapping文件和代码没有对应上，重新下载mapping文件</span><br><span class="line"></span><br><span class="line">5.RuntimeException(&quot; patch method is empty ,please check your Modify annotation or useRobustModify.modify() to mark modified</span><br><span class="line">  methods&quot;) </span><br><span class="line">	原因：补丁自动化插件找不到需要制作补丁的方法，可能是忘记加上注解或者没有调用RobustModify.modify()，请针对Lamda表达式和泛型方法使用</span><br><span class="line">	RobustModify.modify()</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/Meituan-Dianping/Robust/wiki/%E7%94%9F%E6%88%90%E8%A1%A5%E4%B8%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">更多问题</a><br><a href="https://github.com/Meituan-Dianping/Robust/wiki/%E8%A1%A5%E4%B8%81%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5" target="_blank" rel="noopener">补丁运行问题排查</a></p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>内部类的构造方法是private（private会生成一个匿名的构造函数）时，需要在制作补丁过程中手动修改构造方法的访问域为public    </li>
+<li>对于方法的返回值是this的情况现在支持不好，比如builder模式，但在制作补丁代码时，可以通过如下方式来解决，增加一个类来包装一下(如下面的B类)，    </li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">method <span class="title">a</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    改为    </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">method <span class="title">a</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> B().setThis(<span class="keyword">this</span>).getThis();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>字段增加能力内测中，不过暂时可以通过增加新类，把字段放到新类中的方式来实现字段增加能力</li>
+<li>新增的类支持包括静态内部类和非内部类</li>
+<li>对于只有字段访问的函数无法直接修复，可通过调用处间接修复</li>
+<li>构造方法的修复内测中</li>
+<li>资源和so的修复内测中</li>
+<li>制作补丁的时候需要和生成apk的代码保持一致，执行的gradle命令也应该相同（避免不同的打包命令使用不同的代码和资源生成不同flavor的apk），当被补丁的方法中包含资源id的时候尤其注意需要保证代码的一致性。</li>
+</ol>
+<h3 id="项目中的使用"><a href="#项目中的使用" class="headerlink" title="项目中的使用"></a>项目中的使用</h3><ul>
+<li>何时加载补丁</li>
+</ul>
+<blockquote>
+<p>补丁的加载我们推荐越靠前越好，这样对bug的可修复范围就大大的增加，建议在Application启动的时候加载补丁，比如说放在OnCreate方法里面，这样做就可以保证补丁尽快加载，修复比较靠前的bug，请注意补丁的加载需要时间（补丁的加载是异步的），也就是说即使在Application里面最早加载补丁，也不能保证修复非常靠前的bug。<br>补丁最先加载还可能导致另一个问题，那就是对于使用multidex的项目，需要确保所有的dex都已经加载，再加载补丁，避免被补丁的类由于没有加载而导致补丁应用失败，所以需要在补丁加载之前保证所有dex都已经加载。        </p>
+</blockquote>
+<ul>
+<li>补丁拉取校验策略</li>
+</ul>
+<blockquote>
+<p>这部分需要继承并实现PatchManipulate，这个类里面有三个方法，在PatchManipulate这个类里面需要联网拉取补丁列表（List<patch> fetchPatchList(Context context)）、下载补丁（boolean ensurePatchExist(Patch patch)）以及校验补丁（boolean verifyPatch(Context context, Patch patch)），拉取补丁列表之后需要把补丁相关的信息初始化，并把补丁列表的数据加密保留在某处，初始化补丁相关信息的时候，请留意类Patch的一些属性，比较重要的有四个</patch></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 补丁名称，可以作为补丁的唯一标识符</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 原始补丁本地保存路径，这个补丁建议是加密之后的补丁，建议放到app的私有目录</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String localPath;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 补丁本地保存路径，这个是解密之后补丁的位置，这个位置建议加载之后立即删除，避免被篡改</span></span><br><span class="line"><span class="comment"> * 建议放到app私有目录</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String tempPath;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 补丁md5值，用来校验localPath补丁的完整性</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String md5;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>把下载的补丁文件保留在localPath中，每次加载补丁之前先对localpath的补丁进行md5校验，然后解密补丁，并放到tempPath，补丁加载之后就删除tempPath下的文件。<br>关于补丁的校验这块，建议采用非对称加密，各个App根据自己业务方定制，自由发挥吧。</p>
+</blockquote>
+<ul>
+<li>补丁加载策略    </li>
+</ul>
+<blockquote>
+<p>上面说了补丁加密和解密的策略，这部分重点介绍补丁如何加载才能保证尽可能修复所有问题，并且在后台做到补丁可控，可控的意思就是可以随时不使用补丁，补丁的加载与否完全由后台来决定。<br>首先来说为了提高补丁的加载率，有必要在应用启动的时候加载缓存的补丁，也就是上一次App启动加载过得补丁，但是这会导致一个问题，那就是如何在后台控制不使用这个补丁，这个问题可以在本地保留一个和服务器同步的补丁列表，当发现补丁被在补丁后台不存在的时候，就删除本地缓存的补丁。</p>
+</blockquote>
+<ul>
+<li>补丁相关数据的上报</li>
+</ul>
+<blockquote>
+<p>在执行new PatchExecutor(getApplicationContext(), new PatchManipulateImp(), new Callback()).start()的需要传递实现RobustCallBack接口的类，在这里进行数据的统计和上报。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Callback</span> <span class="keyword">implements</span> <span class="title">RobustCallBack</span> </span>&#123;</span><br><span class="line"> 	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPatchListFetched</span><span class="params">(<span class="keyword">boolean</span> result, <span class="keyword">boolean</span> isNet)</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">" robust arrived in onPatchListFetched"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPatchFetched</span><span class="params">(<span class="keyword">boolean</span> result, <span class="keyword">boolean</span> isNet, Patch patch)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">" robust arrived in onPatchFetched"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPatchApplied</span><span class="params">(<span class="keyword">boolean</span> result, Patch patch)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">" robust arrived in onPatchApplied "</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logNotify</span><span class="params">(String log, String where)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">" robust arrived in logNotify "</span>+where);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionNotify</span><span class="params">(Throwable throwable, String where)</span> </span>&#123;</span><br><span class="line">        throwable.printStackTrace();</span><br><span class="line">        System.out.println(<span class="string">" robust arrived in exceptionNotify "</span>+where);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="http://w4lle.com/2017/03/31/robust-0/" target="_blank" rel="noopener">Android热补丁之Robust原理解析(一) </a><br><a href="https://github.com/Meituan-Dianping/Robust" target="_blank" rel="noopener">Robust源码</a><br><a href="https://tech.meituan.com/android_robust.html" target="_blank" rel="noopener">Android热更新方案Robust</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/robust/" rel="tag"># robust</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2017/08/20/JsBridge源码解析/" rel="prev" title="JsBridge源码解析">
+                JsBridge源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">kaer</p>
+              <p class="site-description motion-element" itemprop="description">锐情书卷，烹煮江山</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/Blog/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/Blog/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/Blog/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#美团Robust调研"><span class="nav-number">1.</span> <span class="nav-text">美团Robust调研</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Robust简介"><span class="nav-number">1.1.</span> <span class="nav-text">Robust简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流行热修复库比较"><span class="nav-number">1.2.</span> <span class="nav-text">流行热修复库比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大致工作流程"><span class="nav-number">1.3.</span> <span class="nav-text">大致工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成步骤"><span class="nav-number">1.4.</span> <span class="nav-text">集成步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成补丁常见问题"><span class="nav-number">1.5.</span> <span class="nav-text">生成补丁常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">1.6.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目中的使用"><span class="nav-number">1.7.</span> <span class="nav-text">项目中的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.8.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaer</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
