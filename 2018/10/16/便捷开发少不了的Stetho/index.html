@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="便捷开发少不了的Stetho最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。  Stetho 是一个功能强大的 Android 应用调试桥，起到桥梁的作用，连接 Android 应用和 Chrome，通过 Chrome 开发者工具调试 Android 应用，提供视图元素检查，网络监控，数据库动态交互，Dumpapp（可扩展的命令行交互接口），JavaSc">
+<meta name="description" content="最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。  Stetho 是一个功能强大的 Android 应用调试桥，起到桥梁的作用，连接 Android 应用和 Chrome，通过 Chrome 开发者工具调试 Android 应用，提供视图元素检查，网络监控，数据库动态交互，Dumpapp（可扩展的命令行交互接口），JavaScript Console 等">
 <meta name="keywords" content="tools">
 <meta property="og:type" content="article">
 <meta property="og:title" content="便捷开发少不了的Stetho">
-<meta property="og:url" content="https://kaelinvoker.github.io/Blog/2018/10/27/便捷开发少不了的Stetho/index.html">
+<meta property="og:url" content="https://kaelinvoker.github.io/Blog/2018/10/16/便捷开发少不了的Stetho/index.html">
 <meta property="og:site_name" content="二两五花肉-个人博客">
-<meta property="og:description" content="便捷开发少不了的Stetho最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。  Stetho 是一个功能强大的 Android 应用调试桥，起到桥梁的作用，连接 Android 应用和 Chrome，通过 Chrome 开发者工具调试 Android 应用，提供视图元素检查，网络监控，数据库动态交互，Dumpapp（可扩展的命令行交互接口），JavaSc">
+<meta property="og:description" content="最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。  Stetho 是一个功能强大的 Android 应用调试桥，起到桥梁的作用，连接 Android 应用和 Chrome，通过 Chrome 开发者工具调试 Android 应用，提供视图元素检查，网络监控，数据库动态交互，Dumpapp（可扩展的命令行交互接口），JavaScript Console 等">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/l4v5L9i.png">
 <meta property="og:image" content="https://i.imgur.com/LcxGX3A.png">
@@ -95,10 +95,10 @@
 <meta property="og:image" content="https://i.imgur.com/mIqRY5c.png">
 <meta property="og:image" content="https://i.imgur.com/YkGSB8r.png">
 <meta property="og:image" content="https://i.imgur.com/QcYLTW5.png">
-<meta property="og:updated_time" content="2018-11-26T16:29:08.611Z">
+<meta property="og:updated_time" content="2018-11-26T16:39:39.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="便捷开发少不了的Stetho">
-<meta name="twitter:description" content="便捷开发少不了的Stetho最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。  Stetho 是一个功能强大的 Android 应用调试桥，起到桥梁的作用，连接 Android 应用和 Chrome，通过 Chrome 开发者工具调试 Android 应用，提供视图元素检查，网络监控，数据库动态交互，Dumpapp（可扩展的命令行交互接口），JavaSc">
+<meta name="twitter:description" content="最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。  Stetho 是一个功能强大的 Android 应用调试桥，起到桥梁的作用，连接 Android 应用和 Chrome，通过 Chrome 开发者工具调试 Android 应用，提供视图元素检查，网络监控，数据库动态交互，Dumpapp（可扩展的命令行交互接口），JavaScript Console 等">
 <meta name="twitter:image" content="https://i.imgur.com/l4v5L9i.png">
 
 
@@ -129,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="https://kaelinvoker.github.io/Blog/2018/10/27/便捷开发少不了的Stetho/">
+  <link rel="canonical" href="https://kaelinvoker.github.io/Blog/2018/10/16/便捷开发少不了的Stetho/">
 
 
 
@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kaelinvoker.github.io/Blog/Blog/2018/10/27/便捷开发少不了的Stetho/">
+    <link itemprop="mainEntityOfPage" href="https://kaelinvoker.github.io/Blog/Blog/2018/10/16/便捷开发少不了的Stetho/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kaer">
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-27T19:24:23+08:00">
-                2018-10-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-16T19:24:23+08:00">
+                2018-10-16
               </time>
             
 
@@ -351,7 +351,7 @@
       
 
       
-        <h3 id="便捷开发少不了的Stetho"><a href="#便捷开发少不了的Stetho" class="headerlink" title="便捷开发少不了的Stetho"></a>便捷开发少不了的Stetho</h3><p>最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。</p>
+        <p>最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。</p>
 <blockquote>
 <p>Stetho 是一个功能强大的 Android 应用调试桥，起到桥梁的作用，连接 Android 应用和 Chrome，通过 Chrome 开发者工具调试 Android 应用，提供视图元素检查，网络监控，数据库动态交互，Dumpapp（可扩展的命令行交互接口），JavaScript Console 等功能。</p>
 </blockquote>
@@ -599,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#便捷开发少不了的Stetho"><span class="nav-number">1.</span> <span class="nav-text">便捷开发少不了的Stetho</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#仅开发期间集成使用"><span class="nav-number">1.1.</span> <span class="nav-text">仅开发期间集成使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用步骤"><span class="nav-number">1.2.</span> <span class="nav-text">使用步骤</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#仅开发期间集成使用"><span class="nav-number">1.</span> <span class="nav-text">仅开发期间集成使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用步骤"><span class="nav-number">2.</span> <span class="nav-text">使用步骤</span></a></li></ol></div>
             
 
           </div>

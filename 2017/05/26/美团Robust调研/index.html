@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="美团Robust调研最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—">
+<meta name="description" content="最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一">
 <meta name="keywords" content="robust">
 <meta property="og:type" content="article">
 <meta property="og:title" content="美团Robust调研">
 <meta property="og:url" content="https://kaelinvoker.github.io/Blog/2017/05/26/美团Robust调研/index.html">
 <meta property="og:site_name" content="二两五花肉-个人博客">
-<meta property="og:description" content="美团Robust调研最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—">
+<meta property="og:description" content="最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.imgur.com/mBx6AzO.png">
 <meta property="og:image" content="http://i.imgur.com/k6Xj8BZ.png">
 <meta property="og:image" content="http://i.imgur.com/QCtXEad.png">
 <meta property="og:image" content="http://i.imgur.com/aby3aYG.png">
-<meta property="og:updated_time" content="2018-11-26T16:34:48.272Z">
+<meta property="og:updated_time" content="2018-11-26T16:40:01.693Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="美团Robust调研">
-<meta name="twitter:description" content="美团Robust调研最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—">
+<meta name="twitter:description" content="最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一">
 <meta name="twitter:image" content="http://i.imgur.com/mBx6AzO.png">
 
 
@@ -347,7 +347,7 @@
       
 
       
-        <h2 id="美团Robust调研"><a href="#美团Robust调研" class="headerlink" title="美团Robust调研"></a>美团Robust调研</h2><p>最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。</p>
+        <p>最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。</p>
 <h3 id="Robust简介"><a href="#Robust简介" class="headerlink" title="Robust简介"></a>Robust简介</h3><blockquote>
 <p>2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一代热更新系统Robust，对Android版本无差别兼容。无需发版就可以做到随时修改线上bug，快速对重大线上问题作出反应，补丁修补成功率高达99.9%。</p>
 </blockquote>
@@ -614,7 +614,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#美团Robust调研"><span class="nav-number">1.</span> <span class="nav-text">美团Robust调研</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Robust简介"><span class="nav-number">1.1.</span> <span class="nav-text">Robust简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流行热修复库比较"><span class="nav-number">1.2.</span> <span class="nav-text">流行热修复库比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大致工作流程"><span class="nav-number">1.3.</span> <span class="nav-text">大致工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成步骤"><span class="nav-number">1.4.</span> <span class="nav-text">集成步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成补丁常见问题"><span class="nav-number">1.5.</span> <span class="nav-text">生成补丁常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">1.6.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目中的使用"><span class="nav-number">1.7.</span> <span class="nav-text">项目中的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.8.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Robust简介"><span class="nav-number">1.</span> <span class="nav-text">Robust简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流行热修复库比较"><span class="nav-number">2.</span> <span class="nav-text">流行热修复库比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大致工作流程"><span class="nav-number">3.</span> <span class="nav-text">大致工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成步骤"><span class="nav-number">4.</span> <span class="nav-text">集成步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成补丁常见问题"><span class="nav-number">5.</span> <span class="nav-text">生成补丁常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">6.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目中的使用"><span class="nav-number">7.</span> <span class="nav-text">项目中的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">8.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
