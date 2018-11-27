@@ -87,19 +87,19 @@
 <meta property="og:site_name" content="二两五花肉">
 <meta property="og:description" content="最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。  Stetho 是一个功能强大的 Android 应用调试桥，起到桥梁的作用，连接 Android 应用和 Chrome，通过 Chrome 开发者工具调试 Android 应用，提供视图元素检查，网络监控，数据库动态交互，Dumpapp（可扩展的命令行交互接口），JavaScript Console 等">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.imgur.com/l4v5L9i.png">
-<meta property="og:image" content="https://i.imgur.com/LcxGX3A.png">
+<meta property="og:image" content="https://i.imgur.com/VtBh7As.png">
+<meta property="og:image" content="https://i.imgur.com/6NG7sZx.png">
 <meta property="og:image" content="https://i.imgur.com/8m84IVS.png">
 <meta property="og:image" content="https://i.imgur.com/oaQ2wCc.png">
 <meta property="og:image" content="https://i.imgur.com/A7YmP4K.png">
 <meta property="og:image" content="https://i.imgur.com/mIqRY5c.png">
 <meta property="og:image" content="https://i.imgur.com/YkGSB8r.png">
 <meta property="og:image" content="https://i.imgur.com/QcYLTW5.png">
-<meta property="og:updated_time" content="2018-11-26T16:39:39.185Z">
+<meta property="og:updated_time" content="2018-11-27T15:12:47.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="便捷开发少不了的Stetho">
 <meta name="twitter:description" content="最近，我负责将Stetho集成到我们项目中。集成过程中，免不了出现一些坑，在此记录填坑之路。  Stetho 是一个功能强大的 Android 应用调试桥，起到桥梁的作用，连接 Android 应用和 Chrome，通过 Chrome 开发者工具调试 Android 应用，提供视图元素检查，网络监控，数据库动态交互，Dumpapp（可扩展的命令行交互接口），JavaScript Console 等">
-<meta name="twitter:image" content="https://i.imgur.com/l4v5L9i.png">
+<meta name="twitter:image" content="https://i.imgur.com/VtBh7As.png">
 
 
 
@@ -267,7 +267,7 @@
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="kaer">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/Blog/images/avatar.gif">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
@@ -369,11 +369,11 @@
 </li>
 <li><p>创建DebugApplication</p>
 <p>在app/src/debug/java目录下，创建一个DebugApplication，并继承于我们之前的MainApplication。由于我们项目使用了Tinker，而Tinker使用了Application代理机制来对Applicaition实现热修复。所以，这里我们对DebugApplication也添加注解，生成项目真正的Application。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@DefaultLifeCycle</span>(application = <span class="string">"com.greenline.guahao.application.PatientDebugApplication"</span>,</span><br><span class="line">        flags = ShareConstants.TINKER_ENABLE_ALL,</span><br><span class="line">        loadVerifyFlag = <span class="keyword">false</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DebugApplication</span> <span class="keyword">extends</span> <span class="title">MainApplication</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//省略构造方法..</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        <span class="comment">//每个进程都初始化Stetho</span></span><br><span class="line">        initStetho();</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initStetho</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启用大多数默认配置 包括UI元素检查，SP及数据库的查看修改</span></span><br><span class="line">    	Stetho.initializeWithDefaults(getApplication());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@DefaultLifeCycle</span>(application = <span class="string">"com.application.PatientDebugApplication"</span>,</span><br><span class="line">        flags = ShareConstants.TINKER_ENABLE_ALL,</span><br><span class="line">        loadVerifyFlag = <span class="keyword">false</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DebugApplication</span> <span class="keyword">extends</span> <span class="title">MainApplication</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//省略构造方法..</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate();</span><br><span class="line">        <span class="comment">//每个进程都初始化Stetho</span></span><br><span class="line">        initStetho();</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initStetho</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//启用大多数默认配置 包括UI元素检查，SP及数据库的查看修改</span></span><br><span class="line">    	Stetho.initializeWithDefaults(getApplication());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>同时还要在debug目录下创建一个 <code>AndroidManifest.xml</code>，添加 debug 模式下需要的权限和修改 application 节点 <code>android:name</code> 值为Tinker注解生成的真正的Application，其余的配置把项目的原先的Application抄过来就行。（使用 <code>tools:replace</code> 覆盖 <code>android:name</code> 字段）</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!----&gt;</span>	</span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">"com.greenline.guahao.application.PatientDebugApplication"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:hardwareAccelerated</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@drawable/app_logo"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"$&#123;APP_NAME&#125;"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:largeHeap</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:persistent</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/Theme.Guahao.white"</span> <span class="attr">tools:replace</span>=<span class="string">"android:icon,android:theme,android:hardwareAccelerated,android:label,android:largeHeap,android:persistent,android:allowBackup,android:name"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">        //省略工厂<span class="attr">activity</span></span></span><br><span class="line"><span class="tag">		<span class="attr">....</span></span></span><br><span class="line">    &lt;/application&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!----&gt;</span>	</span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">"com.application.PatientDebugApplication"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:hardwareAccelerated</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@drawable/app_logo"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"$&#123;APP_NAME&#125;"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:largeHeap</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:persistent</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/Theme.Guahao.white"</span> <span class="attr">tools:replace</span>=<span class="string">"android:icon,android:theme,android:hardwareAccelerated,android:label,android:largeHeap,android:persistent,android:allowBackup,android:name"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">        //省略工厂<span class="attr">activity</span></span></span><br><span class="line"><span class="tag">		<span class="attr">....</span></span></span><br><span class="line">    &lt;/application&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>目录结构图</p>
-<p><img src="https://i.imgur.com/l4v5L9i.png" alt="1542769971646"></p>
+<p><img src="https://i.imgur.com/VtBh7As.png" alt="1542769971646"></p>
 <p>我们还需要支持网络监控，方便我们查看页面产生的请求。按照官网，我们还需要添加如下的代码。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OkHttpClient client = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">    .addNetworkInterceptor(<span class="keyword">new</span> StethoInterceptor())</span><br><span class="line">    .build()</span><br></pre></td></tr></table></figure>
 <p>运行这段代码后，发现网络监控并没有作用。查看okhttp3源码及我们项目代码发现，1.拦截器要生效必须每次请求都要使用该Client。2.我们的网络库在这之前已经初始化了client并使用单例。也就是说，我们必须是要在已经生成的client中添加网络拦截器。</p>
@@ -388,7 +388,7 @@
 </li>
 </ol>
 <h4 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h4><p>打开Chrome浏览器，输入：chrome://inspect，找到自己的应用并点击inspect</p>
-<p>   <img src="https://i.imgur.com/LcxGX3A.png" alt=""></p>
+<p>   <img src="https://i.imgur.com/6NG7sZx.png" alt=""></p>
 <ol>
 <li><p>View Hierarchy</p>
 <p>在弹出的页面选择Elements，会出现当前页面的UI结构。点击某个元素节点，手机界面中对应的控件会高亮。点击左上角的搜索按钮，再点击app当前界面的控件，View Hierarchy 会显示该控件在层次中的位置。</p>
@@ -532,6 +532,8 @@
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/Blog/images/avatar.jpg" alt="kaer">
             
               <p class="site-author-name" itemprop="name">kaer</p>
               <p class="site-description motion-element" itemprop="description">锐情书卷，烹煮江山</p>
@@ -684,6 +686,8 @@
   
 
 
+  
+
 
 
 
@@ -722,6 +726,11 @@
   
   
     <script type="text/javascript" src="/Blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
