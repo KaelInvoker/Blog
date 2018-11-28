@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/Blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/Blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/Blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="启动优化,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="微医项目经过N个版本的迭代，到现在已经很庞大了。这自然就产生了各种问题，其中就包括冷启动慢，白屏时间长问题。本篇文章是对自己优化启动时间的一个总结。 优化前的项目现状这里以微医 3.4.0 Release包(未优化前)为例，分别对欢迎页(app 第一个页面)及主页在不同手机做连续5次冷启动数据统计。    机型 白屏 欢迎页平均时间 主页平均时间     华为CAM-TL00H 6.0 有 5.0">
+<meta name="keywords" content="启动优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微医App启动优化之路">
+<meta property="og:url" content="https://kaelinvoker.github.io/Blog/2018/11/29/微医App启动优化之路/index.html">
+<meta property="og:site_name" content="二两五花肉">
+<meta property="og:description" content="微医项目经过N个版本的迭代，到现在已经很庞大了。这自然就产生了各种问题，其中就包括冷启动慢，白屏时间长问题。本篇文章是对自己优化启动时间的一个总结。 优化前的项目现状这里以微医 3.4.0 Release包(未优化前)为例，分别对欢迎页(app 第一个页面)及主页在不同手机做连续5次冷启动数据统计。    机型 白屏 欢迎页平均时间 主页平均时间     华为CAM-TL00H 6.0 有 5.0">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/HV7ebEH.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20180111180612747?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-11-28T16:09:52.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微医App启动优化之路">
+<meta name="twitter:description" content="微医项目经过N个版本的迭代，到现在已经很庞大了。这自然就产生了各种问题，其中就包括冷启动慢，白屏时间长问题。本篇文章是对自己优化启动时间的一个总结。 优化前的项目现状这里以微医 3.4.0 Release包(未优化前)为例，分别对欢迎页(app 第一个页面)及主页在不同手机做连续5次冷启动数据统计。    机型 白屏 欢迎页平均时间 主页平均时间     华为CAM-TL00H 6.0 有 5.0">
+<meta name="twitter:image" content="https://i.imgur.com/HV7ebEH.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kaelinvoker.github.io/Blog/2018/11/29/微医App启动优化之路/">
+
+
+
+
+
+  <title>微医App启动优化之路 | 二两五花肉</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">二两五花肉</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/Blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/Blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/Blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/Blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kaelinvoker.github.io/Blog/Blog/2018/11/29/微医App启动优化之路/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaer">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="二两五花肉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微医App启动优化之路</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-29T00:03:19+08:00">
+                2018-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>微医项目经过N个版本的迭代，到现在已经很庞大了。这自然就产生了各种问题，其中就包括冷启动慢，白屏时间长问题。本篇文章是对自己优化启动时间的一个总结。</p>
+<h4 id="优化前的项目现状"><a href="#优化前的项目现状" class="headerlink" title="优化前的项目现状"></a>优化前的项目现状</h4><p>这里以微医 3.4.0 Release包(未优化前)为例，分别对欢迎页(<code>app</code> 第一个页面)及主页在不同手机做连续5次冷启动数据统计。</p>
+<table>
+<thead>
+<tr>
+<th>机型</th>
+<th>白屏</th>
+<th>欢迎页平均时间</th>
+<th>主页平均时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>华为CAM-TL00H 6.0</td>
+<td>有</td>
+<td>5.039s(无广告会多停留1.5s)</td>
+<td>2.1198s</td>
+</tr>
+<tr>
+<td>oppoA59S 5.0</td>
+<td>有</td>
+<td>4.237s(同上)</td>
+<td>1.0678s</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p>以上的白屏时间为欢迎页启动的时间。    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">连续5次冷启动(启动后再杀掉进程)时间详细统计</span><br><span class="line">华为欢迎页时间: </span><br><span class="line">6.766s，4.89s，4.788s，4.322s，4.429ms</span><br><span class="line">华为主页时间</span><br><span class="line">2.573s，2.94s，1.817s，1.709s，1.56s</span><br><span class="line">oppo欢迎页时间</span><br><span class="line">4.324s，4.45s，4.23s，3.841s，4.34s</span><br><span class="line">oppo主页时间</span><br><span class="line">1.193s，1.11s，1.16s，0.946s，0.93s</span><br></pre></td></tr></table></figure>
+<p>现状总结：通过以上数据可以发现，首页冷启动时间过慢，而且每次都会伴有长时间的白屏，用户体验很差，亟需我们优化。</p>
+<h4 id="优化前的理论分析"><a href="#优化前的理论分析" class="headerlink" title="优化前的理论分析"></a>优化前的理论分析</h4><ul>
+<li><p><code>app</code>的启动方式</p>
+<p>安卓应用的启动方式分为三种：</p>
+<ul>
+<li><p>冷启动(<code>cold start</code>)</p>
+<p>在应用启动前，系统没有该应用的任何进程信息(包括Activity，Service等)，用户点击图标的启动称之为冷启动。比如说设备开机后应用的第一次启动，杀掉进程后(包括系统主动回收和用户手动kill)再次的启动。</p>
+<p>在冷启动过程中，系统会做以下事件。</p>
+<ol>
+<li><p>开始加载并启动应用</p>
+</li>
+<li><p>应用启动后，显示一个空白的启动窗口（白屏来由）</p>
+</li>
+<li><p>创建应用的进程信息。创建进程后，应用要做以下几个事情</p>
+<ul>
+<li><p>初始化Application。每创建一个进程，就会初始化一次。而创建一个进程是需要消耗系统很多资源的，另外如果在Application中的初始化操作不加以区分进程的化，会重复多次的。</p>
+</li>
+<li><p>启动<code>UI</code>线程</p>
+</li>
+<li><p>创建第一个Activity</p>
+</li>
+<li><p>加载内容视图，计算视图在屏幕上位置</p>
+</li>
+<li><p>绘制视图。只有当完成第一次绘制后，系统当前展示的空白背景才会消失，被加载好的内容替代</p>
+<p><img src="https://i.imgur.com/HV7ebEH.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>暖启动(<code>warm start</code>)</p>
+<p>当Activity被销毁，但在内存常驻时，这种启动方式成为暖启动。相比冷启动，暖启动少了对象初始化，布局加载等过程，启动时间更短。但启动时，以然会有一个空白背景，直到第一个页面内容呈现为止。</p>
+</li>
+<li><p>热启动(<code>luckwarm start</code>)</p>
+<p>热启动比暖启动做的事情更少了，启动时间会更短。这种场景常见为：返回键退出<code>app</code>又快速重启，或者只是按Home回到桌面，或者<code>app</code>本身做了进程重启的机制。    </p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">研究app的启动模式后，发现主要优化的就是冷启动。只要冷启动时间优化了，热启动其实也跟着优化了。	  从程序的角度分析，冷启动的时间 = initProcess + Applicaton初始化时间 + 欢迎页的初始化时间</span><br><span class="line">从用户的角度分析，点击启动图标，应该立即看到app页面，而不是看到长时间的白屏，并且也应该尽早地看到app的主页。</span><br><span class="line">所以冷启动的时间在上面的基础上再加上欢迎页的停留时间+主页的初始化时间。</span><br><span class="line">另外页面的初始化时间不只是看onCreate()、onStart()、onResume()这几个生命周期方法的时间，</span><br><span class="line">因为这几个方法调用完毕后, View树还没有完全构建完毕。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动时间的统计手段</p>
+<ul>
+<li><p>Display Time</p>
+<p><code>API</code> 19后，Android在系统Log中增加了Display的Log信息。这个时间实际上是Activity启动，到Layout全部显示的过程，但是要注意，这里并不包括数据的加载。</p>
+</li>
+<li><p><code>ADB</code>命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell am start -W [packageName]/[packageName.AppstartActivity]</span><br></pre></td></tr></table></figure>
+<p>执行后会得到三个时间：</p>
+<p><code>ThisTime</code>：一般和<code>TotalTime</code>时间一样，如果在应用启动时开了一个过度的全透明的页面（Activity）预先处理一些事，再显示出主页面（Activity），这样将比<code>TotalTime</code>小。<br><code>TotalTime</code>：应用的启动时间，包括创建进程+Application初始化+Activity初始化到界面显示。</p>
+<p><code>WaitTime</code>：一般比<code>TotalTime</code>大些，包括系统影响的耗时。</p>
+</li>
+<li><p>Hugo</p>
+<p>执行时间打印神器，集成至项目后，只需在想要测试的地方加上注解<code>@DebugLog</code>即可。可以是Class级别，也可以是method级别。<a href="https://github.com/JakeWharton/hugo" target="_blank" rel="noopener">Github传送门</a></p>
+</li>
+</ul>
+<p>本文上面的统计页面的初始化时间采用的是系统日志Displayed, 在优化过程中，统计函数的方法是自己手打Log。</p>
+</li>
+</ul>
+<h4 id="具体的优化点"><a href="#具体的优化点" class="headerlink" title="具体的优化点"></a>具体的优化点</h4><p> 基于上面的分析，从以下几点对<code>app</code>进行优化</p>
+<ul>
+<li><p>白屏优化</p>
+<p>从上面的分析得知，<code>app</code>启动后系统创建需要的进程，在完成页面First Draw前，系统会立即显示一个background window。这个就是白屏的来源，如果白屏时间过长，非常影响用户得体验。 知道这个原因，解决这个问题就比较简单了。无非就是将Theme里的<code>windowBackground</code>设置成我们想要让用户看到的画面就可以了。</p>
+<p>通常有以下两种办法解决：</p>
+<ol>
+<li><p>将主题的背景图设置成透明，这样当用户点击<code>app</code>启动图标后，并不会立即进入<code>app</code>，而是在桌面停留一会儿，但其实<code>app</code>这个时候已经启动了，只是因为设置成了透明，用户看不到而已，强行帅锅给手机厂商。比如微信就是这样做的。这并不是最佳的解决方案。</p>
+</li>
+<li><p>将主题的背景图设置成<code>app</code>的Logo或者广告页。这样用户在点击启动图标后，会立即看到预设的Logo。而用户误以为这是第一个页面，从而让用户体验大大地提升。这个做法也是目前主流<code>app</code>所采用的。我这里优化的，也是采用此法。</p>
+<ul>
+<li><p>在res/drawable下新建一个layer-list，放置我们<code>app</code>的Logo</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">layer-list</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:opacity</span>=<span class="string">"opaque"</span>&gt;</span></span><br><span class="line">	//这里android:opacity="opaque"参数是为了防止在启动的时候出现背景的闪烁。</span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@color/white"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bitmap</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:src</span>=<span class="string">"@drawable/gh_cm_wy_logo"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">layer-list</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建一个启动主题，将背景图替换为Logo</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"Theme.launch"</span> <span class="attr">parent</span>=<span class="string">"Theme.Guahao.NoActionBar"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	//设置Theme不透明并且默认渲染的背景图是我们必看影的Logo</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowIsTranslucent"</span>&gt;</span>false<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined">	/替换Logo</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowBackground"</span>&gt;</span>@drawable/gh_cm_launch_bg<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined">	//全屏展示，免得顶部状态栏显现颜色不一致过于脱节和突兀</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowFullscreen"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将启动主题设置给欢迎页，在欢迎页创建后，再还原之前的主题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity</span><br><span class="line">      android:name=&quot;欢迎页&quot;</span><br><span class="line">	  //设置启动主题</span><br><span class="line">      android:theme=&quot;@style/Theme.launch&quot;&gt;</span><br><span class="line">      &lt;intent-filter&gt;</span><br><span class="line">          &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;</span><br><span class="line">          &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;</span><br><span class="line">      &lt;/intent-filter&gt;</span><br><span class="line">  &lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+<p>欢迎页创建后还原主题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(<span class="keyword">final</span> Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//还原之前的主题 必须在super之前</span></span><br><span class="line">    setTheme(R.style.Theme_welcome);</span><br><span class="line">    SystemBarUtil.enableFullscreen(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于我们<code>app</code> debug模式默认的启动页是工厂页，做法是类似的，代码就不贴了。</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Application优化</p>
+<p>经过上面的分析，对Application的优化分为以下几个方面。</p>
+<ol>
+<li><p>进程优化</p>
+<p>系统创建进程需要消耗更多系统资源，而每创建一个进程就意味着Application又会初始化一遍。</p>
+<p>翻看我们<code>app</code> Application初始化的代码，发现我们目前有5个进程。</p>
+<p>（这里可能涉及到公司隐私，就不贴了）</p>
+<p>这里的优化点有两个：</p>
+<ol>
+<li><p>尽可能减少欢迎页前创建其他进程。</p>
+<p>（这里可能涉及到公司隐私，就不贴了）</p>
+</li>
+<li><p>Application的初始化工作区分进程</p>
+<p>翻看代码，发现我们这里对不同进程的初始化工作已经区分，故不用优化。</p>
+</li>
+</ol>
+</li>
+<li><p>统计Application启动时各类方法的耗时。区分初始化操作的优先级，对不必要的耗时操作，可以延后加载，按需加载。不能延时的耗时操作，可以异步加载，并且降低线程的优先级，避免与主线程抢资源。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在这些异步操作中，都会调用降低线程优先级的方法</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">lowerThreadPriority</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (Looper.getMainLooper().getThread() != Thread.currentThread())&#123;    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>统计完各类具体初始化操作的耗时后，同时要对所有的初始化操作分析优先级。这里可能涉及到公司隐私，具体就不贴了。</p>
+<p>分析后，发现项目中网络监控、推送、百度统计、Bugly等初始化完全可以延后至欢迎页或者主页。</p>
+</li>
+</ol>
+</li>
+<li><p>布局优化</p>
+<p>布局越是精简，系统在绘制的时候时间就会越短，从而降低启动时间。</p>
+<p>下图是在CSDN看到某<a href="Android 不同布局类型measure、layout、draw耗时对比">文章</a>后，作者对常用布局的性能统计。</p>
+<p><img src="https://img-blog.csdn.net/20180111180612747?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>因此，在布局优化这块，我总结了以下几个原则。</p>
+<ol>
+<li>减少多余的层级嵌套</li>
+<li>同等层级下尽量使用帧布局，线性布局</li>
+<li>减少不必要的背景绘制</li>
+<li>如果以后引入了约束布局，可以用其优化</li>
+</ol>
+<p>分析我们项目，影响首页启动的布局有四个。欢迎页，主页Activity，以及主页嵌套的两个Fragment。</p>
+<ul>
+<li><p>欢迎页</p>
+<p>在查看了欢迎页的布局后，发现存在2个缺点：</p>
+<ul>
+<li>外层使用相对布局，完全可以用帧布局替换</li>
+<li>展示广告的<code>Imageview</code>和展示默认图片的<code>ImageView</code>完全可以共用一个。所以删除多余的布局，减少了一层嵌套</li>
+</ul>
+</li>
+<li><p>主页</p>
+<p>由于主页是Activity内嵌Fragment，Fragment嵌套Fragment。所以有三个布局可以优化。</p>
+<p>打开手机的<code>GPU过渡绘制</code>，发现主页是一片红。查看布局，发现了以下问题：</p>
+<ul>
+<li>主页外层的Activity的布局里面存在很多无用View。因为主页Activity只负责提供一个嵌套Fragment的容器就行了。查看代码逻辑后，将布局只改成一个帧布局，其余全部删除</li>
+<li>内嵌的<code>HomeFragment</code>嵌套微医Tab Fragment的布局存在许多多余的背景，这是<code>GPU过渡绘制</code>飘红的原因，全部去除</li>
+<li>内嵌的<code>HomeFragment</code>的布局存在无用的相对布局嵌套相对布局，底部tab也是存在大量多余嵌套。将这些全部优化</li>
+<li>微医Tab Fragment的布局中也存在无用View和大量多余的布局嵌套。 全部优化</li>
+</ul>
+<p>布局代码过多，这里就不贴了</p>
+</li>
+</ul>
+</li>
+<li><p>欢迎页逻辑优化</p>
+<p>查看欢迎页代码后，发现有以下几个问题：</p>
+<ol>
+<li>原先的广告图和默认图分别用不同的<code>ImageView</code></li>
+<li>在不需要广告时，为了让用户看到默认图，特意在页面停留1.5秒再去跳转，很不科学</li>
+<li>在展示广告倒计时时，采用的是Handler延时策略，存在两个弊端。首先是时间不准确，因为系统消息的调度是需要时间的而且所需时间不定。其次，在页面销毁中也没有移除消息存在内存泄漏的问题。</li>
+<li>页面<code>onCreate</code>方法中没有将数据的初始化延后至View绘制后。如果做数据操作需要耗时很多，将会很大程度影响<code>UI</code>的绘制，从而影响启动时间</li>
+<li>欢迎页继承<code>BaseActivity</code>，而<code>BaseActivity</code>有很用冗余的操作，尤其是会初始化数据库，不但消耗时间，而且该操作完全可以延后到主页。</li>
+<li>Sp的提交使用的是commit</li>
+<li>广告展示时，过于突兀，没有一个过渡效果</li>
+</ol>
+<p>解决办法：</p>
+<ol>
+<li><p>广告图和默认图统一</p>
+</li>
+<li><p>广告的倒计时使用<code>CountDownTimer</code>实现，注意在页面销毁时，将timer取消掉。</p>
+</li>
+<li><p>将不影响View初始化逻辑的操作统一延后至View绘制后。</p>
+<p>这里我想到了两种解决办法。</p>
+<ul>
+<li><p><code>MessageQueue.IdleHandler</code> </p>
+<p>在looper里面的message暂时处理完了，会回调这个接口。<a href="https://wetest.qq.com/lab/view/352.html" target="_blank" rel="noopener">还不明白点我</a></p>
+</li>
+<li><p>两次<code>post Runnable</code></p>
+<p>系统绘制会执行两次<code>Performtraversal</code>。</p>
+</li>
+</ul>
+</li>
+<li><p>去掉为了让用户看到默认图刻意停留的1.5秒，而由于初始化的延时加载，用户也一定会看到默认图，顺带就解决了这个问题</p>
+</li>
+<li><p>欢迎页不继承<code>BaseActivity</code></p>
+</li>
+<li><p>将Application中的不必要初始化操作移到延时加载中。如百度统计，<code>Bugly</code>，推送。并且对于耗时操作放到异步线程中。</p>
+</li>
+<li><p>封装全局线程池，异步线程都由全局线程池提供，并且异步线程降低线程优先级</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolManager</span> </span>&#123;</span><br><span class="line">    <span class="comment">//饿汉式 保证速度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadPoolManager mInstance = <span class="keyword">new</span> ThreadPoolManager();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>                mCorePoolSize;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>                mMaximumPoolSize;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span>               mKeepAliveTime;</span><br><span class="line">    <span class="keyword">private</span> TimeUnit           mUnit;</span><br><span class="line">    <span class="keyword">private</span> ThreadPoolExecutor mExecutor;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ThreadPoolManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mCorePoolSize = Runtime.getRuntime().availableProcessors() + <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//用不到，但是需要赋值，否则报错</span></span><br><span class="line">        mMaximumPoolSize = mCorePoolSize;</span><br><span class="line">        mKeepAliveTime = <span class="number">1</span>;</span><br><span class="line">        mUnit = TimeUnit.MINUTES;</span><br><span class="line">        mExecutor = <span class="keyword">new</span> ThreadPoolExecutor(mCorePoolSize, mMaximumPoolSize, mKeepAliveTime, mUnit,</span><br><span class="line">                <span class="keyword">new</span> LinkedBlockingQueue&lt;Runnable&gt;(<span class="number">128</span>), Executors.defaultThreadFactory());</span><br><span class="line">        <span class="comment">// keepAliveTime同样作用于核心线程</span></span><br><span class="line">        mExecutor.allowCoreThreadTimeOut(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadPoolManager <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mInstance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Runnable runnable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (runnable == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        mExecutor.execute(runnable);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Runnable runnable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (runnable == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        mExecutor.remove(runnable);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对提交结果不关心时，尽量<code>sp</code>使用apply而不是commit</p>
+</li>
+<li><p>在Glide中添加默认的渐变效果，避免出现突兀的现象</p>
+<p>（具体代码，公司隐私原因就不贴了）</p>
+</li>
+</ol>
+</li>
+<li><p>主页逻辑优化</p>
+<p>查看主页相关代码，发现存在以下问题</p>
+<ol>
+<li><p>存在很多无用的全局变量</p>
+</li>
+<li><p>页面初始化逻辑过多，也没有放在View绘制后</p>
+</li>
+<li><p>很多SP提交操作使用commit</p>
+</li>
+<li><p>缓存<code>webview</code>逻辑已经没用了</p>
+</li>
+<li><p><code>webview</code>的loading只在<code>onPageStart</code>中展示</p>
+<p><code>WebView.loadUrl(&quot;url&quot;)</code> 不会立马就回调 <code>onPageStarted</code> 或者 <code>onProgressChanged</code> 因为在这一时间段 ， <code>WebView</code> 有可能在初始化内核 ， 也有可能在与服务器建立连接。</p>
+</li>
+<li><p>主页的两次退出逻辑用<code>TimerTask</code>实现，没有处理内存泄漏问题</p>
+</li>
+</ol>
+<p>解决：</p>
+<ol>
+<li>对于没有使用到的全局变量删除。可以转为局部变量的转为局部变量</li>
+<li>对不影响View初始化逻辑的操作延时加载。放到<code>MessageQueue.IdleHandler</code>中，耗时操作采用异步线程。同上</li>
+<li><code>sp</code>用apply</li>
+<li><code>webview</code>缓存操作删除</li>
+<li>提前显示Loading</li>
+<li>两次退出逻辑更改为计算连续两次点击时间的间隔</li>
+</ol>
+<p>（具体代码，公司隐私原因就不贴了）</p>
+</li>
+</ul>
+<h4 id="优化后结果"><a href="#优化后结果" class="headerlink" title="优化后结果"></a>优化后结果</h4><table>
+<thead>
+<tr>
+<th>机型</th>
+<th>白屏</th>
+<th>欢迎页平均时间</th>
+<th>主页平均时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>华为CAM-TL00H 6.0</td>
+<td>无</td>
+<td>2.5212s(提升40.49%)</td>
+<td>1.5858(提升25.19%)</td>
+</tr>
+<tr>
+<td>oppoA59S 5.0</td>
+<td>无</td>
+<td>2.1554s(提升49.12%)</td>
+<td>0.7988s(提升25.19%)</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">连续5次冷启动(启动后再杀掉进程)时间详细统计</span><br><span class="line">华为欢迎页时间: </span><br><span class="line">3.169s，1.565s，2.8s，2.52s，2.552ms</span><br><span class="line">华为主页时间</span><br><span class="line">2.2s，2.139s，1.283s，1.125s，1.182s</span><br><span class="line">oppo欢迎页时间</span><br><span class="line">2.173s，2.127s，2.176s，2.133s，2.168s</span><br><span class="line">oppo主页时间</span><br><span class="line">0.766s，0.824s，0.78s，0.786s，0.838s</span><br></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    <code>App</code>的启动时间还有很多优化的空间，并且这是一个持续性的工作，需要我们在日后的工作持续改进。</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><ol>
+<li><a href="http://gad.qq.com/article/detail/28915" target="_blank" rel="noopener">5分钟教你打造一个秒开的Android App</a></li>
+<li><a href="https://www.diycode.cc/topics/405" target="_blank" rel="noopener">一触即发 App启动优化最佳实践</a></li>
+<li><a href="https://yifeng.studio/2016/11/15/android-optimize-for-cold-start/" target="_blank" rel="noopener">Android 你应该知道的的应用冷启动过程分析和优化方案</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/启动优化/" rel="tag"># 启动优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2018/11/29/轻量刷新库EasyPullLayout源码解读/" rel="next" title="轻量刷新库EasyPullLayout源码解读">
+                <i class="fa fa-chevron-left"></i> 轻量刷新库EasyPullLayout源码解读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/Blog/images/avatar.jpg" alt="kaer">
+            
+              <p class="site-author-name" itemprop="name">kaer</p>
+              <p class="site-description motion-element" itemprop="description">锐情书卷，烹煮江山</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/Blog/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/Blog/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/Blog/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#优化前的项目现状"><span class="nav-number">1.</span> <span class="nav-text">优化前的项目现状</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化前的理论分析"><span class="nav-number">2.</span> <span class="nav-text">优化前的理论分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体的优化点"><span class="nav-number">3.</span> <span class="nav-text">具体的优化点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化后结果"><span class="nav-number">4.</span> <span class="nav-text">优化后结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaer</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

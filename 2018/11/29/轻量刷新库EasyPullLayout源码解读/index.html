@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/Blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/Blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/Blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="EasyPullLayout,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="项目由于历史原因，很多同事可能基于当时的需求引入了众多不同的下拉刷新库。这就造成项目中下拉刷新控件的繁杂混乱，而且后期维护也变得复杂困难。那么，统一控件自然成了亟待解决的问题。而我期望的下拉刷新库是小巧轻量，只提供基本的功能。但又开放接口，易于扩展。偶然逛Gay网，看到了一个刷新库，本篇文章是对该库的源码解析。 介绍 一个支持横向纵向，侵入非侵入，自定义刷新头、刷新尾以及包裹任意刷新内容(List">
+<meta name="keywords" content="EasyPullLayout">
+<meta property="og:type" content="article">
+<meta property="og:title" content="轻量刷新库EasyPullLayout源码解读">
+<meta property="og:url" content="https://kaelinvoker.github.io/Blog/2018/11/29/轻量刷新库EasyPullLayout源码解读/index.html">
+<meta property="og:site_name" content="二两五花肉">
+<meta property="og:description" content="项目由于历史原因，很多同事可能基于当时的需求引入了众多不同的下拉刷新库。这就造成项目中下拉刷新控件的繁杂混乱，而且后期维护也变得复杂困难。那么，统一控件自然成了亟待解决的问题。而我期望的下拉刷新库是小巧轻量，只提供基本的功能。但又开放接口，易于扩展。偶然逛Gay网，看到了一个刷新库，本篇文章是对该库的源码解析。 介绍 一个支持横向纵向，侵入非侵入，自定义刷新头、刷新尾以及包裹任意刷新内容(List">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-28T16:09:21.858Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="轻量刷新库EasyPullLayout源码解读">
+<meta name="twitter:description" content="项目由于历史原因，很多同事可能基于当时的需求引入了众多不同的下拉刷新库。这就造成项目中下拉刷新控件的繁杂混乱，而且后期维护也变得复杂困难。那么，统一控件自然成了亟待解决的问题。而我期望的下拉刷新库是小巧轻量，只提供基本的功能。但又开放接口，易于扩展。偶然逛Gay网，看到了一个刷新库，本篇文章是对该库的源码解析。 介绍 一个支持横向纵向，侵入非侵入，自定义刷新头、刷新尾以及包裹任意刷新内容(List">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kaelinvoker.github.io/Blog/2018/11/29/轻量刷新库EasyPullLayout源码解读/">
+
+
+
+
+
+  <title>轻量刷新库EasyPullLayout源码解读 | 二两五花肉</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">二两五花肉</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/Blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/Blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/Blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/Blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kaelinvoker.github.io/Blog/Blog/2018/11/29/轻量刷新库EasyPullLayout源码解读/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaer">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="二两五花肉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">轻量刷新库EasyPullLayout源码解读</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-29T00:02:55+08:00">
+                2018-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/下拉刷新控件/" itemprop="url" rel="index">
+                    <span itemprop="name">下拉刷新控件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>项目由于历史原因，很多同事可能基于当时的需求引入了众多不同的下拉刷新库。这就造成项目中下拉刷新控件的繁杂混乱，而且后期维护也变得复杂困难。那么，统一控件自然成了亟待解决的问题。而我期望的下拉刷新库是小巧轻量，只提供基本的功能。但又开放接口，易于扩展。偶然逛Gay网，看到了一个刷新库，本篇文章是对该库的源码解析。</p>
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><blockquote>
+<p>一个支持横向纵向，侵入非侵入，自定义刷新头、刷新尾以及包裹任意刷新内容(<code>ListView</code>、<code>RecyclerView</code>、<code>ViewPager</code>等等)的类库。最关键的是它是一个非常轻量级的类库！整个类库只有一个文件，代码不到500行。</p>
+</blockquote>
+<a id="more"></a>
+<p><a href="https://github.com/huzenan/EasyPullLayoutJavaDemo" target="_blank" rel="noopener">项目地址</a></p>
+<h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><ol>
+<li><p>布局</p>
+<ul>
+<li><p>在需要刷新的地方用<code>EasyPullLayout</code>包裹起来（例如根布局），并为<code>EasyPullLayout</code>下的子View声明<code>layout_type</code>属性，使得子View可以被<code>EasyPullLayout</code>识别，分别可以为<code>content</code>(必选)、<code>edge_top</code>、<code>edge_bottom</code>、<code>edge_left</code>、<code>edge_right</code>:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">com.hzn.lib.EasyPullLayout</span></span></span><br><span class="line"><span class="tag">	    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">	    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">	    <span class="attr">android:id</span>=<span class="string">"@+id/epl"</span></span></span><br><span class="line"><span class="tag">	    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">	    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">    	<span class="comment">&lt;!--刷新头 由edge_top指定--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.hzn.easypulllayout.TransformerView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/topView"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_type</span>=<span class="string">"edge_top"</span> /&gt;</span></span><br><span class="line">	</span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.v7.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/rv"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:layout_type</span>=<span class="string">"content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:listitem</span>=<span class="string">"@layout/item"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">com.hzn.lib.EasyPullLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>EasyPullLayout</code>提供的布局属性</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"EasyPullLayoutJ"</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--左侧边缘视图触发刷新的拖拽距离 默认为左侧边缘试图的宽度的一半--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"trigger_offset_left"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"trigger_offset_top"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"trigger_offset_right"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"trigger_offset_bottom"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--左侧边缘试图能够拖拽的最大距离 默认为左侧边缘试图的宽度--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"max_offset_left"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"max_offset_top"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"max_offset_right"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"max_offset_bottom"</span> <span class="attr">format</span>=<span class="string">"dimension"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--左侧边缘视图是否固定 刷新时类似于swipeRefreshLayout的样式 侵入式效果 默认false--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"fixed_content_left"</span> <span class="attr">format</span>=<span class="string">"boolean"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"fixed_content_top"</span> <span class="attr">format</span>=<span class="string">"boolean"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"fixed_content_right"</span> <span class="attr">format</span>=<span class="string">"boolean"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"fixed_content_bottom"</span> <span class="attr">format</span>=<span class="string">"boolean"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--刷新试图恢复原位动画的时间 默认300ms--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"roll_back_duration"</span> <span class="attr">format</span>=<span class="string">"integer"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--自动刷新拖拽动画的时间 默认300ms--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"auto_refresh_rolling_duration"</span> <span class="attr">format</span>=<span class="string">"integer"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--拖拽的阻尼系数？ 系数越大，拖拽的难度越大 默认0.66--&gt;</span>				        </span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"sticky_factor"</span> <span class="attr">format</span>=<span class="string">"float"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>EasyPullLayout</code>提供的布局参数</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">"EasyPullLayout_LayoutParams"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"layout_type"</span> <span class="attr">format</span>=<span class="string">"enum"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--声明是左侧的刷新头布局--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"edge_left"</span> <span class="attr">value</span>=<span class="string">"0"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"edge_top"</span> <span class="attr">value</span>=<span class="string">"1"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"edge_right"</span> <span class="attr">value</span>=<span class="string">"2"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"edge_bottom"</span> <span class="attr">value</span>=<span class="string">"3"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--声明要包裹的刷新布局 这个必须提供 以上可以不提供--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">enum</span> <span class="attr">name</span>=<span class="string">"content"</span> <span class="attr">value</span>=<span class="string">"4"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">attr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">"layout_content_fixed"</span> <span class="attr">format</span>=<span class="string">"boolean"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>监听</p>
+<p><code>EasyPullLayout</code>的设计遵从单一职责原则，只负责处理拉拽相关的操作，其他的均交给外部进行处理，因此其子View可以是任何一种View。</p>
+<p><code>EasyPullLayout</code>有2个监听可以设置，分别为：</p>
+<ul>
+<li><p><code>OnPullListenerAdapter</code>：用于<code>EasyPullLatout</code>对外通知当前拉拽的一些参数（例如拉拽进度），我们可以利用这些参数来改变我们的边缘视图的行为。一般用这个就足够了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">OnPullListenerAdapter</span> </span>&#123;</span><br><span class="line">	<span class="comment">//拖拽进度回调 </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPull</span><span class="params">(<span class="keyword">int</span> type, <span class="keyword">float</span> fraction, <span class="keyword">boolean</span> changed)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">//刷新边缘视图恢复初始位置的回调</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRollBack</span><span class="params">(<span class="keyword">int</span> rollBackType)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>OnEdgeListener</code>: 用于通知<code>EasyPullLayout</code>当前是否到达边缘，到达边缘后<code>EasyPullLayout</code>会拦截触摸事件，开始拖拽行为，默认会自动监听<code>layout_type</code>为<code>content</code>的子View是否到达边缘。一般不用自定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnEdgeListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">onEdge</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>具体使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">easyPullLayout.addOnPullListenerAdapter(<span class="keyword">new</span> EasyPullLayoutJ.OnPullListenerAdapter() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPull</span><span class="params">(<span class="keyword">int</span> type, <span class="keyword">float</span> fraction, <span class="keyword">boolean</span> changed)</span> </span>&#123;</span><br><span class="line">				<span class="comment">//是否经过触发位置 使用该参数可以只在经过触发位置时更新 </span></span><br><span class="line">                <span class="keyword">if</span> (!changed)</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">				<span class="comment">//只有刷新头 表明是下拉刷新</span></span><br><span class="line">                <span class="keyword">if</span> (type == EasyPullLayoutJ.TYPE_EDGE_TOP) &#123;</span><br><span class="line">					<span class="comment">//进度为1，说明需要刷新头要准备刷新否则就是空闲状态</span></span><br><span class="line">                    <span class="keyword">if</span> (fraction == <span class="number">1f</span>)</span><br><span class="line">                        topRefreshView.ready();</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        topRefreshView.idle();</span><br><span class="line">                &#125; </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTriggered</span><span class="params">(<span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//下拉刷新 此时表明已经触发了刷新，刷新头要显示为刷新状态</span></span><br><span class="line">                <span class="keyword">if</span> (type == EasyPullLayoutJ.TYPE_EDGE_TOP) &#123;</span><br><span class="line">                    topRefreshView.triggered();</span><br><span class="line">                    doRefresh();</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;); </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doRefresh</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//耗时操作 如加载网络数据</span></span><br><span class="line">        easyPullLayout.postDelayed(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 加载完成后必须要调用该方法,让easyPullLayout重置状态</span></span><br><span class="line">                easyPullLayout.stop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">2000</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果有强制自动刷新的需求，调用这个</span></span><br><span class="line">easyPullLayout.autoRefresh(EasyPullLayoutJ.TYPE_EDGE_TOP);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h4><ul>
+<li><p>大致原理：类似于<code>SwipeRefreshLayout</code>。    </p>
+<ol>
+<li>首先为子View提供<code>layout_type</code>属性，用以区分刷新内容View及刷新头View，刷新尾View</li>
+<li>确定如何摆放这些子view</li>
+<li>处理触摸事件</li>
+</ol>
+</li>
+<li><p>源码</p>
+<ol>
+<li><p>构造方法   </p>
+<p>初始化上面的布局属性。</p>
+</li>
+<li><p>确定布局参数</p>
+<blockquote>
+<p>自定义<code>ViewGroup</code>如果有一些自定义控制布局的属性设置（包括margin）,就会通过继承<code>View.MarginParams</code>来扩展布局设置。然后重写<code>generateLayoutParams</code>方法，这样系统框架就会自动使用该布局读取在<code>xml</code>中配置的布局属性来控制我们的<code>VIew</code>的位置        </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//生成布局参数时会调用该方法</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">checkLayoutParams</span><span class="params">(ViewGroup.LayoutParams p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span> != p &amp;&amp; p <span class="keyword">instanceof</span> LayoutParams;</span><br><span class="line">&#125;	</span><br><span class="line">	</span><br><span class="line"><span class="comment">//通过addView(View)添加会调用这个方法</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> ViewGroup.<span class="function">LayoutParams <span class="title">generateDefaultLayoutParams</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//布局文件中设置了属性，在初始化子控件时，会调用该方法来为子控件生成对应的布局属性，</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> ViewGroup.<span class="function">LayoutParams <span class="title">generateLayoutParams</span><span class="params">(AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> LayoutParams(getContext(), attrs);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> ViewGroup.<span class="function">LayoutParams <span class="title">generateLayoutParams</span><span class="params">(ViewGroup.LayoutParams p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> LayoutParams(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//默认只是生成layout_width和layout_height所以对应的布局参数，</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LayoutParams</span> <span class="keyword">extends</span> <span class="title">MarginLayoutParams</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> type = TYPE_NONE;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LayoutParams</span><span class="params">(Context c, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(c, attrs);</span><br><span class="line">        TypedArray a = c.getTheme().obtainStyledAttributes(attrs, R.styleable.EasyPullLayout_LayoutParams, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="comment">//在内部获取type值并保存起来</span></span><br><span class="line">        type = a.getInt(R.styleable.EasyPullLayout_LayoutParams_layout_type, TYPE_NONE);</span><br><span class="line">        a.recycle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LayoutParams</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(width, height);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LayoutParams</span><span class="params">(MarginLayoutParams source)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LayoutParams</span><span class="params">(ViewGroup.LayoutParams source)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(source);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>摆放子View    </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//完成xml解析后调用</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onFinishInflate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onFinishInflate();</span><br><span class="line">    <span class="keyword">int</span>       i          = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> childCount = getChildCount();</span><br><span class="line">	<span class="comment">//遍历子View</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; childCount) &#123;</span><br><span class="line">        View child = getChildAt(i++);</span><br><span class="line">        LayoutParams lp = (LayoutParams) child.getLayoutParams();</span><br><span class="line">        <span class="comment">//获取到子View后用一个HashMap来存储，key对应View，value对应View的一些参数，</span></span><br><span class="line">        <span class="comment">//类型不能重复！！</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != getByType(childViews, lp.type))</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Each child type can only be defined once!"</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            childViews.put(child, <span class="keyword">new</span> ChildViewAttr());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//确保主内容View必须存在</span></span><br><span class="line">    <span class="keyword">final</span> View contentView = getByType(childViews, TYPE_CONTENT);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == contentView)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Child type \"content\" must be defined!"</span>);</span><br><span class="line">    <span class="comment">//设置默认的触发临界的监听</span></span><br><span class="line">    setOnEdgeListener(<span class="keyword">new</span> OnEdgeListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">onEdge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">//左侧边缘视图并且手指不能向右滑动(即内容布局不能向左滑动) 表明左侧视图到边缘了</span></span><br><span class="line">			<span class="comment">//下面几个同理</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != getByType(childViews, TYPE_EDGE_LEFT) &amp;&amp; !contentView.canScrollHorizontally(-<span class="number">1</span>))</span><br><span class="line">                <span class="keyword">return</span> TYPE_EDGE_LEFT;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">null</span> != getByType(childViews, TYPE_EDGE_RIGHT) &amp;&amp; !contentView.canScrollHorizontally(<span class="number">1</span>))</span><br><span class="line">                <span class="keyword">return</span> TYPE_EDGE_RIGHT;</span><br><span class="line">			<span class="comment">//顶部边缘视图不能向上滑动了，意思就是类似listview已经滚动到顶部了</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">null</span> != getByType(childViews, TYPE_EDGE_TOP) &amp;&amp; !contentView.canScrollVertically(-<span class="number">1</span>))</span><br><span class="line">                <span class="keyword">return</span> TYPE_EDGE_TOP;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">null</span> != getByType(childViews, TYPE_EDGE_BOTTOM) &amp;&amp; !contentView.canScrollVertically(<span class="number">1</span>))</span><br><span class="line">                <span class="keyword">return</span> TYPE_EDGE_BOTTOM;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> TYPE_NONE;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着就是自定义<code>ViewGroup</code>的常见的流程 测量 摆放        </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测量</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">    <span class="comment">//从保存的子View集合中遍历子View，</span></span><br><span class="line">    <span class="keyword">for</span> (Map.Entry&lt;View, ChildViewAttr&gt; entry : childViews.entrySet()) &#123;</span><br><span class="line">        View          childView     = entry.getKey();</span><br><span class="line">        ChildViewAttr childViewAttr = entry.getValue();</span><br><span class="line">   <span class="comment">//对每个子View进行测量 这里因为继承了MarginLayoutParams,把margin及padding 也作为子视图大小的一部分</span></span><br><span class="line">       easureChildWithMargins(childView, widthMeasureSpec, <span class="number">0</span>, heightMeasureSpec, <span class="number">0</span>);</span><br><span class="line">       <span class="comment">//记录下边缘视图的一些参数，以及根据这些参数初始化EasyPullLayout自身的一些参数：</span></span><br><span class="line">			<span class="comment">//把子View的size值记录下来，在摆放子View时会用到</span></span><br><span class="line">        LayoutParams lp = (LayoutParams) childView.getLayoutParams();</span><br><span class="line">        <span class="keyword">switch</span> (lp.type) &#123;</span><br><span class="line">            <span class="keyword">case</span> TYPE_EDGE_LEFT:</span><br><span class="line">            <span class="keyword">case</span> TYPE_EDGE_RIGHT:</span><br><span class="line">				<span class="comment">//横向size就是宽度加左右margin</span></span><br><span class="line">                childViewAttr.size = childView.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;</span><br><span class="line">				<span class="comment">//初始化EasyPullLayout的属性</span></span><br><span class="line">				<span class="comment">//如果trigger_offset_left未在xml指定，在这里初始化 设为左侧边缘试图宽度的一半</span></span><br><span class="line">                trigger_offset_left = trigger_offset_left &lt; <span class="number">0</span> ? childViewAttr.size / <span class="number">2</span> : trigger_offset_left;</span><br><span class="line">                trigger_offset_right = trigger_offset_right &lt; <span class="number">0</span> ? childViewAttr.size / <span class="number">2</span> : trigger_offset_right;</span><br><span class="line">				<span class="comment">//未指定则为左侧边缘试图的宽度</span></span><br><span class="line">                max_offset_left = max_offset_left &lt; <span class="number">0</span> ? childViewAttr.size : max_offset_left;</span><br><span class="line">                max_offset_right = max_offset_right &lt; <span class="number">0</span> ? childViewAttr.size : max_offset_right;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> TYPE_EDGE_TOP:</span><br><span class="line">            <span class="keyword">case</span> TYPE_EDGE_BOTTOM:</span><br><span class="line">				<span class="comment">// 纵向size就是高度加上下margin</span></span><br><span class="line">                childViewAttr.size = childView.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;</span><br><span class="line">                trigger_offset_top = trigger_offset_top &lt; <span class="number">0</span> ? childViewAttr.size / <span class="number">2</span> : trigger_offset_top;</span><br><span class="line">                trigger_offset_bottom = trigger_offset_bottom &lt; <span class="number">0</span> ? childViewAttr.size / <span class="number">2</span> : trigger_offset_bottom;</span><br><span class="line">                max_offset_top = max_offset_top &lt; <span class="number">0</span> ? childViewAttr.size : max_offset_top;</span><br><span class="line">                max_offset_bottom = max_offset_bottom &lt; <span class="number">0</span> ? childViewAttr.size : max_offset_bottom;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//摆放</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    View contentView = getByType(childViews, TYPE_CONTENT);</span><br><span class="line">	<span class="comment">//contentView不能为空！！！</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == contentView)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"EasyPullLayout must have and only have one layout_type \"content\"!"</span>);</span><br><span class="line">    <span class="comment">//获取内容布局的宽高</span></span><br><span class="line">    <span class="keyword">int</span> contentWidth  = contentView.getMeasuredWidth();</span><br><span class="line">    <span class="keyword">int</span> contentHeight = contentView.getMeasuredHeight();</span><br><span class="line">	<span class="comment">//遍历子View</span></span><br><span class="line">    <span class="keyword">for</span> (Map.Entry&lt;View, ChildViewAttr&gt; entry : childViews.entrySet()) &#123;</span><br><span class="line">        <span class="comment">//首先计算出子View的位置，此时都还未偏移，左上角位于(0,0) left = 0, top = 0</span></span><br><span class="line">        View          childView     = entry.getKey();</span><br><span class="line">        ChildViewAttr childViewAttr = entry.getValue();</span><br><span class="line">        LayoutParams  lp            = (LayoutParams) childView.getLayoutParams();</span><br><span class="line">        <span class="keyword">int</span>           left          = getPaddingLeft() + lp.leftMargin;</span><br><span class="line">        <span class="keyword">int</span>           top           = getPaddingTop() + lp.topMargin;</span><br><span class="line">        <span class="keyword">int</span>           right         = left + childView.getMeasuredWidth();</span><br><span class="line">        <span class="keyword">int</span>           bottom        = top + childView.getMeasuredHeight();</span><br><span class="line">        <span class="comment">//将view摆放在合适的位置</span></span><br><span class="line">        <span class="keyword">switch</span> (lp.type) &#123;</span><br><span class="line">            <span class="keyword">case</span> TYPE_EDGE_LEFT:</span><br><span class="line">                <span class="comment">//左侧刷新view向左移动-childViewAttr.size，刚好隐藏view</span></span><br><span class="line">				<span class="comment">//以下同理</span></span><br><span class="line">                left -= childViewAttr.size;</span><br><span class="line">                right -= childViewAttr.size;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> TYPE_EDGE_TOP:</span><br><span class="line">                top -= childViewAttr.size;</span><br><span class="line">                bottom -= childViewAttr.size;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> TYPE_EDGE_RIGHT:</span><br><span class="line">                left += contentWidth;</span><br><span class="line">                right += contentWidth;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> TYPE_EDGE_BOTTOM:</span><br><span class="line">                top += contentHeight;</span><br><span class="line">                bottom += contentHeight;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//将iew的当前摆放位置记录下来，因为EasyPullLayout是通过改变View的x和y属性来达到位移效果的， 因此需要参考子View的初始位置</span></span><br><span class="line">        <span class="comment">//并且可以不通过onLayout来重置位置，避免回调onLayout。</span></span><br><span class="line">        childViewAttr.setBounds(left, top, right, bottom);</span><br><span class="line">        childView.layout(left, top, right, bottom);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>处理触摸事件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//触摸事件拦截处理</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//闲置状态不做任何处理</span></span><br><span class="line">    <span class="keyword">if</span> (currentState != STATE_IDLE)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (ev.getAction()) &#123;</span><br><span class="line">        <span class="comment">//手指按下的时候记录当前位置</span></span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">            downX = ev.getX();</span><br><span class="line">            downY = ev.getY();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">            <span class="comment">//回掉onEdge，判断当前触发边缘的位置</span></span><br><span class="line">			<span class="comment">//把是否进行拦截的判断操作交给了外部进行处理，只要返回正确的类型，则开始对触摸事件进行拦截</span></span><br><span class="line">            <span class="keyword">int</span> type = onEdgeListener.onEdge();</span><br><span class="line">			<span class="comment">//计算x y偏移量 deltaX deltaY </span></span><br><span class="line">            <span class="keyword">float</span> dx = ev.getX() - downX;</span><br><span class="line">            <span class="keyword">float</span> dy = ev.getY() - downY;</span><br><span class="line">            currentType = type;</span><br><span class="line">            <span class="comment">//如果当前是左侧边缘View到了边缘，并且允许向左滑动，横向滑动距离大于纵向滑动距离开始拦截</span></span><br><span class="line">            <span class="keyword">if</span> (type == TYPE_EDGE_LEFT &amp;&amp; (pullTypeMask &amp; PULL_TYPE_LEFT) != <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> ev.getX() &gt; downX &amp;&amp; Math.abs(dx) &gt; Math.abs(dy);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (type == TYPE_EDGE_RIGHT &amp;&amp; (pullTypeMask &amp; TYPE_EDGE_RIGHT) != <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> ev.getX() &lt; downX &amp;&amp; Math.abs(dx) &gt; Math.abs(dy);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (type == TYPE_EDGE_TOP &amp;&amp; (pullTypeMask &amp; TYPE_EDGE_TOP) != <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> ev.getY() &gt; downY &amp;&amp; Math.abs(dy) &gt; Math.abs(dx);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (type == TYPE_EDGE_BOTTOM &amp;&amp; (pullTypeMask &amp; TYPE_EDGE_BOTTOM) != <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> ev.getY() &lt; downY &amp;&amp; Math.abs(dy) &gt; Math.abs(dx);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//拦截了触摸事件后，由EasyPullLayout自身进行消费处理</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//闲置状态不做任何处理</span></span><br><span class="line">    <span class="keyword">if</span> (currentState != STATE_IDLE)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="comment">// 检查滑动到边缘视图类型</span></span><br><span class="line">    <span class="keyword">if</span> (currentType == TYPE_EDGE_LEFT &amp;&amp; (pullTypeMask &amp; PULL_TYPE_LEFT) == <span class="number">0</span> ||</span><br><span class="line">            currentType == TYPE_EDGE_TOP &amp;&amp; (pullTypeMask &amp; PULL_TYPE_TOP) == <span class="number">0</span> ||</span><br><span class="line">            currentType == TYPE_EDGE_RIGHT &amp;&amp; (pullTypeMask &amp; PULL_TYPE_RIGHT) == <span class="number">0</span> ||</span><br><span class="line">            currentType == TYPE_EDGE_BOTTOM &amp;&amp; (pullTypeMask &amp; PULL_TYPE_BOTTOM) == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    <span class="comment">//因为自己要处理，所以一定要请求父view不要拦截</span></span><br><span class="line">    getParent().requestDisallowInterceptTouchEvent(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (event.getAction()) &#123;</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">            <span class="keyword">float</span> x = event.getX();</span><br><span class="line">            <span class="keyword">float</span> y = event.getY();</span><br><span class="line">            <span class="comment">//计算x,y 偏移量 = 滑动的距离 * （1- 阻尼系数）</span></span><br><span class="line">			<span class="comment">//从这里可以得出阻尼系数与滑动的距离有反比例关系</span></span><br><span class="line">			<span class="comment">//阻尼系数可以使拖拽时有黏着效果</span></span><br><span class="line">            offsetX = (x - downX) * (<span class="number">1</span> - sticky_factor * <span class="number">0.75f</span>);</span><br><span class="line">            offsetY = (y - downY) * (<span class="number">1</span> - sticky_factor * <span class="number">0.75f</span>);</span><br><span class="line">			<span class="comment">//对必要的子View进行偏移（设置了对应的fixed选项后，content不会进行偏移，达到侵入式效果）</span></span><br><span class="line">            move();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//手指释放时，通过ValueAnimator，在一段时间内将子View还原 达到缓缓还原的效果</span></span><br><span class="line">     	<span class="comment">//还原后的位置分2种情况</span></span><br><span class="line">     	<span class="comment">//1还没超过触发偏移量，则还原回到初始位置</span></span><br><span class="line">     	<span class="comment">//2已经超过了触发偏移量，则回到触发偏移量的位置(即刷新位置) 再经由外部调用Stop方法，再次将位置还原的初始位置</span></span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</span><br><span class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">			<span class="comment">//更改状态为滑动中</span></span><br><span class="line">            currentState = STATE_ROLLING;</span><br><span class="line">            <span class="keyword">switch</span> (currentType) &#123;</span><br><span class="line">                <span class="keyword">case</span> TYPE_EDGE_LEFT:</span><br><span class="line">                <span class="keyword">case</span> TYPE_EDGE_RIGHT:</span><br><span class="line">                    rollBackHorizontal();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> TYPE_EDGE_TOP:</span><br><span class="line">                <span class="keyword">case</span> TYPE_EDGE_BOTTOM:</span><br><span class="line">                    rollBackVertical();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//定义当前拖拽的进度</span></span><br><span class="line">    <span class="keyword">float</span> pullFraction = <span class="number">0f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据max_offset_left 限制拖拽距离 计算当前拖拽完成的百分比</span></span><br><span class="line">    <span class="keyword">switch</span> (currentType) &#123;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_LEFT:</span><br><span class="line">			<span class="comment">//限制x偏移量的边界值</span></span><br><span class="line">            offsetX = offsetX &lt; <span class="number">0</span> ? <span class="number">0f</span> : offsetX &gt; max_offset_left ? max_offset_left : offsetX;</span><br><span class="line">			<span class="comment">//计算当前拖拽的进度 同时也限制了边界 进度 = 当前的x偏移量 / 触发刷新位置的x值</span></span><br><span class="line">            pullFraction = offsetX == <span class="number">0f</span> ? <span class="number">0f</span> : trigger_offset_left &gt; offsetX ? offsetX / trigger_offset_left : <span class="number">1f</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_RIGHT:</span><br><span class="line">            offsetX = offsetX &gt; <span class="number">0</span> ? <span class="number">0f</span> : offsetX &lt; -max_offset_right ? -max_offset_right : offsetX;</span><br><span class="line">            pullFraction = offsetX == <span class="number">0f</span> ? <span class="number">0f</span> : -trigger_offset_right &lt; offsetX ? offsetX / -trigger_offset_right : <span class="number">1f</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_TOP:</span><br><span class="line">            offsetY = offsetY &lt; <span class="number">0</span> ? <span class="number">0f</span> : offsetY &gt; max_offset_top ? max_offset_top : offsetY;</span><br><span class="line">            pullFraction = offsetY == <span class="number">0f</span> ? <span class="number">0f</span> : trigger_offset_top &gt; offsetY ? offsetY / trigger_offset_top : <span class="number">1f</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_BOTTOM:</span><br><span class="line">            offsetY = offsetY &gt; <span class="number">0</span> ? <span class="number">0f</span> : offsetY &lt; -max_offset_bottom ? -max_offset_bottom : offsetY;</span><br><span class="line">            pullFraction = offsetY == <span class="number">0f</span> ? <span class="number">0f</span> : -trigger_offset_bottom &lt; offsetY ? offsetY / -trigger_offset_bottom : <span class="number">1f</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//是否经过触发位置</span></span><br><span class="line">	<span class="comment">//changed为true时，两者不能同时为1 也不能同时小于1	</span></span><br><span class="line">	<span class="comment">//其实就是为了保证上下滑动只在经过触发位置时更新</span></span><br><span class="line">    <span class="keyword">boolean</span> changed = !(lastPullFraction &lt; <span class="number">1f</span> &amp;&amp; pullFraction &lt; <span class="number">1f</span> || lastPullFraction == <span class="number">1f</span> &amp;&amp; pullFraction == <span class="number">1f</span>);</span><br><span class="line">	<span class="comment">//将当前的滑动边缘类型，及滑动进度等相关信息回调</span></span><br><span class="line">    onPullListenerAdapter.onPull(currentType, pullFraction, changed);</span><br><span class="line">	<span class="comment">//记录上次的滑动进度</span></span><br><span class="line">    lastPullFraction = pullFraction;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//遍历子View，根据拖拽的距离摆放子View</span></span><br><span class="line">	<span class="comment">//横向的就是设置X坐标值</span></span><br><span class="line">	<span class="comment">//纵向的就是设置Y坐标值</span></span><br><span class="line">	<span class="comment">// 如果设置了对应的fixed，且为content，则不偏移 </span></span><br><span class="line">    <span class="keyword">for</span> (Map.Entry&lt;View, ChildViewAttr&gt; entry : childViews.entrySet()) &#123;</span><br><span class="line">        View          childView     = entry.getKey();</span><br><span class="line">        ChildViewAttr childViewAttr = entry.getValue();</span><br><span class="line">        <span class="keyword">if</span> (currentType == TYPE_EDGE_LEFT &amp;&amp;</span><br><span class="line">                (((LayoutParams) childView.getLayoutParams()).type != TYPE_CONTENT || !fixed_content_left)) &#123;</span><br><span class="line">            childView.setX(childViewAttr.left + offsetX);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentType == TYPE_EDGE_RIGHT &amp;&amp;</span><br><span class="line">                (((LayoutParams) childView.getLayoutParams()).type != TYPE_CONTENT || !fixed_content_right)) &#123;</span><br><span class="line">            childView.setX(childViewAttr.left + offsetX);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentType == TYPE_EDGE_TOP &amp;&amp;</span><br><span class="line">                ((LayoutParams) childView.getLayoutParams()).type != TYPE_CONTENT || !fixed_content_top) &#123;</span><br><span class="line">            childView.setY(childViewAttr.top + offsetY);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentType == TYPE_EDGE_BOTTOM &amp;&amp;</span><br><span class="line">                (((LayoutParams) childView.getLayoutParams()).type != TYPE_CONTENT || !fixed_content_bottom)) &#123;</span><br><span class="line">            childView.setY(childViewAttr.top + offsetY);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里只看下纵向的 横向的原理一样</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">rollBackVertical</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//要还原的偏移量</span></span><br><span class="line">    <span class="comment">//下拉 offset是正值</span></span><br><span class="line">    <span class="comment">//1 trigger_offset_bottom &lt; offsetY &lt;= trigger_offset_top即未拉到触发位置的，还原的偏移量就是下拉的偏移量offsetY</span></span><br><span class="line">    <span class="comment">//2 offsetY &gt; trigger_offset_top即超过触发位置的，还原偏移量是超过触发位置的偏移量 offsetY - trigger_offset_top</span></span><br><span class="line">    <span class="comment">//上拉  offset是负值</span></span><br><span class="line">    <span class="comment">//1 offsetY &gt;= -trigger_offset_bottom 即上拉未拉到触发位置的，还原的偏移量就是上拉的偏移量offsetY</span></span><br><span class="line">    <span class="comment">//2 offsetY &lt; -trigger_offset_bottom 即上拉超过触发位置的，还原偏移量是超过触发位置的偏移量</span></span><br><span class="line">	<span class="comment">//offsetY（负值） + trigger_offset_bottom(正值)</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">float</span> rollBackOffset =</span><br><span class="line">            offsetY &gt; trigger_offset_top ? offsetY - trigger_offset_top</span><br><span class="line">                    : offsetY &lt; -trigger_offset_bottom ? offsetY + trigger_offset_bottom</span><br><span class="line">                    : offsetY;</span><br><span class="line">    Log.e(<span class="string">"roll"</span>, <span class="string">"offsetY: "</span> + offsetY + <span class="string">"--&gt;trigger_offset_top: "</span> + trigger_offset_top +</span><br><span class="line">            <span class="string">"--&gt; -trigger_offset_bottom: "</span> + (-trigger_offset_bottom) + <span class="string">"--rollBackOffset: "</span> + rollBackOffset);</span><br><span class="line">    <span class="comment">//触发刷新位置的偏移量 如果尚未拉到触发位置的，则为0</span></span><br><span class="line">    <span class="comment">//超过触发位置的， 判断当前视图边缘位置，是下拉刷新，则未trigger_offset_top</span></span><br><span class="line">    <span class="comment">//上拉加载的则未-trigger_offset_bottom，否则未0</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">float</span> triggerOffset =</span><br><span class="line">            rollBackOffset != offsetY ?</span><br><span class="line">                    currentType == TYPE_EDGE_TOP ? trigger_offset_top :</span><br><span class="line">                            currentType == TYPE_EDGE_BOTTOM ? -trigger_offset_bottom :</span><br><span class="line">                                    <span class="number">0</span></span><br><span class="line">                    : <span class="number">0</span>;</span><br><span class="line">    Log.e(<span class="string">"roll"</span>, <span class="string">"triggerOffset: "</span> + triggerOffset);</span><br><span class="line">    <span class="comment">// 通过ValueAnimator，在一段时间内将子View还原 达到缓缓还原 动画，值从1-&gt;0</span></span><br><span class="line">    verticalAnimator = ValueAnimator.ofFloat(<span class="number">1f</span>, <span class="number">0f</span>);</span><br><span class="line">    <span class="comment">//设置动画时间</span></span><br><span class="line">    verticalAnimator.setDuration(roll_back_duration)</span><br><span class="line">            .setInterpolator(<span class="keyword">new</span> DecelerateInterpolator());</span><br><span class="line">    <span class="comment">//动画更新监听</span></span><br><span class="line">    verticalAnimator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">switch</span> (currentType) &#123;</span><br><span class="line">                <span class="comment">//当前是下拉刷新 遍历子View</span></span><br><span class="line">                <span class="keyword">case</span> TYPE_EDGE_TOP:</span><br><span class="line">                   <span class="keyword">for</span> (Map.Entry&lt;View, ChildViewAttr&gt; entry : childViews.entrySet()) &#123;</span><br><span class="line">                        View          childView     = entry.getKey();</span><br><span class="line">                        ChildViewAttr childViewAttr = entry.getValue();</span><br><span class="line">                        <span class="comment">//为content且设置了fixed 不偏移 否则通过rollBackOffset和triggerOffset，以及animatedValue计算得出y</span></span><br><span class="line">                        <span class="keyword">if</span> (((LayoutParams) childView.getLayoutParams()).type != TYPE_CONTENT || !fixed_content_top)</span><br><span class="line">                            childView.setY(childViewAttr.top + triggerOffset + rollBackOffset * </span><br><span class="line">								(<span class="keyword">float</span>) animation.getAnimatedValue());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> TYPE_EDGE_BOTTOM:</span><br><span class="line">                    <span class="keyword">for</span> (Map.Entry&lt;View, ChildViewAttr&gt; entry : childViews.entrySet()) &#123;</span><br><span class="line">                        View          childView     = entry.getKey();</span><br><span class="line">                        ChildViewAttr childViewAttr = entry.getValue();</span><br><span class="line">                        <span class="keyword">if</span> (((LayoutParams) childView.getLayoutParams()).type != TYPE_CONTENT || !fixed_content_bottom)</span><br><span class="line">                            childView.setY(childViewAttr.top + triggerOffset + rollBackOffset * </span><br><span class="line">								(<span class="keyword">float</span>) animation.getAnimatedValue());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 动画结束后，还原一些参数，回调监听</span></span><br><span class="line">    verticalAnimator.addListener(<span class="keyword">new</span> AnimatorListenerAdapter() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//此时是超过触发位置的，动画将之还原到触发位置</span></span><br><span class="line">            <span class="keyword">if</span> (triggerOffset != <span class="number">0</span> &amp;&amp; currentState == STATE_ROLLING) &#123;</span><br><span class="line">                <span class="comment">//更改状态为触发状态</span></span><br><span class="line">                currentState = STATE_TRIGGERING;</span><br><span class="line">                <span class="comment">//记录此时的偏移量= triggerOffset 因为在外部刷新后调用stop()方法还需要再次还原到初始位置</span></span><br><span class="line">                offsetY = triggerOffset;</span><br><span class="line">                <span class="comment">//回调触发刷新的监听</span></span><br><span class="line">                onPullListenerAdapter.onTriggered(currentType);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//更改状态为空闲状态</span></span><br><span class="line">                currentState = STATE_IDLE;</span><br><span class="line">                offsetY = <span class="number">0f</span>;</span><br><span class="line">                <span class="comment">//回调通知</span></span><br><span class="line">                rollBackEnd();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    verticalAnimator.start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在刷新完由外部调用，再次将子View位置由触发位置还原到初始位置</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (currentType) &#123;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_LEFT:</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_RIGHT:</span><br><span class="line">            rollBackHorizontal();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_TOP:</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_BOTTOM:</span><br><span class="line">            rollBackVertical();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自动刷新</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自动更新</span></span><br><span class="line"><span class="comment">//根据要更新的刷新类型计算出要自动滑动的距离，通过ValueAnimator不断更新子View的X或者Y属性，达到缓缓平移的效果</span></span><br><span class="line"><span class="comment">//动画结束后，再次通过ValueAnimator还原到刷新位置</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">autoRefresh</span><span class="params">(<span class="keyword">int</span> typeEdge)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//检查状态</span></span><br><span class="line">    <span class="keyword">if</span> (currentState != STATE_IDLE) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">//检查类型</span></span><br><span class="line">    <span class="keyword">if</span> (typeEdge != TYPE_EDGE_LEFT &amp;&amp;</span><br><span class="line">            typeEdge != TYPE_EDGE_TOP &amp;&amp;</span><br><span class="line">            typeEdge != TYPE_EDGE_RIGHT &amp;&amp;</span><br><span class="line">            typeEdge != TYPE_EDGE_BOTTOM) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">//更改状态为滑动</span></span><br><span class="line">    currentState = STATE_ROLLING;</span><br><span class="line">    <span class="comment">//记录当前要刷新的类型</span></span><br><span class="line">    currentType = typeEdge;</span><br><span class="line">    <span class="comment">//要自动滑动的距离</span></span><br><span class="line">    <span class="keyword">float</span> end;</span><br><span class="line">    <span class="keyword">switch</span> (currentType) &#123;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_LEFT:</span><br><span class="line">            end = max_offset_left;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_TOP:</span><br><span class="line">            end = max_offset_top;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_RIGHT:</span><br><span class="line">            end = -max_offset_right;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> TYPE_EDGE_BOTTOM:</span><br><span class="line">            end = -max_offset_bottom;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            end = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    verticalAnimator = ValueAnimator.ofFloat(<span class="number">0f</span>, end);</span><br><span class="line">    <span class="comment">//设置动画时间</span></span><br><span class="line">    verticalAnimator.setDuration(auto_refresh_rolling_duration);</span><br><span class="line">    verticalAnimator.setInterpolator(<span class="keyword">new</span> DecelerateInterpolator());</span><br><span class="line">    verticalAnimator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//计算每次更新拖拽的偏移量</span></span><br><span class="line">            <span class="keyword">if</span> (currentType == TYPE_EDGE_LEFT || currentState == TYPE_EDGE_RIGHT) &#123;</span><br><span class="line">                offsetX = (<span class="keyword">float</span>) animation.getAnimatedValue();</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentType == TYPE_EDGE_BOTTOM || currentType == TYPE_EDGE_TOP) &#123;</span><br><span class="line">                offsetY = (<span class="keyword">float</span>) animation.getAnimatedValue();</span><br><span class="line">            &#125;</span><br><span class="line">            move();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    verticalAnimator.addListener(<span class="keyword">new</span> AnimatorListenerAdapter() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//动画结束时 还原位置到触发刷新位置</span></span><br><span class="line">            <span class="keyword">if</span> (currentType == TYPE_EDGE_LEFT || currentState == TYPE_EDGE_RIGHT) &#123;</span><br><span class="line">                rollBackHorizontal();</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentType == TYPE_EDGE_BOTTOM || currentType == TYPE_EDGE_TOP) &#123;</span><br><span class="line">                rollBackVertical();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    verticalAnimator.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>至此，源码已分析完毕。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/EasyPullLayout/" rel="tag"># EasyPullLayout</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2018/10/16/便捷开发少不了的Stetho/" rel="next" title="便捷开发少不了的Stetho">
+                <i class="fa fa-chevron-left"></i> 便捷开发少不了的Stetho
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2018/11/29/微医App启动优化之路/" rel="prev" title="微医App启动优化之路">
+                微医App启动优化之路 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/Blog/images/avatar.jpg" alt="kaer">
+            
+              <p class="site-author-name" itemprop="name">kaer</p>
+              <p class="site-description motion-element" itemprop="description">锐情书卷，烹煮江山</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/Blog/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/Blog/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/Blog/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用法"><span class="nav-number">2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#源码解析"><span class="nav-number">3.</span> <span class="nav-text">源码解析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaer</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
