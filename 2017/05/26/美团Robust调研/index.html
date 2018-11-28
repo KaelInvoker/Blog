@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一">
+<meta name="description" content="最近公司准备集成第三方的热修复，于是我去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一">
 <meta name="keywords" content="robust">
 <meta property="og:type" content="article">
 <meta property="og:title" content="美团Robust调研">
 <meta property="og:url" content="https://kaelinvoker.github.io/Blog/2017/05/26/美团Robust调研/index.html">
 <meta property="og:site_name" content="二两五花肉">
-<meta property="og:description" content="最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一">
+<meta property="og:description" content="最近公司准备集成第三方的热修复，于是我去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.imgur.com/mBx6AzO.png">
 <meta property="og:image" content="http://i.imgur.com/k6Xj8BZ.png">
 <meta property="og:image" content="http://i.imgur.com/QCtXEad.png">
 <meta property="og:image" content="http://i.imgur.com/aby3aYG.png">
-<meta property="og:updated_time" content="2018-11-27T16:10:22.998Z">
+<meta property="og:updated_time" content="2018-11-28T16:26:34.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="美团Robust调研">
-<meta name="twitter:description" content="最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一">
+<meta name="twitter:description" content="最近公司准备集成第三方的热修复，于是我去对美团热修复做了个调研。在此，准备将集成的过程记录下。 Robust简介 2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一">
 <meta name="twitter:image" content="http://i.imgur.com/mBx6AzO.png">
 
 
@@ -347,7 +347,7 @@
       
 
       
-        <p>最近公司准备集成第三方的热修复，我负责去对美团热修复做了个调研。在此，准备将集成的过程记录下。</p>
+        <p>最近公司准备集成第三方的热修复，于是我去对美团热修复做了个调研。在此，准备将集成的过程记录下。</p>
 <h4 id="Robust简介"><a href="#Robust简介" class="headerlink" title="Robust简介"></a>Robust简介</h4><blockquote>
 <p>2015底Google高调发布了 Android Studio 2.0，其中最重要的新特性Instant Run，实现了对代码修改的实时生效。美团开发团队在了解 Instant Run 原理之后，实现了一个兼容性更强的热更新方案，这就是产品化的hotpatch框架—–Robust。新一代热更新系统Robust，对Android版本无差别兼容。无需发版就可以做到随时修改线上bug，快速对重大线上问题作出反应，补丁修补成功率高达99.9%。</p>
 </blockquote>
