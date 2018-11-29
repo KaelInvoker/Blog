@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="引言​    某天，测试突然找到我，说线上医生端打开帖子详情页后，加载的进度圈一直不会消失。我的第一反应是一脸懵逼。what fuck？？？近两个版本这个页面我压根儿没有做任何改动。难道是用户使用的姿势不对？？？好吧，吐槽归吐槽，问题总归还是要解决的。">
+<meta name="description" content="引言某天，测试突然找到我，说线上医生端打开帖子详情页后，加载的进度圈一直不会消失。我的第一反应是一脸懵逼。what fuck？？？近两个版本这个页面我压根儿没有做任何改动。难道是用户使用的姿势不对？？？好吧，吐槽归吐槽，问题总归还是要解决的。">
 <meta name="keywords" content="weview之坑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记一次8.0手机webview onPageFinshed方法不回调的问题">
 <meta property="og:url" content="https://kaelinvoker.github.io/Blog/2018/11/29/记一次8-0手机webview-onPageFinshed方法不回调的问题/index.html">
 <meta property="og:site_name" content="二两五花肉">
-<meta property="og:description" content="引言​    某天，测试突然找到我，说线上医生端打开帖子详情页后，加载的进度圈一直不会消失。我的第一反应是一脸懵逼。what fuck？？？近两个版本这个页面我压根儿没有做任何改动。难道是用户使用的姿势不对？？？好吧，吐槽归吐槽，问题总归还是要解决的。">
+<meta property="og:description" content="引言某天，测试突然找到我，说线上医生端打开帖子详情页后，加载的进度圈一直不会消失。我的第一反应是一脸懵逼。what fuck？？？近两个版本这个页面我压根儿没有做任何改动。难道是用户使用的姿势不对？？？好吧，吐槽归吐槽，问题总归还是要解决的。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://wx3.sinaimg.cn/large/006Cmetyly1ff16b3zxvxj308408caa8.jpg">
-<meta property="og:updated_time" content="2018-11-29T13:29:27.851Z">
+<meta property="og:updated_time" content="2018-11-29T13:48:44.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次8.0手机webview onPageFinshed方法不回调的问题">
-<meta name="twitter:description" content="引言​    某天，测试突然找到我，说线上医生端打开帖子详情页后，加载的进度圈一直不会消失。我的第一反应是一脸懵逼。what fuck？？？近两个版本这个页面我压根儿没有做任何改动。难道是用户使用的姿势不对？？？好吧，吐槽归吐槽，问题总归还是要解决的。">
+<meta name="twitter:description" content="引言某天，测试突然找到我，说线上医生端打开帖子详情页后，加载的进度圈一直不会消失。我的第一反应是一脸懵逼。what fuck？？？近两个版本这个页面我压根儿没有做任何改动。难道是用户使用的姿势不对？？？好吧，吐槽归吐槽，问题总归还是要解决的。">
 <meta name="twitter:image" content="http://wx3.sinaimg.cn/large/006Cmetyly1ff16b3zxvxj308408caa8.jpg">
 
 
@@ -344,31 +344,30 @@
       
 
       
-        <h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>​    某天，测试突然找到我，说线上医生端打开帖子详情页后，加载的进度圈一直不会消失。我的第一反应是一脸懵逼。what fuck？？？近两个版本这个页面我压根儿没有做任何改动。难道是用户使用的姿势不对？？？好吧，吐槽归吐槽，问题总归还是要解决的。</p>
+        <h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>某天，测试突然找到我，说线上医生端打开帖子详情页后，加载的进度圈一直不会消失。我的第一反应是一脸懵逼。what fuck？？？近两个版本这个页面我压根儿没有做任何改动。难道是用户使用的姿势不对？？？好吧，吐槽归吐槽，问题总归还是要解决的。</p>
 <a id="more"></a>
 <h4 id="排查问题"><a href="#排查问题" class="headerlink" title="排查问题"></a>排查问题</h4><ol>
 <li><p>问题复现的操作</p>
-<p>​    和测试进一步沟通后，发现3.5.0版本从其他原生入口跳入到社区的帖子详情页正常。只有在8.0以上的手机从我们<code>App</code>内公用的<code>H5</code>页面内跳入该页面才会出现该问题，而且一旦出现，再从其他所有的入口跳入也会出现该问题。</p>
+<p>和测试进一步沟通后，发现3.5.0版本从其他原生入口跳入到社区的帖子详情页正常。只有在8.0以上的手机从我们<code>App</code>内公用的<code>H5</code>页面内跳入该页面才会出现该问题，而且一旦出现，再从其他所有的入口跳入也会出现该问题。</p>
 </li>
 <li><p>探究问题产生的原因</p>
-<p>​    借来测试的8.0手机，在自己本地调试后，发现8.0机型 <code>webview</code>的<code>onPageFinished</code>方法竟然没有回调？</p>
+<p>借来测试的8.0手机，在自己本地调试后，发现8.0机型 <code>webview</code>的<code>onPageFinished</code>方法竟然没有回调？</p>
 <p><img src="http://wx3.sinaimg.cn/large/006Cmetyly1ff16b3zxvxj308408caa8.jpg" alt=""></p>
-<p>​    什么情况？立即去<code>google</code>搜索了下，翻了半天也没发现个所以然和解决办法。</p>
-<p>​    于是我就开始想，为什么前几个版本没有问题，用户版帖子详情页也没有问题。在最新的版本，公共<code>H5</code>页面到底做了什么？看了下提交记录，发现最新的版本里同事为了解决公共<code>H5</code>页在8.0以上手机首次加载白屏过长的问题，就对8.0以上的手机特意将公共<code>H5</code>页从原先的remote进程放到了主进程中。</p>
-<p>​    话不多说，赶紧把这行代码注释掉，重新放到remote进程试试。几分钟后，运行查看效果确实解决了。</p>
+<p>什么情况？立即去<code>google</code>搜索了下，翻了半天也没发现个所以然和解决办法。于是我就开始想，为什么前几个版本没有问题，用户版帖子详情页也没有问题。在最新的版本，公共<code>H5</code>页面到底做了什么？看了下提交记录，发现最新的版本里同事为了解决公共<code>H5</code>页在8.0以上手机首次加载白屏过长的问题，就对8.0以上的手机特意将公共<code>H5</code>页从原先的remote进程放到了主进程中。</p>
+<p>话不多说，赶紧把这行代码注释掉，重新放到remote进程试试。几分钟后，运行查看效果确实解决了。</p>
 <p>不过如果这样改，那岂不是解决一个问题又会产生原先的另外一个问题么？所以，该方案pass掉。</p>
-<p>​    那还有别的办法么？想了想，如果<code>onPageFinished</code>方法无法回调，是不是说可以将原先这部分的操作转移到<code>WebChromeClient</code>中的<code>onProgressChanged</code>方法中呢。毕竟这个方法本来就比<code>onPageFinished</code>方法要靠谱的多。</p>
+<p>那还有别的办法么？想了想，如果<code>onPageFinished</code>方法无法回调，是不是说可以将原先这部分的操作转移到<code>WebChromeClient</code>中的<code>onProgressChanged</code>方法中呢。毕竟这个方法本来就比<code>onPageFinished</code>方法要靠谱的多。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onProgressChanged</span><span class="params">(WebView view, <span class="keyword">int</span> newProgress)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">super</span>.onProgressChanged(view, newProgress);</span><br><span class="line">   	<span class="keyword">if</span> (newProgress &gt; <span class="number">85</span>)&#123;</span><br><span class="line">        <span class="comment">//开始注入js文件</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">   	&#125;     </span><br><span class="line">   <span class="keyword">if</span> (newProgress == <span class="number">100</span>)&#123;</span><br><span class="line">   		<span class="comment">//隐藏进度条</span></span><br><span class="line"> 		<span class="comment">//原先结束的操作</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​    运行代码后，发现该方法是会回调的，同时进度条的问题解决了。但是…原先我们在页面加载结束后，会通过<code>JsBridge</code>调用<code>H5</code>的方法，在这里竟然调用后竟然不起作用了。通过调试发现<code>Js</code>文件确实已经注入成功了，但是在调用<code>H5</code>的方法时，在<code>H5</code>的方法池中找不到已注册的方法！</p>
-<p>​    这下彻底懵逼了，该怎么搞呢？</p>
-<p>​    到第二天，同事辅助排查的时候，发现在公共<code>H5</code>页面有如下代码。</p>
+<p>运行代码后，发现该方法是会回调的，同时进度条的问题解决了。但是…原先我们在页面加载结束后，会通过<code>JsBridge</code>调用<code>H5</code>的方法，在这里竟然调用后竟然不起作用了。通过调试发现<code>Js</code>文件确实已经注入成功了，但是在调用<code>H5</code>的方法时，在<code>H5</code>的方法池中找不到已注册的方法！</p>
+<p>这下彻底懵逼了，该怎么搞呢？</p>
+<p>到第二天，同事辅助排查的时候，发现在公共<code>H5</code>页面有如下代码。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (webView != <span class="keyword">null</span>) &#123;</span><br><span class="line">         <span class="comment">//激活WebView为活跃状态，能正常执行网页的响应</span></span><br><span class="line">         webView.onResume();</span><br><span class="line">         <span class="comment">//激活WebView为活跃状态，能正常执行网页的响应</span></span><br><span class="line">         webView.resumeTimers();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    BridgeWebView webView = <span class="keyword">this</span>.mHolder.getWebView();</span><br><span class="line">    <span class="keyword">if</span> (webView != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">//当页面被失去焦点被切换到后台不可见状态，需要执行onPause</span></span><br><span class="line">        <span class="comment">//通过onPause动作通知内核暂停所有的动作，比如DOM的解析、plugin的执行、JavaScript执行</span></span><br><span class="line">        webView.onPause();</span><br><span class="line">		<span class="comment">//当应用程序(存在webview)被切换到后台时，这个方法不仅仅针对当前的webview而是全局的全应用程序的webview</span></span><br><span class="line">		<span class="comment">//它会暂停所有webview的layout，parsing，javascripttimer。降低CPU功耗。</span></span><br><span class="line">        webView.pauseTimers();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​    这两段代码是之前为了解决页面处于后台视频还会继续播放的问题。看<code>webView.pauseTimers()</code>方法，在页面失去焦点的时候调用它，会将针对全局<code>Webview</code>。</p>
-<p>​    那么问题基本就明了了，从公共<code>H5</code>跳到帖子详情页，触发了该方法，而在医生版的帖子详情页中的<code>onResume</code>方法中并没有调用 <code>webView.resumeTimers()</code>，所以此时<code>webview</code>仍处于<code>pauseTimers</code>设置的后台状态，最终导致<code>onPageFinished</code>方法未回调出现问题。</p>
+<p>这两段代码是之前为了解决页面处于后台视频还会继续播放的问题。看<code>webView.pauseTimers()</code>方法，在页面失去焦点的时候调用它，会将针对全局<code>Webview</code>。</p>
+<p>那么问题基本就明了了，从公共<code>H5</code>跳到帖子详情页，触发了该方法，而在医生版的帖子详情页中的<code>onResume</code>方法中并没有调用 <code>webView.resumeTimers()</code>，所以此时<code>webview</code>仍处于<code>pauseTimers</code>设置的后台状态，最终导致<code>onPageFinished</code>方法未回调出现问题。</p>
 </li>
 </ol>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>​    暂时先在医生版帖子详情页中的<code>onResume</code>方法中添加<code>webView.resumeTimers()</code>，后期准备将两端帖子详情页统一放到web模块，公用一个配置。</p>
-<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>​    经过上面的测试分析，发现在8.0以上的手机如果两个内嵌<code>Webview</code>的原生页面，前一个<code>H5</code>页面调用了<code>webView</code>的<code>pauseTimers()</code>方法，而后面的页面没有调用<code>resumeTimers</code>来恢复的话，会导致<code>WebViewClient</code>方法的<code>onPageFinished</code>不会回调。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>暂时先在医生版帖子详情页中的<code>onResume</code>方法中添加<code>webView.resumeTimers()</code>，后期准备将两端帖子详情页统一放到web模块，公用一个配置。</p>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>经过上面的测试分析，发现在8.0以上的手机如果两个内嵌<code>Webview</code>的原生页面，前一个<code>H5</code>页面调用了<code>webView</code>的<code>pauseTimers()</code>方法，而后面的页面没有调用<code>resumeTimers</code>来恢复的话，会导致<code>WebViewClient</code>方法的<code>onPageFinished</code>不会回调。</p>
 
       
     </div>
