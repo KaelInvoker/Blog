@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://i.imgur.com/XIIPz5T.png">
 <meta property="og:image" content="http://i.imgur.com/7FYThUI.png">
 <meta property="og:image" content="https://i.imgur.com/0WHDdvd.png">
-<meta property="og:updated_time" content="2018-11-29T13:26:10.638Z">
+<meta property="og:updated_time" content="2018-11-29T13:51:23.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bugly集成指南">
 <meta name="twitter:description" content="公司最近准备更换我们的第三方统计SDK，由我负责集成到我们的项目当中。本篇文章是对集成过程出现的问题的一个总结。 产品简介 Bugly是腾讯公司为移动开发者开放的服务之一，提供专业的异常上报，运营统计和内测分发解决方案，帮助开发者快速发现并解决异常，同时掌握产品运营动态，及时跟进用户反馈。  产品特点 重视Crash，能够实时掌控Crash，并快速修复。 多平台支持，Android，IOS。 集成">
@@ -442,8 +442,8 @@
 </li>
 <li><p>某些异常是我们比较关注的，想要主动上报，怎么做？</p>
 <p><code>Bugly</code>已经提供了这样的<code>API</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">    //...</span><br><span class="line">&#125; catch (Throwable thr) &#123;</span><br><span class="line">    CrashReport.postCatchedException(thr);  // bugly会将这个throwable上报</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>关于等多的<code>Bugly</code>配置，可以查看[官方文档](</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (Throwable thr) &#123;</span><br><span class="line">    CrashReport.postCatchedException(thr);  <span class="comment">// bugly会将这个throwable上报</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于等多的<code>Bugly</code>配置，可以查看<a href="https://bugly.qq.com/docs/user-guide/instruction-manual-android/?v=20181014122344" target="_blank" rel="noopener">官方文档</a></p>
 </li>
 </ol>
 
