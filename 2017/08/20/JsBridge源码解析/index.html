@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="引言 app的快速迭代，离不开h5的支持。而如何解决Js和Native的通信问题，就需要JsBridge来解决了。本文主要是对我们项目所使用的第三方库JsBridge的源码解析。">
+<meta name="description" content="引言 app的快速迭代，离不开h5的支持。而如何解决Js和Native的通信问题，就需要JsBridge来解决了。本文主要是对第三方库JsBridge的源码解析。">
 <meta name="keywords" content="JsBridge">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JsBridge源码解析">
 <meta property="og:url" content="https://kaelinvoker.github.io/Blog/2017/08/20/JsBridge源码解析/index.html">
 <meta property="og:site_name" content="二两五花肉">
-<meta property="og:description" content="引言 app的快速迭代，离不开h5的支持。而如何解决Js和Native的通信问题，就需要JsBridge来解决了。本文主要是对我们项目所使用的第三方库JsBridge的源码解析。">
+<meta property="og:description" content="引言 app的快速迭代，离不开h5的支持。而如何解决Js和Native的通信问题，就需要JsBridge来解决了。本文主要是对第三方库JsBridge的源码解析。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/0KKeHFl.png">
 <meta property="og:image" content="https://i.imgur.com/ZtrWNh5.png">
-<meta property="og:updated_time" content="2018-11-28T16:17:41.899Z">
+<meta property="og:updated_time" content="2018-11-29T13:45:48.737Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JsBridge源码解析">
-<meta name="twitter:description" content="引言 app的快速迭代，离不开h5的支持。而如何解决Js和Native的通信问题，就需要JsBridge来解决了。本文主要是对我们项目所使用的第三方库JsBridge的源码解析。">
+<meta name="twitter:description" content="引言 app的快速迭代，离不开h5的支持。而如何解决Js和Native的通信问题，就需要JsBridge来解决了。本文主要是对第三方库JsBridge的源码解析。">
 <meta name="twitter:image" content="https://i.imgur.com/0KKeHFl.png">
 
 
@@ -346,7 +346,7 @@
 
       
         <h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><blockquote>
-<p>app的快速迭代，离不开h5的支持。而如何解决Js和Native的通信问题，就需要JsBridge来解决了。本文主要是对我们项目所使用的第三方库JsBridge的源码解析。</p>
+<p>app的快速迭代，离不开h5的支持。而如何解决Js和Native的通信问题，就需要JsBridge来解决了。本文主要是对第三方库JsBridge的源码解析。</p>
 </blockquote>
 <a id="more"></a>
 <p><a href="https://github.com/lzyzsd/JsBridge" target="_blank" rel="noopener">项目地址</a></p>
@@ -354,7 +354,7 @@
 <li><p>Js通知Native</p>
 <p>Js通知Native目前有三种方案。</p>
 <ul>
-<li>API注入。 Native获取到Js的上下文，并直接在上面挂载对象或方法。Android通过webview.addJavascriptInterface()的方法实现。</li>
+<li>API注入。通过webview.addJavascriptInterface()的方法实现。</li>
 <li>拦截Js的alert/confirm/prompt/console等事件。由于prompt事件在js中很少使用，所以一般是拦截该事件。这些事件在WebChromeClient都有对应的方法回调（onConsoleMessage，onJsPrompt，onJsAlert，onJsConfirm）</li>
 <li>url跳转拦截，对应WebViewClient的shouldOverrideUrlLoading()方法。</li>
 </ul>
@@ -464,12 +464,14 @@
 </ul>
 <h4 id="Bridge框架问题"><a href="#Bridge框架问题" class="headerlink" title="Bridge框架问题"></a>Bridge框架问题</h4><p>分析源码后，可以看到Bridge目前存在以下问题</p>
 <ul>
-<li><p>Js回传数据时，如果不按照json回传，java代码会抛异常，导致java不能收到回调</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onInnerCallBack</span><span class="params">(String data)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(data != <span class="keyword">null</span> &amp;&amp; data.length()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">//这一行会抛异常</span></span><br><span class="line">			JSONObject obj = <span class="keyword">new</span> JSONObject(data);</span><br><span class="line">			<span class="keyword">int</span> resultCode = obj.optInt(<span class="string">"error"</span>,<span class="number">200</span>);</span><br><span class="line">			<span class="keyword">if</span>(resultCode == <span class="number">404</span>)&#123;</span><br><span class="line">				onFailed(data);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				onCallBack(data);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (JSONException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		onCallBack(data);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-</li>
 <li><p>Js调用java偶现调用失败。因为通过iframe的机制并不能保证shouldOverrideUrlLoading每次都会调用。</p>
 </li>
-<li><p>部分手机java调用js偶现失败。webview在调用js方法时，只在主线程调用。如果不在主线程的时候，就不会调用了。</p>
+<li><p>部分手机java调用js偶现失败。</p>
+<p>推测有两个原因：</p>
+<ol>
+<li>webview在调用js方法时，只在主线程调用。如果不在主线程的时候，就不会调用了</li>
+<li>Js注入的时机问题。在OnPageFinished中注入虽然最后都会全局注入成功，但是完成时间有可能太晚。</li>
+</ol>
 </li>
 </ul>
 
@@ -593,7 +595,7 @@
               
                 <a href="/Blog/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -604,7 +606,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/Blog/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -615,7 +617,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/Blog/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
