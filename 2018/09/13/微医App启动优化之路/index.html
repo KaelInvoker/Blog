@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/HV7ebEH.png">
 <meta property="og:image" content="https://img-blog.csdn.net/20180111180612747?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYTc0MDE2OTQwNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2018-11-28T16:21:37.290Z">
+<meta property="og:updated_time" content="2018-11-30T23:51:34.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微医App启动优化之路">
 <meta name="twitter:description" content="微医项目经过N个版本的迭代，到现在已经很庞大了。这自然就产生了各种问题，其中就包括冷启动慢，白屏时间长问题。本篇文章是对自己优化启动时间的一个总结。 优化前的项目现状这里以微医 3.4.0 Release包(未优化前)为例，分别对欢迎页(app 第一个页面)及主页在不同手机做连续5次冷启动数据统计。    机型 白屏 欢迎页平均时间 主页平均时间     华为CAM-TL00H 6.0 有 5.0">
@@ -490,6 +490,7 @@
 <li>减少多余的层级嵌套</li>
 <li>同等层级下尽量使用帧布局，线性布局</li>
 <li>减少不必要的背景绘制</li>
+<li>空布局或者在某些条件才展示的布局使用<code>ViewStub</code>延迟初始化</li>
 <li>如果以后引入了约束布局，可以用其优化</li>
 </ol>
 <p>分析我们项目，影响首页启动的布局有四个。欢迎页，主页Activity，以及主页嵌套的两个Fragment。</p>
@@ -509,6 +510,7 @@
 <li>内嵌的<code>HomeFragment</code>嵌套微医Tab Fragment的布局存在许多多余的背景，这是<code>GPU过渡绘制</code>飘红的原因，全部去除</li>
 <li>内嵌的<code>HomeFragment</code>的布局存在无用的相对布局嵌套相对布局，底部tab也是存在大量多余嵌套。将这些全部优化</li>
 <li>微医Tab Fragment的布局中也存在无用View和大量多余的布局嵌套。 全部优化</li>
+<li>主页引导图改为<code>ViewStub</code></li>
 </ul>
 <p>布局代码过多，这里就不贴了</p>
 </li>
