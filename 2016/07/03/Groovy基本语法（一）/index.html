@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="二两五花肉">
 <meta property="og:description" content="注释 Groovy的注释和Java一样，//代表单行注释，/**/代表多行  行末不用加分号  允许省略权限修饰符，默认为public 1234class Person&amp;#123;    String name    int age&amp;#125;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-06T12:09:28.633Z">
+<meta property="og:updated_time" content="2019-01-06T13:02:13.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Groovy基本语法（一）">
 <meta name="twitter:description" content="注释 Groovy的注释和Java一样，//代表单行注释，/**/代表多行  行末不用加分号  允许省略权限修饰符，默认为public 1234class Person&amp;#123;    String name    int age&amp;#125;">
@@ -473,45 +473,34 @@
 </li>
 <li><p>Groovy支持操作符重载</p>
 <p>从逻辑上分为三组：比较操作符，算术类操作符，数组类操作符。</p>
-<ul>
-<li><p>比较操作符</p>
-<p>| 操作符  | 方法           |<br>| ——- | ————– |<br>| a == b  | a.equals(b)    |<br>| a &lt;=&gt; b | a.compareTo(b) |</p>
+<p>逻辑操作符</p>
+<p>操作符|方法<br>———|————–<br>a == b|a.equals(b)<br>a &lt;=&gt; b|a.compareTo(b)</p>
 <p><code>compareTo()</code> 方法返回负整数、0 或正整数，代表对象小于、等于或大于指定对象。因为这个方法能够返回三个值，所以 Groovy 用四个附加值扩充了 <code>&lt;=&gt;</code> 语法，如下所示：</p>
-<p>| 操作符 | 含义                                                         |<br>| —— | ———————————————————— |<br>| a &gt; b  | 如果 <code>a.compareTo(b)</code>返回的值大于 0，那么这个条件为 <code>true</code>  |<br>| a &gt;= b | 如果 <code>a.compareTo(b)</code> 返回的值大于等于 0，那么这个条件为 <code>true</code> |<br>| a &lt; b  | 如果 <code>a.compareTo(b)</code> 小于 0，那么这个条件为 <code>true</code>          |<br>| a &lt;= b | 如果 <code>a.compareTo(b)</code> 小于等于 0，那么这个条件为 <code>true</code>      |</p>
-</li>
-<li><p>算术类操作符</p>
+<p>操作符|含义<br>—–|—-<br>a &gt; b|如果 <code>a.compareTo(b)</code>返回的值大于 0，那么这个条件为 <code>true</code><br>a &gt;= b|如果compareTo(b)<code>返回的值大于等于 0，那么这个条件为</code>true<code>a &lt; b|如果</code>a.compareTo(b)<code>小于 0，那么这个条件为</code>true<code>a &lt;= b| 如果</code>a.compareTo(b)<code>小于等于 0，那么这个条件为</code>true`</p>
+<p>算术类操作符</p>
 <p>| 操作符     | 方法           |<br>| ———- | ————– |<br>| a + b      | a.plus(b)      |<br>| a - b      | a.minus(b)     |<br>| a * b      | a.multiply(b)  |<br>| a / b      | a.div(b)       |<br>| a % b      | a.mod(b)       |<br>| a**b       | a.power(b)     |<br>| a++ or ++a | a.next()       |<br>| a– or –a | a.previous()   |<br>| a &lt;&lt; b     | a.leftShift(b) |</p>
-<ol>
-<li><p><code>+</code>的常见用法</p>
+<p><code>+</code>的常见用法</p>
 <p>用于字符串时，等于调用plus方法，完成两个字符串的拼接，生成新的字符串</p>
 <p>用于列表时，等于调用列表的plus方法，完成两个列表的并集，生成新的列表</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> a = [<span class="number">2</span>, <span class="number">32</span>, <span class="number">322</span>]</span><br><span class="line"><span class="comment">//新集合 原集合元素未变 [2, 32, 322, true]</span></span><br><span class="line">println(a.plus([<span class="literal">true</span>]) )</span><br><span class="line"><span class="keyword">def</span> a = <span class="number">-3.</span><span class="number">.4</span></span><br><span class="line"><span class="keyword">def</span> b = <span class="number">3.</span><span class="number">.5</span></span><br><span class="line"><span class="comment">//[-3, -2, -1, 0, 1, 2, 3, 4, 3, 4, 5]</span></span><br><span class="line">println(a + b)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>-</code>的常见用法</p>
+<p><code>-</code>的常见用法</p>
 <p>用于字符串时，A-B就是从A字符串中减去B字符串，生成新字符串，如果A字符串不包含B字符串，生成的字符串还是A</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">'jack'</span></span><br><span class="line">s2 = <span class="string">'k'</span></span><br><span class="line"><span class="comment">//jac</span></span><br><span class="line">println(s1 - s2)</span><br></pre></td></tr></table></figure>
 <p>用于列表时，A-B，取差集，生成新列表</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> a = <span class="number">-3.</span><span class="number">.4</span></span><br><span class="line"><span class="keyword">def</span> b = <span class="number">3.</span><span class="number">.5</span></span><br><span class="line"><span class="comment">//[-3, -2, -1, 0, 1, 2]</span></span><br><span class="line">println(a - b)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>*</code>的常见用法</p>
+<p><code>*</code>的常见用法</p>
 <p>用于字符串时，字符串A * n(n要&gt;=0)就是生成一个新的字符串，该字符串时重复字符串A n遍。当n=0时，生成空串。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">'jack'</span></span><br><span class="line">b = s1 * <span class="number">2</span></span><br><span class="line"><span class="comment">//jackjack</span></span><br><span class="line">println(b)</span><br></pre></td></tr></table></figure>
 <p>用于列表时，列表A * n(n要&gt;=0)就是生成一个新的列表，该列表是A集合的元素重复n遍</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> a = <span class="number">0.</span><span class="number">.3</span></span><br><span class="line"><span class="comment">//[0, 1, 2, 3, 0, 1, 2, 3]</span></span><br><span class="line">println(a * <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>&lt;&lt;</code>的常见用法</p>
+<p><code>&lt;&lt;</code>的常见用法</p>
 <p>用于StringBuilder、StringBuffer中是添加字符串的意思</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="keyword">new</span> StringBuilder()</span><br><span class="line">a &lt;&lt; <span class="string">'hello'</span></span><br><span class="line"><span class="comment">//hello</span></span><br><span class="line">println(a.toString())</span><br></pre></td></tr></table></figure>
 <p>用于列表中，向列表中添加新元素</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">3</span>, <span class="literal">true</span>]</span><br><span class="line">a &lt;&lt; <span class="number">12</span></span><br><span class="line"><span class="comment">//[3, true, 12]</span></span><br><span class="line">println(a)</span><br><span class="line">b = [<span class="string">name:</span> <span class="string">'jack'</span>, <span class="string">age:</span> <span class="number">13</span>]</span><br><span class="line">b &lt;&lt; [<span class="string">'tel'</span>: <span class="number">123123</span>]</span><br><span class="line"><span class="comment">//[name:jack, age:13, tel:123123]</span></span><br><span class="line">println(b)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><p>数组类操作符</p>
+<p>数组类操作符</p>
 <p>| 操作符   | 方法          |<br>| ——– | ————- |<br>| a[b]     | a.getAt(b)    |<br>| a[b] = c | a.putAt(b, c) |</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">3</span>, <span class="literal">true</span>]</span><br><span class="line"><span class="comment">//3 获取第0个元素</span></span><br><span class="line">println(a[<span class="number">0</span>])</span><br><span class="line"><span class="comment">//在第2个位置添加元素</span></span><br><span class="line">a[<span class="number">2</span>] = <span class="number">123</span></span><br><span class="line"><span class="comment">//[3, true, 123]</span></span><br><span class="line">println(a)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
 </li>
 </ol>
 </li>
