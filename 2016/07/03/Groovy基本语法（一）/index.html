@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="注释 Groovy的注释和Java一样，//代表单行注释，/**/代表多行  行末不用加分号  允许省略权限修饰符，默认为public 1234class Person&amp;#123;    String name    int age&amp;#125;  字符串 单引号字符串等同于Java中的字符串">
+<meta name="description" content="注释 Groovy的注释和Java一样，//代表单行注释，/**/代表多行  行末不用加分号  允许省略权限修饰符，默认为public 1234class Person&amp;#123;    String name    int age&amp;#125;">
 <meta name="keywords" content="Groovy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Groovy基本语法（一）">
 <meta property="og:url" content="https://kaelinvoker.github.io/Blog/2016/07/03/Groovy基本语法（一）/index.html">
 <meta property="og:site_name" content="二两五花肉">
-<meta property="og:description" content="注释 Groovy的注释和Java一样，//代表单行注释，/**/代表多行  行末不用加分号  允许省略权限修饰符，默认为public 1234class Person&amp;#123;    String name    int age&amp;#125;  字符串 单引号字符串等同于Java中的字符串">
+<meta property="og:description" content="注释 Groovy的注释和Java一样，//代表单行注释，/**/代表多行  行末不用加分号  允许省略权限修饰符，默认为public 1234class Person&amp;#123;    String name    int age&amp;#125;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-03T14:08:05.990Z">
+<meta property="og:updated_time" content="2019-01-06T12:09:28.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Groovy基本语法（一）">
-<meta name="twitter:description" content="注释 Groovy的注释和Java一样，//代表单行注释，/**/代表多行  行末不用加分号  允许省略权限修饰符，默认为public 1234class Person&amp;#123;    String name    int age&amp;#125;  字符串 单引号字符串等同于Java中的字符串">
+<meta name="twitter:description" content="注释 Groovy的注释和Java一样，//代表单行注释，/**/代表多行  行末不用加分号  允许省略权限修饰符，默认为public 1234class Person&amp;#123;    String name    int age&amp;#125;">
 
 
 
@@ -349,37 +349,54 @@
 <li><p>行末不用加分号</p>
 </li>
 <li><p>允许省略权限修饰符，默认为public</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Person&#123;</span><br><span class="line">    String name</span><br><span class="line">    int age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>&#123;</span></span><br><span class="line">    String name</span><br><span class="line">    <span class="keyword">int</span> age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 </li>
 <li><p>字符串</p>
-<p>单引号字符串等同于Java中的字符串</p>
-<a id="more"></a>
+<ul>
+<li><p>单引号字符串</p>
+<p>等同于Java中的字符串</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">'jack'</span></span><br></pre></td></tr></table></figure>
-<p>双引号字符串，可以使用引用$表达式</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">'jack'</span></span><br><span class="line">a = <span class="string">"hell $name"</span></span><br><span class="line"><span class="comment">//输出 hell jack</span></span><br><span class="line">println a</span><br></pre></td></tr></table></figure>
-<p>三引号字符串，支持随意换行</p>
+</li>
+<li><p>双引号字符串</p>
+<p>可以将变量直接插入到字符串当中，这种叫做<strong>内插字符串</strong>。编译器会把美元和花括号中的内容替换成实际的值，内插字符串中还可以进行表达式计算。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">'jack'</span></span><br><span class="line">a = <span class="string">"hell $&#123;name&#125;"</span></span><br><span class="line"><span class="comment">//输出 hell jack</span></span><br><span class="line">println a</span><br><span class="line"><span class="comment">//hello jack23</span></span><br><span class="line">println(<span class="string">"hello $&#123;name + "</span><span class="number">23</span><span class="string">"&#125;"</span>)</span><br></pre></td></tr></table></figure>
+<p>当内插字符串可以由前后的符号区分出的时候，花括号可以省略</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> person = [<span class="string">name:</span> <span class="string">'jack'</span>, <span class="string">age:</span> <span class="number">15</span>]</span><br><span class="line"><span class="comment">//jack 的年龄是15</span></span><br><span class="line">println(<span class="string">"$person.name 的年龄是$person.age"</span>)</span><br></pre></td></tr></table></figure>
+<p>注意：内插字符串的类型不是String，是GString类型。普通的Java字符串是不变的，而GString是可变的。另外它们的哈希值也不同。因此在使用Map等数据类型的时候需要格外注意，避免使用GString作为Map的键。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> person = [<span class="string">name:</span> <span class="string">'jack'</span>, <span class="string">age:</span> <span class="number">15</span>]</span><br><span class="line">a = <span class="string">"$person.name is"</span></span><br><span class="line"><span class="comment">//class org.codehaus.groovy.runtime.GStringImpl </span></span><br><span class="line"><span class="comment">//GStringImpl继承GString</span></span><br><span class="line">println(a.<span class="keyword">class</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多行字符串</p>
+<p>用三引号’’’ ‘’’表示，会保留字符串中的空格换行</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">words = <span class="string">'''白日依山尽，</span></span><br><span class="line"><span class="string">    黄河入海流'''</span></span><br></pre></td></tr></table></figure>
 </li>
+</ul>
+</li>
 <li><p>基本类型</p>
-<p>Groovy其实就是Java的拓展，所以Java的基本类型Groovy都支持。</p>
+<p>Groovy其实就是Java的拓展，所以Java的基本类型Groovy都支持。使用起来和Java相似，但由于在Groovy当中，一切皆对象，所以声明的基本类型变量自动使用其包装类型。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> age = <span class="number">13</span></span><br><span class="line">flag = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>这里看似age是int类型，flag是boolean类型，但其实在Groovy当中，一切皆对象。我们打印下age和flag的类型就知道了</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//class java.lang.Integer</span></span><br><span class="line">println(age.<span class="keyword">class</span>)</span><br><span class="line"><span class="comment">//class java.lang.Boolea</span></span><br><span class="line">println(flag.<span class="keyword">class</span>)</span><br></pre></td></tr></table></figure>
+<p>另外，在Groovy如果需要声明字符类型，需要使用下面的方法进行转换</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> gender = <span class="string">'女'</span> <span class="keyword">as</span> <span class="keyword">char</span></span><br><span class="line"><span class="comment">//class java.lang.Character</span></span><br><span class="line">println(gender.<span class="keyword">class</span>)</span><br></pre></td></tr></table></figure>
+<p>Groovy中的布尔类型要比Java的布尔类型语义要丰富，未到结尾的迭代器、非空对象引用、非零数字都认为是真；空集合、空字符串等认为是假。详情参见<a href="https://link.jianshu.com/?t=http://docs.groovy-lang.org/latest/html/documentation/core-semantics.html#Groovy-Truth" target="_blank" rel="noopener">Groovy文档 core-semantics#Groovy-Truth</a>    </p>
 </li>
 <li><p>变量</p>
 <ol>
 <li><p>使用def关键字来定义变量，但def并不是必须的</p>
 </li>
-<li><p>变量类型不用声明，支持类型推断，变量</p>
+<li><p>变量类型不用声明，会由编译器自动类型推断，无法推断时就是<code>Object</code>l类型</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类型可加可不加</span></span><br><span class="line"><span class="keyword">def</span> age = <span class="number">13</span>;</span><br><span class="line"><span class="keyword">def</span> String name = <span class="string">"jack"</span></span><br><span class="line"><span class="comment">//def也可以省略</span></span><br><span class="line">address = <span class="string">"china"</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>变量支持动态类型</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gender = <span class="string">"女"</span></span><br><span class="line">gender = <span class="number">13</span></span><br><span class="line">println(gender)</span><br></pre></td></tr></table></figure>
-<p>结果为13    </p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gender = <span class="string">"女"</span></span><br><span class="line">gender = <span class="number">13</span></span><br><span class="line"><span class="comment">//13	</span></span><br><span class="line">println(gender)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>一切皆对象</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">age = <span class="number">13</span></span><br><span class="line">flag = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>这里看似age是int类型，flag是boolean类型，但其实在Groovy当中，一切皆对象。我们打印下age和flag的类型就知道了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class java.lang.Integer</span><br><span class="line">class java.lang.Boolean</span><br></pre></td></tr></table></figure>
-<p>看到没，打印的是他们对应的包装类型。在Groovy中，所有的基本类型用的其实都是对应的包装类型。</p>
-<p>所以说，“一切皆对象”，Java 中的所有对象都扩展自 <code>java.lang.Object</code>，这对 Groovy 来说非常方便。即使在最糟的情况下，Groovy 运行时不能确定变量的类型，它只需将变量当成 <code>Object</code>，问题就解决了。​    </p>
+<li><p>可以同时声明多个变量并对其赋值</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> (a, b, c) = [<span class="number">1</span>, <span class="literal">true</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="comment">//1</span></span><br><span class="line">println(a)</span><br><span class="line"><span class="comment">//true</span></span><br><span class="line">println(b)</span><br><span class="line"><span class="comment">//name</span></span><br><span class="line">println(c)</span><br></pre></td></tr></table></figure>
+<p>如果左边的变量数比右面的值多，那么剩余的变量就是null</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> (a, b, c) = [<span class="number">2</span>, <span class="literal">true</span>]</span><br><span class="line"><span class="comment">//2</span></span><br><span class="line">println(a)</span><br><span class="line"><span class="comment">//true</span></span><br><span class="line">println(b)</span><br><span class="line"><span class="comment">//null</span></span><br><span class="line">println(c)</span><br></pre></td></tr></table></figure>
+<p>如果等号右面比左面多，那么多余的值会被忽略。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> (a, b) = [<span class="number">1</span>, <span class="literal">false</span>, <span class="string">'dsf'</span>]</span><br><span class="line"><span class="keyword">assert</span> a == <span class="number">1</span> &amp;&amp; b == <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -399,7 +416,103 @@
 </li>
 <li><p>默认参数</p>
 <p>Groovy支持方法的参数设置默认值，这样在方法的调用时，可以省略参数，使用预定义的默认值</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> repeatName(name, count = <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        println(name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//打印3次</span></span><br><span class="line"><span class="comment">//repeatName("jack")</span></span><br><span class="line"><span class="comment">//打印1次</span></span><br><span class="line">repeatName(<span class="string">"jack"</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> repeatName(name, count = <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        println(name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//打印3次</span></span><br><span class="line"><span class="comment">//repeatName("jack")</span></span><br><span class="line"><span class="comment">//打印1次</span></span><br><span class="line">repeatName(<span class="string">"jack"</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>表达式与运算符</p>
+<ol>
+<li><p>Groovy运算符和Java基本类似，只不过数学运算符多了一个幂运算<code>**</code>和乘方赋值<code>**=</code></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//幂运算 2的三次方 打印8</span></span><br><span class="line">println(<span class="number">2</span>**<span class="number">3</span>)</span><br><span class="line">a = <span class="number">4</span></span><br><span class="line"><span class="comment">//a此时为4的3次方 27</span></span><br><span class="line">a **= <span class="number">3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Groovy中的一些特殊运算符</p>
+<ul>
+<li><p><strong>展开运算符</strong> </p>
+<p>一个集合使用展开运算符(*.)可以得到一个元素为原集合各个元素执行后面指定方法所得值的集合</p>
+<p>展开运算符是空值安全的，如果遇到了null值，不会抛出空指针异常，而是返回空值。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>&#123;</span></span><br><span class="line">    String name</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    String toString() &#123;</span><br><span class="line">        <span class="keyword">return</span> name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">def</span> s = [<span class="keyword">new</span> Student(<span class="string">name:</span> <span class="string">'jack'</span>),<span class="keyword">new</span> Student(<span class="string">name:</span>  <span class="string">"12"</span>)]</span><br><span class="line"><span class="comment">//[jack, 12] 这里调用了集合每个元素的toString方法 得到结果后，又组成一个新的集合</span></span><br><span class="line">println s *.toString()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>可空运算符</strong> </p>
+<p>由于Groovy中“非空即真”，所以原java中的三元运算符可以简化为二元运算符，常用来给某个可空变量赋默认值</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">3</span></span><br><span class="line"><span class="comment">// b为2 java写法</span></span><br><span class="line">b = a &gt; <span class="number">3</span> ? 4 : <span class="number">2</span></span><br><span class="line"><span class="comment">//groovy简化 </span></span><br><span class="line">c = a &gt; <span class="number">3</span> ?: <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>安全占位符</strong> </p>
+<p>安全占位符(?.)主要用于避免空指针异常</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Student s</span><br><span class="line"><span class="comment">//抛NullPointerException</span></span><br><span class="line">println(<span class="string">"s的名字是$&#123;s.name&#125;"</span>)</span><br><span class="line"><span class="comment">//为避免空指针，java写法</span></span><br><span class="line"><span class="keyword">if</span> (s != <span class="literal">null</span>) &#123;</span><br><span class="line">  println(<span class="string">"s的名字是$&#123;s.name&#125;"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//安全占位符 输出s的名字是null</span></span><br><span class="line">println(<span class="string">"s的名字是$&#123;s?.name&#125;"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>字段访问运算符</strong></p>
+<p>在Groovy中默认使用.运算符引用属性的Getter和Setter。但如果希望直接访问某个字段，可以使用字段访问运算符.@</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> &#123;</span></span><br><span class="line">    String name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Student(String name) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String getName() &#123;</span><br><span class="line">        println(<span class="string">"getName: "</span> + name)</span><br><span class="line">        <span class="keyword">return</span> name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">def</span> s = <span class="keyword">new</span> Student(<span class="string">'jack'</span>)</span><br><span class="line"><span class="comment">//打印 getName: jack</span></span><br><span class="line"><span class="comment">//jack</span></span><br><span class="line">println(s.name)、</span><br><span class="line"><span class="comment">//直接访问字段 打印jack</span></span><br><span class="line">println(s.<span class="meta">@name</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>方法指针运算符</strong> </p>
+<p>Groovy的<code>.&amp;</code>方法指针运算符允许将一个方法赋给变量，然后我们就可以像调用方法那样使用变量。方法引用的实际类型是Groovy的闭包Closure。这种运算符可以将方法当成一个闭包作为另一个方法的参数</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个集合</span></span><br><span class="line"><span class="keyword">def</span> names = [<span class="string">'jack'</span>, <span class="string">'mick'</span>, <span class="string">'marry'</span>]</span><br><span class="line"><span class="comment">//常规遍历</span></span><br><span class="line">names.each &#123;</span><br><span class="line">    println(it)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义一个方法</span></span><br><span class="line"><span class="keyword">def</span> printItem(item) &#123;</span><br><span class="line">    println(item)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用方法指针运算符将printItem方法赋值给a</span></span><br><span class="line"><span class="keyword">def</span> a = <span class="keyword">this</span>.&amp;printItem</span><br><span class="line"><span class="comment">//将a作为each方法的参数</span></span><br><span class="line">names.each a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>范围运算符</strong></p>
+<p><code>..</code>用来创建范围Range。范围是列表中的一种，它继承了List接口。默认情况下是闭区间的</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> nums = <span class="number">1.</span><span class="number">.4</span></span><br><span class="line"><span class="comment">//1 2 3 4</span></span><br><span class="line">nums.each &#123;</span><br><span class="line">    println(it)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>比较运算符</strong></p>
+<p><code>&lt;=&gt;</code>运算符相当于调用compareTo方法。Java 语言的 compareTo() 方法返回负整数、0 或正整数，代表对象小于、等于或大于指定对象</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打印-1</span></span><br><span class="line">println(<span class="number">1</span> &lt;=&gt; <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>成员运算符</strong></p>
+<p><code>in</code>相当于调用contains或者isCase方法</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> nums = [<span class="number">3</span>, <span class="number">32</span>, <span class="number">-2</span>]</span><br><span class="line"><span class="comment">//true</span></span><br><span class="line">println(<span class="number">3</span> <span class="keyword">in</span> nums)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>相等运算符</strong></p>
+<p><code>==</code>运算符和Java中的不同。在Groovy中它相当于调用<code>equals</code>方法。如果需要比较引用，使用<code>is</code>。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>&#123;</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">boolean</span> equals(Object obj) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a = <span class="keyword">new</span> Test()</span><br><span class="line">b = <span class="keyword">new</span> Test()</span><br><span class="line"><span class="comment">//打印true</span></span><br><span class="line">println(a == b)</span><br><span class="line"><span class="comment">//false 比较是否为同一个引用</span></span><br><span class="line">println(a.is(b))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>转换运算符</strong></p>
+<p>我们可以使用Java形式的<code>(String) i</code>来转换类型。但是假如类型不匹配的话，就会抛出<code>ClassCastException</code>。而使用<code>as</code>运算符就会避免这种情况。</p>
+</li>
+</ul>
+</li>
+<li><p>Groovy支持操作符重载</p>
+<p>从逻辑上分为三组：比较操作符，算术类操作符，数组类操作符。</p>
+<ul>
+<li><p>比较操作符</p>
+<p>| 操作符  | 方法           |<br>| ——- | ————– |<br>| a == b  | a.equals(b)    |<br>| a &lt;=&gt; b | a.compareTo(b) |</p>
+<p><code>compareTo()</code> 方法返回负整数、0 或正整数，代表对象小于、等于或大于指定对象。因为这个方法能够返回三个值，所以 Groovy 用四个附加值扩充了 <code>&lt;=&gt;</code> 语法，如下所示：</p>
+<p>| 操作符 | 含义                                                         |<br>| —— | ———————————————————— |<br>| a &gt; b  | 如果 <code>a.compareTo(b)</code>返回的值大于 0，那么这个条件为 <code>true</code>  |<br>| a &gt;= b | 如果 <code>a.compareTo(b)</code> 返回的值大于等于 0，那么这个条件为 <code>true</code> |<br>| a &lt; b  | 如果 <code>a.compareTo(b)</code> 小于 0，那么这个条件为 <code>true</code>          |<br>| a &lt;= b | 如果 <code>a.compareTo(b)</code> 小于等于 0，那么这个条件为 <code>true</code>      |</p>
+</li>
+<li><p>算术类操作符</p>
+<p>| 操作符     | 方法           |<br>| ———- | ————– |<br>| a + b      | a.plus(b)      |<br>| a - b      | a.minus(b)     |<br>| a * b      | a.multiply(b)  |<br>| a / b      | a.div(b)       |<br>| a % b      | a.mod(b)       |<br>| a**b       | a.power(b)     |<br>| a++ or ++a | a.next()       |<br>| a– or –a | a.previous()   |<br>| a &lt;&lt; b     | a.leftShift(b) |</p>
+<ol>
+<li><p><code>+</code>的常见用法</p>
+<p>用于字符串时，等于调用plus方法，完成两个字符串的拼接，生成新的字符串</p>
+<p>用于列表时，等于调用列表的plus方法，完成两个列表的并集，生成新的列表</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> a = [<span class="number">2</span>, <span class="number">32</span>, <span class="number">322</span>]</span><br><span class="line"><span class="comment">//新集合 原集合元素未变 [2, 32, 322, true]</span></span><br><span class="line">println(a.plus([<span class="literal">true</span>]) )</span><br><span class="line"><span class="keyword">def</span> a = <span class="number">-3.</span><span class="number">.4</span></span><br><span class="line"><span class="keyword">def</span> b = <span class="number">3.</span><span class="number">.5</span></span><br><span class="line"><span class="comment">//[-3, -2, -1, 0, 1, 2, 3, 4, 3, 4, 5]</span></span><br><span class="line">println(a + b)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>-</code>的常见用法</p>
+<p>用于字符串时，A-B就是从A字符串中减去B字符串，生成新字符串，如果A字符串不包含B字符串，生成的字符串还是A</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">'jack'</span></span><br><span class="line">s2 = <span class="string">'k'</span></span><br><span class="line"><span class="comment">//jac</span></span><br><span class="line">println(s1 - s2)</span><br></pre></td></tr></table></figure>
+<p>用于列表时，A-B，取差集，生成新列表</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> a = <span class="number">-3.</span><span class="number">.4</span></span><br><span class="line"><span class="keyword">def</span> b = <span class="number">3.</span><span class="number">.5</span></span><br><span class="line"><span class="comment">//[-3, -2, -1, 0, 1, 2]</span></span><br><span class="line">println(a - b)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>*</code>的常见用法</p>
+<p>用于字符串时，字符串A * n(n要&gt;=0)就是生成一个新的字符串，该字符串时重复字符串A n遍。当n=0时，生成空串。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s1 = <span class="string">'jack'</span></span><br><span class="line">b = s1 * <span class="number">2</span></span><br><span class="line"><span class="comment">//jackjack</span></span><br><span class="line">println(b)</span><br></pre></td></tr></table></figure>
+<p>用于列表时，列表A * n(n要&gt;=0)就是生成一个新的列表，该列表是A集合的元素重复n遍</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> a = <span class="number">0.</span><span class="number">.3</span></span><br><span class="line"><span class="comment">//[0, 1, 2, 3, 0, 1, 2, 3]</span></span><br><span class="line">println(a * <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>&lt;&lt;</code>的常见用法</p>
+<p>用于StringBuilder、StringBuffer中是添加字符串的意思</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="keyword">new</span> StringBuilder()</span><br><span class="line">a &lt;&lt; <span class="string">'hello'</span></span><br><span class="line"><span class="comment">//hello</span></span><br><span class="line">println(a.toString())</span><br></pre></td></tr></table></figure>
+<p>用于列表中，向列表中添加新元素</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">3</span>, <span class="literal">true</span>]</span><br><span class="line">a &lt;&lt; <span class="number">12</span></span><br><span class="line"><span class="comment">//[3, true, 12]</span></span><br><span class="line">println(a)</span><br><span class="line">b = [<span class="string">name:</span> <span class="string">'jack'</span>, <span class="string">age:</span> <span class="number">13</span>]</span><br><span class="line">b &lt;&lt; [<span class="string">'tel'</span>: <span class="number">123123</span>]</span><br><span class="line"><span class="comment">//[name:jack, age:13, tel:123123]</span></span><br><span class="line">println(b)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>数组类操作符</p>
+<p>| 操作符   | 方法          |<br>| ——– | ————- |<br>| a[b]     | a.getAt(b)    |<br>| a[b] = c | a.putAt(b, c) |</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">3</span>, <span class="literal">true</span>]</span><br><span class="line"><span class="comment">//3 获取第0个元素</span></span><br><span class="line">println(a[<span class="number">0</span>])</span><br><span class="line"><span class="comment">//在第2个位置添加元素</span></span><br><span class="line">a[<span class="number">2</span>] = <span class="number">123</span></span><br><span class="line"><span class="comment">//[3, true, 123]</span></span><br><span class="line">println(a)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
 </ol>
 </li>
 </ul>
