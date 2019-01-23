@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="引言蒙层引导在我们项目中一直的做法都是让UI直接切一整张静态图，这样的做法虽然省事，但带来的后果就是适配性太差，还会出现引导图和下面真正的界面不符的情况，让用户感到莫名其妙。因此，就有必要自定义一个蒙层引导视图来解决这个问题。本篇文章主要是对核心原理实现的剖析。 核心原理分析 自定义引导视图(GuideView)其实最主要的是需要解决三个问题：  引导视图应该是按需加载，在需要展示时浮在整个页面上">
+<meta name="description" content="引言蒙层引导在我们项目中一直的做法都是让UI直接切一整张静态图，这样的做法虽然省事，但带来的后果就是适配性太差，还会出现引导图和下面真正的界面不符的情况，让用户感到莫名其妙。因此，就有必要自定义一个蒙层引导视图来解决这个问题。本篇文章主要是对核心原理实现的剖析。">
 <meta name="keywords" content="蒙层引导库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="轻松搞懂自定义蒙层引导原理">
 <meta property="og:url" content="https://kaelinvoker.github.io/Blog/2019/01/10/轻松搞懂自定义蒙层引导原理/index.html">
 <meta property="og:site_name" content="二两五花肉">
-<meta property="og:description" content="引言蒙层引导在我们项目中一直的做法都是让UI直接切一整张静态图，这样的做法虽然省事，但带来的后果就是适配性太差，还会出现引导图和下面真正的界面不符的情况，让用户感到莫名其妙。因此，就有必要自定义一个蒙层引导视图来解决这个问题。本篇文章主要是对核心原理实现的剖析。 核心原理分析 自定义引导视图(GuideView)其实最主要的是需要解决三个问题：  引导视图应该是按需加载，在需要展示时浮在整个页面上">
+<meta property="og:description" content="引言蒙层引导在我们项目中一直的做法都是让UI直接切一整张静态图，这样的做法虽然省事，但带来的后果就是适配性太差，还会出现引导图和下面真正的界面不符的情况，让用户感到莫名其妙。因此，就有必要自定义一个蒙层引导视图来解决这个问题。本篇文章主要是对核心原理实现的剖析。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/8Pqhs6J.png">
 <meta property="og:image" content="https://i.imgur.com/iyKmlPn.png">
 <meta property="og:image" content="https://i.imgur.com/z7kwLgx.png">
 <meta property="og:image" content="https://i.imgur.com/WMY8veJ.png">
 <meta property="og:image" content="https://i.imgur.com/e5pMEmh.png">
-<meta property="og:updated_time" content="2019-01-23T01:23:28.399Z">
+<meta property="og:updated_time" content="2019-01-23T01:24:57.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="轻松搞懂自定义蒙层引导原理">
-<meta name="twitter:description" content="引言蒙层引导在我们项目中一直的做法都是让UI直接切一整张静态图，这样的做法虽然省事，但带来的后果就是适配性太差，还会出现引导图和下面真正的界面不符的情况，让用户感到莫名其妙。因此，就有必要自定义一个蒙层引导视图来解决这个问题。本篇文章主要是对核心原理实现的剖析。 核心原理分析 自定义引导视图(GuideView)其实最主要的是需要解决三个问题：  引导视图应该是按需加载，在需要展示时浮在整个页面上">
+<meta name="twitter:description" content="引言蒙层引导在我们项目中一直的做法都是让UI直接切一整张静态图，这样的做法虽然省事，但带来的后果就是适配性太差，还会出现引导图和下面真正的界面不符的情况，让用户感到莫名其妙。因此，就有必要自定义一个蒙层引导视图来解决这个问题。本篇文章主要是对核心原理实现的剖析。">
 <meta name="twitter:image" content="https://i.imgur.com/8Pqhs6J.png">
 
 
@@ -349,6 +349,7 @@
 
       
         <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>蒙层引导在我们项目中一直的做法都是让<code>UI</code>直接切一整张静态图，这样的做法虽然省事，但带来的后果就是适配性太差，还会出现引导图和下面真正的界面不符的情况，让用户感到莫名其妙。因此，就有必要自定义一个蒙层引导视图来解决这个问题。本篇文章主要是对核心原理实现的剖析。</p>
+<a id="more"></a>
 <h3 id="核心原理分析"><a href="#核心原理分析" class="headerlink" title="核心原理分析"></a>核心原理分析</h3><p> 自定义引导视图(<code>GuideView</code>)其实最主要的是需要解决三个问题：</p>
 <ol>
 <li>引导视图应该是按需加载，在需要展示时浮在整个页面上，展示完毕后从页面视图中移除</li>
