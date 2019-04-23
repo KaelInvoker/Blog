@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/Blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/Blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/Blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSS,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="引言本篇文章继续学习CSS，主要学习CSS的三大模块：盒子模型、浮动、定位。 盒子模型所谓盒子模型就是把HTML页面中的元素看作是一个矩形的盒子，也就是一个盛装内容的容器。每个矩形都由元素的内容、内边距（padding）、边框（border）和外边距（margin）组成。 看透网页布局的本质本质就是把网页元素比如文字图片等等，放入盒子里面，然后利用CSS摆放盒子的过程，就是网页布局。 CSS 其实">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS入门（二）">
+<meta property="og:url" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/index.html">
+<meta property="og:site_name" content="二两五花肉">
+<meta property="og:description" content="引言本篇文章继续学习CSS，主要学习CSS的三大模块：盒子模型、浮动、定位。 盒子模型所谓盒子模型就是把HTML页面中的元素看作是一个矩形的盒子，也就是一个盛装内容的容器。每个矩形都由元素的内容、内边距（padding）、边框（border）和外边距（margin）组成。 看透网页布局的本质本质就是把网页元素比如文字图片等等，放入盒子里面，然后利用CSS摆放盒子的过程，就是网页布局。 CSS 其实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/box.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/boxs.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/anli1.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/www.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/n.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/1498467567011.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/flow.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/one.jpg">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/float2.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/yl.jpg">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/ll.jpg">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/tl.jpg">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/clear1.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/n.jpg">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/no.jpg">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/163.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/1.gif">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/2.gif">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/r.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/ab.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/ab1.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/zi.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/zzz.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/z-index.png">
+<meta property="og:updated_time" content="2019-04-23T01:16:44.588Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS入门（二）">
+<meta name="twitter:description" content="引言本篇文章继续学习CSS，主要学习CSS的三大模块：盒子模型、浮动、定位。 盒子模型所谓盒子模型就是把HTML页面中的元素看作是一个矩形的盒子，也就是一个盛装内容的容器。每个矩形都由元素的内容、内边距（padding）、边框（border）和外边距（margin）组成。 看透网页布局的本质本质就是把网页元素比如文字图片等等，放入盒子里面，然后利用CSS摆放盒子的过程，就是网页布局。 CSS 其实">
+<meta name="twitter:image" content="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/box.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kaelinvoker.github.io/Blog/2017/01/15/CSS入门（二）/">
+
+
+
+
+
+  <title>CSS入门（二） | 二两五花肉</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">二两五花肉</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/Blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/Blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/Blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/Blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kaelinvoker.github.io/Blog/Blog/2017/01/15/CSS入门（二）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaer">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="二两五花肉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSS入门（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-15T22:07:26+08:00">
+                2017-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>本篇文章继续学习<code>CSS</code>，主要学习<code>CSS</code>的三大模块：盒子模型、浮动、定位。</p>
+<h3 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h3><p>所谓盒子模型就是把HTML页面中的元素看作是一个矩形的盒子，也就是一个盛装内容的容器。每个矩形都由元素的内容、内边距（padding）、边框（border）和外边距（margin）组成。</p>
+<h4 id="看透网页布局的本质"><a href="#看透网页布局的本质" class="headerlink" title="看透网页布局的本质"></a>看透网页布局的本质</h4><p>本质就是把网页元素比如文字图片等等，放入盒子里面，然后利用CSS摆放盒子的过程，就是网页布局。</p>
+<p><code>CSS</code> 其实没有太多逻辑可言 ， 类似我们小时候玩的积木,我们可以自由的，随意的摆放出我们想要的效果。</p>
+<a id="more"></a>
+<h4 id="盒子模型-Box-Model"><a href="#盒子模型-Box-Model" class="headerlink" title="盒子模型(Box Model)"></a>盒子模型(Box Model)</h4><p>这里略过 老旧的ie盒子模型（IE6以下），对不起，我都没见过IE5的浏览器。 </p>
+<p>首先，我们来看一张图，来体会下什么是盒子模型。</p>
+<p><img src="box.png" alt=""></p>
+<p>所有的文档元素（标签）都会生成一个矩形框，我们成为元素框（element box），它描述了一个文档元素在网页布局汇总所占的位置大小。因此，<strong style="color: #f00;">每个盒子除了有自己大小和位置外，还影响着其他盒子的大小和位置。</strong></p>
+<p><img src="boxs.png" alt=""></p>
+<h4 id="盒子边框"><a href="#盒子边框" class="headerlink" title="盒子边框"></a>盒子边框</h4><p>语法： </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">border : border-width || border-style || border-color</span><br></pre></td></tr></table></figure>
+<p>边框属性—设置边框样式（border-style）</p>
+<p>边框样式用于定义页面中边框的风格，常用属性值如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">none：没有边框即忽略所有边框的宽度（默认值）</span><br><span class="line"></span><br><span class="line">solid：边框为单实线(最为常用的)</span><br><span class="line"></span><br><span class="line">dashed：边框为虚线  </span><br><span class="line"></span><br><span class="line">dotted：边框为点线</span><br><span class="line"></span><br><span class="line">double：边框为双实线</span><br></pre></td></tr></table></figure>
+<h5 id="盒子边框写法总结"><a href="#盒子边框写法总结" class="headerlink" title="盒子边框写法总结"></a>盒子边框写法总结</h5><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>设置内容</td>
+<td>样式属性</td>
+<td>常用属性值</td>
+</tr>
+<tr>
+<td>上边框</td>
+<td>border-top-style:样式; border-top-width:宽度;border-top-color:颜色;border-top:宽度 样式 颜色;</td>
+<td></td>
+</tr>
+<tr>
+<td>下边框</td>
+<td>border-bottom-style:样式;border- bottom-width:宽度;border- bottom-color:颜色;border-bottom:宽度 样式 颜色;</td>
+<td></td>
+</tr>
+<tr>
+<td>左边框</td>
+<td>border-left-style:样式; border-left-width:宽度;border-left-color:颜色;border-left:宽度 样式 颜色;</td>
+<td></td>
+</tr>
+<tr>
+<td>右边框</td>
+<td>border-right-style:样式;border-right-width:宽度;border-right-color:颜色;border-right:宽度 样式 颜色;</td>
+<td></td>
+</tr>
+<tr>
+<td>样式综合设置</td>
+<td>border-style:上边 [右边 下边 左边];</td>
+<td>none无（默认）、solid单实线、dashed虚线、dotted点线、double双实线</td>
+</tr>
+<tr>
+<td>宽度综合设置</td>
+<td>border-width:上边 [右边 下边 左边];</td>
+<td>像素值</td>
+</tr>
+<tr>
+<td>颜色综合设置</td>
+<td>border-color:上边 [右边 下边 左边];</td>
+<td>颜色值、#十六进制、rgb(r,g,b)、rgb(r%,g%,b%)</td>
+</tr>
+<tr>
+<td>边框综合设置</td>
+<td>border:四边宽度 四边样式 四边颜色;</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">border-top: 1px solid red; /*上边框*/</span><br><span class="line">border-bottom: 2px solid green; /*下边框*/</span><br><span class="line">border-left: 1px solid blue;</span><br><span class="line">border-right: 5px solid pink;</span><br><span class="line">border: 1px solid red;</span><br></pre></td></tr></table></figure>
+<h5 id="表格的细线边框"><a href="#表格的细线边框" class="headerlink" title="表格的细线边框"></a>表格的细线边框</h5><p>以前学过的html表格边框很粗，这里只需要CSS一句话就可以美观起来。 让我们真的相信，CSS就是我们的白马王子（白雪公主）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">table&#123; border-collapse:collapse; &#125;  collapse 单词是合并的意思</span><br><span class="line"></span><br><span class="line">border-collapse:collapse; 表示相邻边框合并在一起。</span><br></pre></td></tr></table></figure>
+<h5 id="圆角边框-CSS3"><a href="#圆角边框-CSS3" class="headerlink" title="圆角边框(CSS3)"></a>圆角边框(CSS3)</h5><p>从此以后，我们的世界不只有矩形。radius 半径（距离）</p>
+<p>语法格式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">border-radius</span>: 50%;<span class="comment">/*必须是正方形才可以 当圆角等于宽度的一半时就变成圆了*/</span></span><br></pre></td></tr></table></figure>
+<p>圆角的值和下面的padding一样。可以是1个值，表示左上，右上，右下，左下的圆角一样。</p>
+<p>也可以是2个值。如<code>border-radius: 10px 5px</code> 表示左上，右下的圆角为10px，右上和左下的圆角为5px</p>
+<p>也可以是3个值。如<code>border-radius:10px 15px 20px</code>表示左上为10px，右下为20px，右上和左下为15px</p>
+<p>也可以是4个值，如<code>border-radius:10px 15px 20px 30px</code>表示左上为10,右上15,右下20，左下30px 顺时针</p>
+<h4 id="内边距（padding）"><a href="#内边距（padding）" class="headerlink" title="内边距（padding）"></a>内边距（padding）</h4><p>padding属性用于设置内边距。  是指 边框与内容之间的距离。</p>
+<p>padding-top:上内边距</p>
+<p>padding-right:右内边距</p>
+<p>padding-bottom:下内边距</p>
+<p>padding-left:左内边距</p>
+<p><strong>注意</strong>：后面跟几个数值表示的意思是不一样的</p>
+<table>
+<thead>
+<tr>
+<th>值的个数</th>
+<th>表达意思</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1个值</td>
+<td>padding：上下左右边距 比如padding: 3px; 表示上下左右都是3像素</td>
+</tr>
+<tr>
+<td>2个值</td>
+<td>padding: 上下边距 左右边距 比如 padding: 3px 5px; 表示 上下3像素 左右 5像素</td>
+</tr>
+<tr>
+<td>3个值</td>
+<td>padding：上边距 左右边距 下边距 比如 padding: 3px 5px 10px; 表示 上是3像素 左右是5像素 下是10像素</td>
+</tr>
+<tr>
+<td>4个值</td>
+<td>padding:上内边距 右内边距 下内边距 左内边距 比如: padding: 3px 5px 10px 15px; 表示 上3px 右是5px 下 10px 左15px 顺时针</td>
+</tr>
+</tbody>
+</table>
+<h5 id="内边距的问题"><a href="#内边距的问题" class="headerlink" title="内边距的问题"></a>内边距的问题</h5><p>内边距会使得有宽高的盒子变大。但我们经常有需求要求盒子宽高固定，padding固定。怎么做呢？</p>
+<p>比如要求div就是标准的200*200，padding是20，那怎么保证加了这个padding，整个盒子不变大呢？</p>
+<p>所以盒子的宽度要等于200-20 * 2 = 160，高度也等于160就ok了</p>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>实现以下的效果</p>
+<p><img src="anli1.png" alt=""></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  	* &#123;</span></span><br><span class="line"><span class="css">       <span class="selector-tag">padding</span>: 0; <span class="comment">/*清除内外边距*/</span></span></span><br><span class="line"><span class="undefined">       margin: 0;</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="undefined">   body &#123;</span></span><br><span class="line"><span class="css">       <span class="selector-tag">background-color</span>: <span class="selector-id">#EEEEEE</span>;</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="css">   <span class="selector-class">.news</span> &#123;</span></span><br><span class="line"><span class="undefined">       width: 386px;</span></span><br><span class="line"><span class="undefined">       height: 270px;</span></span><br><span class="line"><span class="undefined">       padding: 24px 14px 0;</span></span><br><span class="line"><span class="css">       <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line"><span class="undefined">       margin: 100px;</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="undefined">   li &#123;</span></span><br><span class="line"><span class="css">       <span class="selector-tag">list-style</span>: <span class="selector-tag">none</span>; <span class="comment">/*取消li 前面的小点*/</span></span></span><br><span class="line"><span class="undefined">   &#125; </span></span><br><span class="line"><span class="undefined">   h4 &#123;</span></span><br><span class="line"><span class="undefined">       font: bold 20px "微软雅黑";</span></span><br><span class="line"><span class="css">       <span class="selector-tag">color</span>: <span class="selector-id">#202026</span>;</span></span><br><span class="line"><span class="css">       <span class="selector-tag">border-bottom</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>; <span class="comment">/* 1像素的虚线边框*/</span></span></span><br><span class="line"><span class="undefined">       padding-bottom: 3px;</span></span><br><span class="line"><span class="undefined">       margin-bottom: 8px;</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="undefined">   </span></span><br><span class="line"><span class="css">   <span class="selector-class">.news</span> <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="css">       <span class="selector-tag">color</span>: <span class="selector-id">#333</span>;</span></span><br><span class="line"><span class="undefined">       font: 12px "微软雅黑";</span></span><br><span class="line"><span class="undefined">       text-decoration: none;</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="undefined">   	</span></span><br><span class="line"><span class="undefined">   ul li &#123;</span></span><br><span class="line"><span class="undefined">      	height: 38px;</span></span><br><span class="line"><span class="undefined">       line-height: 38px;</span></span><br><span class="line"><span class="css">       <span class="selector-tag">border-bottom</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">dashed</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line"><span class="undefined">       text-indent: 2em;</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="undefined">   </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"news"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">h4</span>&gt;</span>最新文章/New Articles<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>北京招聘网页设计，平面设计，php<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>体验javascript的魅力<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>jquery世界来临<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>网页设计师的梦想<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>jquery中的链式编程是什么<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="外边距（margin）"><a href="#外边距（margin）" class="headerlink" title="外边距（margin）"></a>外边距（margin）</h4><p>margin属性用于设置外边距。  设置外边距会在元素之间创建“空白”， 这段空白通常不能放置其他内容。</p>
+<p>margin-top:上外边距</p>
+<p>margin-right:右外边距</p>
+<p>margin-bottom:下外边距</p>
+<p>margin-left:上外边距</p>
+<p>margin:上外边距 右外边距  下外边距  左外边</p>
+<p>取值顺序跟内边距相同。</p>
+<h5 id="外边距实现盒子居中"><a href="#外边距实现盒子居中" class="headerlink" title="外边距实现盒子居中"></a>外边距实现盒子居中</h5><p>可以让一个盒子实现水平居中，需要满足一下两个条件：</p>
+<ol>
+<li>必须是块级元素。     </li>
+<li>盒子必须指定了宽度（width）</li>
+</ol>
+<p>然后就给<strong>左右的外边距都设置为auto</strong>，就可使块级元素水平居中。</p>
+<p>实际工作中常用这种方式进行网页布局，示例代码如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.header</span>&#123; <span class="attribute">width</span>:<span class="number">960px</span>; <span class="attribute">margin</span>:<span class="number">0</span> auto;&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="文字盒子居中图片和背景区别"><a href="#文字盒子居中图片和背景区别" class="headerlink" title="文字盒子居中图片和背景区别"></a>文字盒子居中图片和背景区别</h5><ol>
+<li>文字水平居中是  text-align: center</li>
+<li>盒子水平居中  左右margin 改为 auto </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">text-align: center; /*  文字居中水平 */</span><br><span class="line">margin: 10px auto;  /* 盒子水平居中  左右margin 改为 auto 就阔以了 */</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>插入图片 我们用的最多 比如产品展示类</li>
+<li>背景图片我们一般用于小图标背景 或者 超大背景图片</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">section</span> <span class="selector-tag">img</span> &#123;  </span><br><span class="line">		<span class="attribute">width</span>: <span class="number">200px</span>;<span class="comment">/* 插入图片更改大小 width 和 height */</span></span><br><span class="line">		<span class="attribute">height</span>: <span class="number">210px</span>;</span><br><span class="line">		<span class="attribute">margin-top</span>: <span class="number">30px</span>;  <span class="comment">/* 插入图片更改位置 可以用margin 或padding  盒模型 */</span></span><br><span class="line">		<span class="attribute">margin-left</span>: <span class="number">50px</span>; <span class="comment">/* 插入当图片也是一个盒子 */</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">aside</span> &#123;</span><br><span class="line">		<span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">		<span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">		<span class="attribute">border</span>: <span class="number">1px</span> solid purple;</span><br><span class="line">		<span class="attribute">background</span>: <span class="number">#fff</span> <span class="built_in">url</span>(images/sun.jpg) no-repeat;</span><br><span class="line">	</span><br><span class="line">		<span class="attribute">background-size</span>: <span class="number">200px</span> <span class="number">210px</span>; <span class="comment">/*  背景图片更改大小只能用 background-size */</span></span><br><span class="line">		<span class="attribute">background-position</span>: <span class="number">30px</span> <span class="number">50px</span>; <span class="comment">/* 背景图片更该位置 我用 background-position */</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="清除元素的默认内外边距"><a href="#清除元素的默认内外边距" class="headerlink" title="清除元素的默认内外边距"></a>清除元素的默认内外边距</h5><p>为了更方便地控制网页中的元素，制作网页时，可使用如下代码清除元素的默认内外边距： </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">   <span class="attribute">padding</span>:<span class="number">0</span>;         <span class="comment">/* 清除内边距 */</span></span><br><span class="line">   <span class="attribute">margin</span>:<span class="number">0</span>;          <span class="comment">/* 清除外边距 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>  行内元素是只有左右外边距的，是没有上下外边距的。 内边距，在ie6等低版本浏览器也会有问题。</p>
+<p>我们尽量不要给行内元素指定上下的内外边距就好了。</p>
+<p>这种方式写起来虽然简单，但浏览器的执行效率低，因为浏览器要先找出所有的元素，一般是指定具体的元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select&#123;margin:0;padding:0&#125;</span><br></pre></td></tr></table></figure>
+<p>类似的可以参考腾讯官网，新浪官网的写法。</p>
+<h4 id="外边距合并"><a href="#外边距合并" class="headerlink" title="外边距合并"></a>外边距合并</h4><p>使用margin定义块元素的垂直外边距时，可能会出现外边距的合并。</p>
+<h5 id="相邻块元素垂直外边距的合并"><a href="#相邻块元素垂直外边距的合并" class="headerlink" title="相邻块元素垂直外边距的合并"></a>相邻块元素垂直外边距的合并</h5><p>当上下相邻的两个块元素相遇时，如果上面的元素有下外边距margin-bottom，下面的元素有上外边距margin-top，则他们之间的垂直间距不是margin-bottom与margin-top之和，而是两者中的较大者。这种现象被称为相邻块元素垂直外边距的合并（也称外边距塌陷）。</p>
+<p><img src="www.png" alt=""></p>
+<p>解决方案：  避免就好了。</p>
+<h5 id="嵌套块元素垂直外边距的合并"><a href="#嵌套块元素垂直外边距的合并" class="headerlink" title="嵌套块元素垂直外边距的合并"></a>嵌套块元素垂直外边距的合并</h5><p>对于两个嵌套关系的块元素，如果父元素没有上内边距及边框，则父元素的上外边距会与子元素的上外边距发生合并，合并后的外边距为两者中的较大者，即使父元素的上外边距为0，也会发生合并。</p>
+<p><img src="n.png" alt=""></p>
+<p>解决方案：</p>
+<ol>
+<li>可以为父元素定义1像素的上边框或上内边距。</li>
+<li>可以为父元素添加overflow:hidden。</li>
+</ol>
+<p>待续。。。。</p>
+<h4 id="content宽度和高度"><a href="#content宽度和高度" class="headerlink" title="content宽度和高度"></a>content宽度和高度</h4><p>使用宽度属性width和高度属性height可以对盒子的大小进行控制。</p>
+<p>width和height的属性值可以为不同单位的数值或相对于父元素的百分比%，实际工作中最常用的是像素值。</p>
+<p>大多数浏览器，如Firefox、IE6及以上版本都采用了W3C规范，符合CSS规范的盒子模型的总宽度和总高度的计算原则是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/*外盒尺寸计算（元素空间尺寸）*/</span><br><span class="line">Element空间高度 = content height + padding + border + margin</span><br><span class="line">Element 空间宽度 = content width + padding + border + margin</span><br><span class="line">/*内盒尺寸计算（元素实际大小）*/</span><br><span class="line">Element Height = content height + padding + border （Height为内容高度）</span><br><span class="line">Element Width = content width + padding + border （Width为内容宽度）</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<p>1、宽度属性width和高度属性height仅适用于块级元素，对行内元素无效（ img 标签和 input除外）。</p>
+<p>2、计算盒子模型的总高度时，还应考虑上下两个盒子垂直外边距合并的情况。</p>
+<p>3、<strong>如果一个盒子没有给定宽度/高度或者继承父亲的宽度/高度，则padding 不会影响本盒子大小</strong>。（如div恰套div,父div指定宽度，子div未指定，默认和父宽一样。如果父div指定padding会影响盒子，但子div指定padding不会撑开盒子。）</p>
+<h4 id="盒子模型布局稳定性"><a href="#盒子模型布局稳定性" class="headerlink" title="盒子模型布局稳定性"></a>盒子模型布局稳定性</h4><p>开始学习盒子模型，最大的困惑就是， 分不清内外边距的使用，什么情况下使用内边距，什么情况下使用外边距？</p>
+<p>答案是：  其实他们大部分情况下是可以混用的。  就是说，你用内边距也可以，用外边距也可以。 你觉得哪个方便，就用哪个。</p>
+<p>但是，总有一个最好用的吧，我们根据稳定性来分，建议如下：</p>
+<p>按照 优先使用  宽度 （width）  其次 使用内边距（padding）    再次  外边距（margin）。   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">width &gt;  padding  &gt;   margin</span><br></pre></td></tr></table></figure>
+<p>原因：</p>
+<ol>
+<li>margin 会有外边距合并 还有 ie6下面margin 加倍的bug（讨厌）所以最后使用。</li>
+<li>padding  会影响盒子大小， 需要进行加减计算（麻烦） 其次使用。</li>
+<li>width   没有问题（嗨皮）我们经常使用宽度剩余法 高度剩余法来做。</li>
+</ol>
+<h5 id="高度剩余法"><a href="#高度剩余法" class="headerlink" title="高度剩余法"></a>高度剩余法</h5><p>比如说下面的布局</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;top&quot;&gt;</span><br><span class="line">&lt;/div class=&quot;bottom&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>现在要求top和bottom之间要有30px的间距，实现这个可以给top设置margin-bottom,或者bottom设置margin-top。其实还有更简便的方法，我们可以在测量top的高度时，把中间的间距加上，由于内容默认上左上对齐的，所以减去内容，剩余的自然是间距了，这就是高度剩余法。</p>
+<h5 id="宽度剩余法"><a href="#宽度剩余法" class="headerlink" title="宽度剩余法"></a>宽度剩余法</h5><p>这里是指两个元素有左右间距，我们可以在左边的元素的宽度加上中间的间距，就能避免设置margin-left或者margin-right</p>
+<h4 id="盒子阴影"><a href="#盒子阴影" class="headerlink" title="盒子阴影"></a>盒子阴影</h4><p>语法格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">box-shadow:水平阴影 垂直阴影 模糊距离 阴影尺寸 阴影颜色  内/外阴影；</span><br></pre></td></tr></table></figure>
+<p><img src="1498467567011.png" alt=""></p>
+<ol>
+<li>前两个属性是必须写的。其余的可以省略。</li>
+<li>外阴影 (outset) 但是不能写    默认      想要内阴影  inset </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">div &#123;</span><br><span class="line">			width: 200px;</span><br><span class="line">			height: 200px;</span><br><span class="line">			border: 10px solid red;</span><br><span class="line">			/* box-shadow: 5px 5px 3px 4px rgba(0, 0, 0, .4);  */</span><br><span class="line">			/* box-shadow:水平位置 垂直位置 模糊距离 阴影尺寸（影子大小） 阴影颜色  内/外阴影；</span><br><span class="line">            这个是小米商城的 不会的时候可以学别人的*/</span><br><span class="line">			box-shadow: 0 15px 30px  rgba(0, 0, 0, .4);</span><br><span class="line">			</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这几个值可以在浏览器中自己调看效果</p>
+<h3 id="浮动-float"><a href="#浮动-float" class="headerlink" title="浮动(float)"></a>浮动(float)</h3><h4 id="普通流-normal-flow"><a href="#普通流-normal-flow" class="headerlink" title="普通流(normal flow)"></a>普通流(normal flow)</h4><p>这个单词很多人翻译为 <strong>文档流</strong> ， 字面翻译  普通流 或者标准流都可以。</p>
+<p>前面我们说过，网页布局的核心，就是用<code>CSS</code>来摆放盒子位置。如何把盒子摆放到合适的位置？  </p>
+<p><code>CSS</code>的定位机制有3种：普通流（标准流）、浮动和定位。</p>
+<p>html语言当中另外一个相当重要的概念———-标准流！或者普通流。普通流实际上就是一个网页内标签元素正常从上到下，从左到右排列顺序的意思，比如块级元素会独占一行，行内元素会按顺序依次前后排列；按照这种大前提的布局排列之下绝对不会出现例外的情况叫做普通流布局。</p>
+<h4 id="浮动的意义"><a href="#浮动的意义" class="headerlink" title="浮动的意义"></a>浮动的意义</h4><p>浮动最早是用来控制图片，以便达到其他元素（特别是文字）实现“环绕”图片的效果。</p>
+<p><img src="flow.png" alt=""></p>
+<p>后来，我们发现浮动有个很有意思的事情：就是让任何盒子可以一行排列(比如让3个div排在一行),因此我们就慢慢的偏离主题，用浮动的特性来布局了。（CSS3已经我们真正意义上的网页布局）</p>
+<h4 id="浮动的概念"><a href="#浮动的概念" class="headerlink" title="浮动的概念"></a>浮动的概念</h4><p>元素的浮动是指设置了浮动属性的元素会脱离标准标准流的控制，移动到其父元素中指定位置的过程。</p>
+<p>在CSS中，通过float属性来定义浮动，其基本语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择器&#123;float:属性值;&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>属性值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>left</td>
+<td>元素向左浮动</td>
+</tr>
+<tr>
+<td>right</td>
+<td>元素向右浮动</td>
+</tr>
+<tr>
+<td>none</td>
+<td>元素不浮动（默认值）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="浮动的详细内幕特性"><a href="#浮动的详细内幕特性" class="headerlink" title="浮动的详细内幕特性"></a>浮动的详细内幕特性</h4><p>浮动脱离标准流，====脱标==== 不占位置，会影响标准流。浮动只有左右浮动。</p>
+<p>1.浮动首先创建包含块的概念（包裹）。就是说， 浮动的元素总是找离它最近的父级元素对齐。但是不会超出内边距的范围。 </p>
+<p><img src="one.jpg" alt=""></p>
+<p>2.一个父盒子里面的子盒子，如果其中一个子级有浮动的，则其他子级都需要浮动。这样才能一行对齐显示。</p>
+<p><img src="float2.png" alt=""></p>
+<p>3.元素添加浮动后，元素会具有行内块元素的特性。元素的大小完全取决于定义的大小或者默认的内容多少，浮动根据元素书写的位置来显示相应的浮动。（所以如果给行内元素添加了浮动，可以直接给宽高，不用再次转换显示模式了。）</p>
+<p><strong>总结</strong>：  浮动 —&gt;    </p>
+<p>浮动的目的就是为了让多个块级元素同一行上显示。  最核心的关键点就是   怎么排列的， 是否占有位置</p>
+<p>float      浮 漏 特   </p>
+<p>浮：    加了浮动的元素盒子是浮起来的，漂浮在其他的标准流盒子上面。<br>漏：    加了浮动的盒子，不占位置的，它浮起来了，它原来的位置漏 给了标准流的盒子。<br>特：    特别注意，首先浮动的盒子需要和标准流的父级搭配使用， 其次 特别的注意浮动可以使元素显示模式体现为行内块特性。</p>
+<h3 id="版心和布局流程"><a href="#版心和布局流程" class="headerlink" title="版心和布局流程"></a>版心和布局流程</h3><p>阅读报纸时容易发现，虽然报纸中的内容很多，但是经过合理地排版，版面依然清晰、易读。同样，在制作网页时，要想使页面结构清晰、有条理，也需要对网页进行“排版”。</p>
+<p>“版心”(可视区) 是指网页中主体内容所在的区域。一般在浏览器窗口中水平居中显示，常见的宽度值为960px、980px、1000px、1200px等。</p>
+<h4 id="布局流程"><a href="#布局流程" class="headerlink" title="布局流程"></a>布局流程</h4><p>为了提高网页制作的效率，布局时通常需要遵守一定的布局流程，具体如下：</p>
+<p>1、确定页面的版心（可视区）。</p>
+<p>2、分析页面中的行模块，以及每个行模块中的列模块。</p>
+<p>3、制作HTML结构 。</p>
+<p>4、CSS初始化，然后开始运用盒子模型的原理，通过DIV+CSS布局来控制网页的各个模块。</p>
+<h4 id="单列定宽且居中"><a href="#单列定宽且居中" class="headerlink" title="单列定宽且居中"></a>单列定宽且居中</h4><p><img src="yl.jpg" alt=""></p>
+<p>最普通的，最为常用的结构</p>
+<h4 id="两列左窄右宽"><a href="#两列左窄右宽" class="headerlink" title="两列左窄右宽"></a>两列左窄右宽</h4><p><img src="ll.jpg" alt=""></p>
+<p>比如小米    <a href="http://www.mi.com" target="_blank"> 小米官网 </a></p>
+<h4 id="通栏平均分布"><a href="#通栏平均分布" class="headerlink" title="通栏平均分布"></a>通栏平均分布</h4><p><img src="tl.jpg" alt=""></p>
+<p>比如锤子    <a href="http://www.smartisan.com/" target="_blank"> 锤子官网 </a></p>
+<h3 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h3><h4 id="为什么要清除浮动"><a href="#为什么要清除浮动" class="headerlink" title="为什么要清除浮动"></a>为什么要清除浮动</h4><p>我们前面说过，浮动本质是用来做一些文字混排效果的，但是被我们拿来做布局用，则会有很多的问题出现， 但是，你不能说浮动不好。</p>
+<p>由于浮动元素不再占用原文档流的位置，所以它会对后面的元素排版产生影响，为了解决这些问题，此时就需要在该元素中清除浮动。</p>
+<p>准确地说，并不是清除浮动，而是<strong>清除浮动后造成的影响</strong></p>
+<p>比如说</p>
+<p><img src="clear1.png" alt=""></p>
+<p>我们经常要实现这样上面一行块级元素，下面一个块级元素类似的布局，为了让块级元素在一行显示，我们给黑色和红色设置了浮动。这样绿色会跑到这两个元素的下面，所以我们通常给会黑色和红色外面包一个父盒子，而且父盒子还必须指定高度，这样父盒子是标准流占据了位置，那绿色就不会上移。但是通常黑色的红色的高度是不确定的，导致父盒子也没法指定高度，这时候就要清除子元素浮动造成的影响了。</p>
+<h4 id="清除浮动本质"><a href="#清除浮动本质" class="headerlink" title="清除浮动本质"></a>清除浮动本质</h4><p>清除浮动主要为了解决父级元素因为子级浮动引起内部高度为0 的问题，也可以说是为了让父元素占有位置，不影响其它标准流的元素了</p>
+<p><img src="n.jpg" alt=""></p>
+<p><img src="no.jpg" alt=""></p>
+<h4 id="清除浮动的方法"><a href="#清除浮动的方法" class="headerlink" title="清除浮动的方法"></a>清除浮动的方法</h4><p>其实本质叫做闭合浮动更好一些, 记住，清除浮动就是把浮动的盒子圈到里面，让父盒子闭合出口和入口不让他们出来影响其他元素。</p>
+<p>在CSS中，clear属性用于清除浮动，其基本语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择器&#123;clear:属性值;&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>属性值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>left</td>
+<td>不允许左侧有浮动元素（清除左侧浮动的影响）</td>
+</tr>
+<tr>
+<td>right</td>
+<td>不允许右侧有浮动元素（清除右侧浮动的影响）</td>
+</tr>
+<tr>
+<td>both</td>
+<td>同时清除左右两侧浮动的影响</td>
+</tr>
+</tbody>
+</table>
+<p>一般都是使用both</p>
+<h5 id="额外标签法"><a href="#额外标签法" class="headerlink" title="额外标签法"></a>额外标签法</h5><p>是<code>W3C</code>推荐的做法是通过在浮动元素末尾添加一个空的标签例如 <code>&lt;div style=&quot;clear:both&quot;&gt;&lt;/div&gt;</code>，或则其他标签<code>br</code>等亦可。</p>
+<p>优点： 通俗易懂，书写方便</p>
+<p>缺点： 添加许多无意义的标签，结构化较差。  </p>
+<h5 id="父级添加overflow属性方法"><a href="#父级添加overflow属性方法" class="headerlink" title="父级添加overflow属性方法"></a>父级添加overflow属性方法</h5><p>可以通过触发BFC的方式，可以实现清除浮动效果。（BFC后面讲解）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以给父级添加： overflow为 hidden|auto|scroll  都可以实现。</span><br></pre></td></tr></table></figure>
+<p>优点：  代码简洁</p>
+<p>缺点：  内容增多时候容易造成不会自动换行导致内容被隐藏掉，无法显示需要溢出的元素。</p>
+<h5 id="使用after伪元素清除浮动"><a href="#使用after伪元素清除浮动" class="headerlink" title="使用after伪元素清除浮动"></a>使用after伪元素清除浮动</h5><p><strong>:after 方式为空元素的升级版，好处是不用单独加标签了</strong> </p>
+<p>使用方法：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;  <span class="attribute">content</span>: <span class="string">""</span>; <span class="attribute">display</span>: block; <span class="attribute">height</span>: <span class="number">0</span>; <span class="attribute">clear</span>: both; <span class="attribute">visibility</span>: hidden;  &#125;   </span><br><span class="line"></span><br><span class="line">.clearfix &#123;*zoom: 1;&#125;   /* IE6、7 专有 */</span><br></pre></td></tr></table></figure>
+<p>优点： 符合闭合浮动思想  结构语义化正确</p>
+<p>缺点： 由于IE6-7不支持:after，使用 zoom:1触发 hasLayout。</p>
+<p>代表网站： 百度、淘宝网、网易等</p>
+<p><img src="163.png" alt=""></p>
+<p>注意： content:”.”  里面尽量跟一个小点，或者其他，尽量不要为空，否则再firefox 7.0前的版本会有生成空格。</p>
+<h5 id="使用before和after双伪元素清除浮动"><a href="#使用before和after双伪元素清除浮动" class="headerlink" title="使用before和after双伪元素清除浮动"></a>使用before和after双伪元素清除浮动</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:before</span>,<span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123; </span><br><span class="line">  <span class="attribute">content</span>:<span class="string">""</span>;</span><br><span class="line">  <span class="attribute">display</span>:table;  <span class="comment">/* 这句话可以出发BFC BFC可以清除浮动,BFC我们后面讲 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line"> <span class="attribute">clear</span>:both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span> &#123;</span><br><span class="line">  *zoom:1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优点：  代码更简洁</p>
+<p>缺点：  由于IE6-7不支持:after，使用 zoom:1触发 hasLayout。</p>
+<p>代表网站： 小米、腾讯等</p>
+<h3 id="定位（position）"><a href="#定位（position）" class="headerlink" title="定位（position）"></a>定位（position）</h3><p>background-position   背景定位</p>
+<p>如果，说浮动， 关键在一个 “浮” 字上面， 那么 我们的定位，关键在于一个 “位” 上。</p>
+<p>PS: 定位是我们CSS算是数一数二难点的了，但是，你务必要学好它，我们CSS离不开定位，特别是后面的js特效，天天和定位打交道。</p>
+<h4 id="为什么要用定位"><a href="#为什么要用定位" class="headerlink" title="为什么要用定位"></a>为什么要用定位</h4><p>那么定位，最长运用的场景再那里呢？   来看几幅图片，你一定会有感悟！</p>
+<p>第一幅图， 小黄色块可以再图片上移动：</p>
+<p><img src="1.gif" alt=""></p>
+<p>第二幅图， 左右箭头压住图片:</p>
+<p><img src="2.gif" alt=""></p>
+<p>类似以上的效果，如果用标准流或者浮动，实现会比较复杂或者难以实现，此时我们用定位来做，just soso！</p>
+<h4 id="元素的定位属性"><a href="#元素的定位属性" class="headerlink" title="元素的定位属性"></a>元素的定位属性</h4><p>元素的定位属性主要包括定位模式和边偏移两部分。</p>
+<h5 id="边偏移"><a href="#边偏移" class="headerlink" title="边偏移"></a>边偏移</h5><table>
+<thead>
+<tr>
+<th>边偏移属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>top</td>
+<td>顶端偏移量，定义元素相对于其父元素上边线的距离</td>
+</tr>
+<tr>
+<td>bottom</td>
+<td>底部偏移量，定义元素相对于其父元素下边线的距离</td>
+</tr>
+<tr>
+<td>left</td>
+<td>左侧偏移量，定义元素相对于其父元素左边线的距离</td>
+</tr>
+<tr>
+<td>right</td>
+<td>右侧偏移量，定义元素相对于其父元素右边线的距离</td>
+</tr>
+</tbody>
+</table>
+<p>也就说，以后定位要和这边偏移搭配使用了， 比如 top: 100px;  left: 30px; 等等</p>
+<h5 id="定位模式（定位的分类）"><a href="#定位模式（定位的分类）" class="headerlink" title="定位模式（定位的分类）"></a>定位模式（定位的分类）</h5><p>在CSS中，position属性用于定义元素的定位模式，其基本语法格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择器&#123;position:属性值;&#125;</span><br></pre></td></tr></table></figure>
+<p>position属性的常用值</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>static</td>
+<td>自动定位（默认定位方式）</td>
+</tr>
+<tr>
+<td>relative</td>
+<td>相对定位，相对于其原文档流的位置进行定位</td>
+</tr>
+<tr>
+<td>absolute</td>
+<td>绝对定位，相对于其上一个已经定位的父元素进行定位</td>
+</tr>
+<tr>
+<td>fixed</td>
+<td>固定定位，相对于浏览器窗口进行定位</td>
+</tr>
+</tbody>
+</table>
+<h4 id="静态定位（static）"><a href="#静态定位（static）" class="headerlink" title="静态定位（static）"></a>静态定位（static）</h4><p>静态定位是所有元素的默认定位方式，当position属性的取值为static时，可以将元素定位于静态位置。 所谓静态位置就是各个元素在HTML文档流中默认的位置。</p>
+<p>上面的话翻译成白话：  就是网页中所有元素都默认的是静态定位哦！ 其实就是标准流的特性。</p>
+<p>在静态定位状态下，无法通过边偏移属性（top、bottom、left或right）来改变元素的位置。</p>
+<p>静态定位唯一的用处：  就是 取消定位。 position: static;</p>
+<h4 id="相对定位relative-自恋型"><a href="#相对定位relative-自恋型" class="headerlink" title="相对定位relative(自恋型)"></a>相对定位relative(自恋型)</h4><p>相对定位是将元素相对于它在标准流中的位置进行定位，当position属性的取值为relative时，可以将元素定位于相对位置。</p>
+<p>对元素设置相对定位后，可以通过边偏移属性改变元素的位置，但是它在文档流中的位置仍然保留。如下图所示，即是一个相对定位的效果展示：</p>
+<p><img src="r.png" alt=""></p>
+<p><strong>注意：</strong>   </p>
+<ol>
+<li>相对定位最重要的一点是，它可以通过边偏移 移动位置，漂浮在其它标准流元素的上方，但是原来的所占的位置，继续占有。</li>
+<li>其次，每次移动的位置，是以自己的左上角为基点移动（相对于自己来移动位置）</li>
+</ol>
+<p>就是说，相对定位的盒子仍在标准流中，它后面的盒子仍以标准流方式对待它。（相对定位不脱标）</p>
+<p><strong>如果说浮动的主要目的是 让多个块级元素一行显示，那么定位的主要价值就是 移动位置， 让盒子到我们想要的位置上去。</strong></p>
+<h4 id="绝对定位absolute-拼爹型"><a href="#绝对定位absolute-拼爹型" class="headerlink" title="绝对定位absolute (拼爹型)"></a>绝对定位absolute (拼爹型)</h4><p>如果文档可滚动，绝对定位元素会随着它滚动，因为元素最终会相对于正常流的某一部分定位。</p>
+<p>当position属性的取值为absolute时，可以将元素的定位模式设置为绝对定位。</p>
+<p>注意：    </p>
+<p>绝对定位最重要的一点是，它可以通过边偏移移动位置，但是它完全脱标，完全不占位置。</p>
+<h5 id="没有父级元素或者父级没有定位"><a href="#没有父级元素或者父级没有定位" class="headerlink" title="没有父级元素或者父级没有定位"></a>没有父级元素或者父级没有定位</h5><p>若所有父元素都没有定位，以浏览器当前屏幕为准对齐(document文档)。</p>
+<p><img src="ab.png" alt=""></p>
+<h5 id="父级有定位"><a href="#父级有定位" class="headerlink" title="父级有定位"></a>父级有定位</h5><p>绝对定位是将元素依据最近的已经定位（绝对、固定或相对定位）的父元素（祖先）进行定位。 也就是说跟定位的父级元素的左上角对齐</p>
+<p><img src="ab1.png" alt=""></p>
+<h4 id="子绝父相"><a href="#子绝父相" class="headerlink" title="子绝父相"></a>子绝父相</h4><p>这个“子绝父相”太重要了，是我们学习定位的口诀，时时刻刻记住的。</p>
+<p>这句话的意思是 子级是绝对定位的话， 父级要用相对定位。</p>
+<p>首先， 我们说下， 绝对定位是将元素依据最近的已经定位绝对、固定或相对定位）的父元素（祖先）进行定位。</p>
+<p>就是说， 子级是绝对定位，父亲只要是定位即可（不管父亲是绝对定位还是相对定位，甚至是固定定位都可以），就是说， 子绝父绝，子绝父相都是正确的。</p>
+<p>但是，在我们网页布局的时候， 最常说的 子绝父相是怎么来的呢？ 请看如下图：</p>
+<p><img src="zi.png" alt=""></p>
+<p>要实现红线框中轮播图的箭头浮在整个盒子的最左边和最右边的效果，就必须用定位。用浮动不行么？当然不行，如果用浮动的话，其它元素也会依次排列，不能达到浮到任意位置。那么用什么定位？相对定位可以么？不行，相对定位不脱标，其它元素会排在它后面。所以必须用绝对定位。我们知道绝对定位是以最近的有定位的父元素的左上角为基准对齐的。所以父元素也要有定位。那么父元素用什么定位呢？绝对定位可以么？不行，因为绝对定位会脱标，这样后面的元素会上来。所以只能用相对定位。</p>
+<p>所以，我们可以得出如下结论：</p>
+<p>因为子级是绝对定位，不会占有位置， 可以放到父盒子里面的任何一个地方。</p>
+<p>父盒子布局时，需要占有位置，因此父亲只能是 相对定位. </p>
+<p>这就是子绝父相的由来。</p>
+<h4 id="绝对定位的盒子水平-垂直居中"><a href="#绝对定位的盒子水平-垂直居中" class="headerlink" title="绝对定位的盒子水平/垂直居中"></a>绝对定位的盒子水平/垂直居中</h4><p>普通的盒子是左右margin 改为 auto就可， 但是对于绝对定位（还有浮动）就无效了</p>
+<p>定位的盒子也可以水平或者垂直居中，有一个算法。</p>
+<ol>
+<li>首先left 50%   父盒子的一半大小</li>
+<li>然后走自己外边距负的一半值就可以了 margin-left。</li>
+</ol>
+<h4 id="固定定位fixed-认死理型"><a href="#固定定位fixed-认死理型" class="headerlink" title="固定定位fixed(认死理型)"></a>固定定位fixed(认死理型)</h4><p>固定定位是绝对定位的一种特殊形式，类似于 正方形是一个特殊的 矩形。它以浏览器窗口作为参照物来定义网页元素。当position属性的取值为fixed时，即可将元素的定位模式设置为固定定位。</p>
+<p>当对元素设置固定定位后，它将脱离标准文档流的控制，始终依据浏览器窗口来定义自己的显示位置。不管浏览器滚动条如何滚动也不管浏览器窗口的大小如何变化，该元素都会始终显示在浏览器窗口的固定位置。</p>
+<p>固定定位有两点：</p>
+<ol>
+<li>固定定位的元素跟父亲没有任何关系，只认浏览器。</li>
+<li>固定定位完全脱标，不占有位置，不随着滚动条滚动。</li>
+</ol>
+<p>注：ie6等低版本浏览器不支持固定定位。</p>
+<h4 id="叠放次序（z-index）"><a href="#叠放次序（z-index）" class="headerlink" title="叠放次序（z-index）"></a>叠放次序（z-index）</h4><p>当对多个元素同时设置定位时，定位元素之间有可能会发生重叠。</p>
+<p><img src="zzz.png" alt=""></p>
+<p>在CSS中，要想调整重叠定位元素的堆叠顺序，可以对定位元素应用z-index层叠等级属性，其取值可为正整数、负整数和0。</p>
+<p>比如：  z-index: 2;       font-weight: 700  </p>
+<p>注意：</p>
+<ol>
+<li>z-index的默认属性值是0，取值越大，定位元素在层叠元素中越居上。</li>
+<li>如果取值相同，则根据书写顺序，后来居上。</li>
+<li>后面数字一定不能加单位。</li>
+<li>只有相对定位，绝对定位，固定定位有此属性，其余标准流，浮动，静态定位都无此属性，亦不可指定此属性。</li>
+</ol>
+<h4 id="z-index的一个使用技巧"><a href="#z-index的一个使用技巧" class="headerlink" title="z-index的一个使用技巧"></a>z-index的一个使用技巧</h4><p>如下图</p>
+<p><img src="z-index.png" alt=""></p>
+<p>首先可以看到这里有两个盒子并列一排，用浮动就可以。中间的间距是1px，一般我们会为每个盒子的外边框设置1px，但是这样会导致两个盒子的中间边框重叠，变成了2px。那么如何实现呢？我们可以设置margin-left：-1px，让两个盒子都向左偏移1px。由于盒子都设置了浮动，会脱标，所以第一个盒子向左偏移时，右边的盒子也自动跟着向左偏移，然后第二个盒子也偏移1px，这样的话中间的间距就会叠上，变成了1px。</p>
+<p>第二，选中盒子时，边框要变色。当我们选择第二个盒子时，正常。选中第一个盒子时，发现右边框没有显示，原因就是右边的边框被第二个盒子的左边框压住了。那么怎么解决呢？可以给选中状态的盒子，添加一个相对定位。相对定位会使元素浮起来，所以可以看到边框了。</p>
+<p>但有时，盒子本身要使用定位，自己已经有了定位，那这时，我们就可以提高z-index值就可以了。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>浮动<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    div &#123;</span></span><br><span class="line"><span class="undefined">        width: 200px;</span></span><br><span class="line"><span class="undefined">        height: 300px;</span></span><br><span class="line"><span class="undefined">        float: left;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line"><span class="undefined">        margin-left: -1px;</span></span><br><span class="line"><span class="undefined">        position: relative;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    body &#123;</span></span><br><span class="line"><span class="undefined">        height: 10000px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="undefined">        border-color: orange;</span></span><br><span class="line"><span class="undefined">        z-index: 2;</span></span><br><span class="line"><span class="css">        <span class="comment">/*position: relative;*/</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.f3</span> &#123;</span></span><br><span class="line"><span class="undefined">        position: fixed;</span></span><br><span class="line"><span class="undefined">        bottom: 0;</span></span><br><span class="line"><span class="undefined">        right: 0;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"f1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"f2"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="四种定位总结"><a href="#四种定位总结" class="headerlink" title="四种定位总结"></a>四种定位总结</h4><table>
+<thead>
+<tr>
+<th>定位模式</th>
+<th>是否脱标占有位置</th>
+<th>是否可以使用边偏移</th>
+<th>移动位置基准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>静态static</td>
+<td>不脱标，正常模式</td>
+<td>不可以</td>
+<td>正常模式</td>
+</tr>
+<tr>
+<td>相对定位relative</td>
+<td>不脱标，占有位置</td>
+<td>可以</td>
+<td>相对自身位置移动（自恋型）</td>
+</tr>
+<tr>
+<td>绝对定位absolute</td>
+<td>完全脱标，不占有位置</td>
+<td>可以</td>
+<td>相对于定位父级移动位置（拼爹型）</td>
+</tr>
+<tr>
+<td>固定定位fixed</td>
+<td>完全脱标，不占有位置</td>
+<td>可以</td>
+<td>相对于浏览器移动位置（认死理型）</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2017/01/10/CSS入门（一）/" rel="next" title="CSS入门（一）">
+                <i class="fa fa-chevron-left"></i> CSS入门（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2017/03/02/多页面分享成功回调重复的坑/" rel="prev" title="多页面分享成功回调重复的坑">
+                多页面分享成功回调重复的坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/Blog/images/avatar.jpg" alt="kaer">
+            
+              <p class="site-author-name" itemprop="name">kaer</p>
+              <p class="site-description motion-element" itemprop="description">锐情书卷，烹煮江山</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/Blog/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/Blog/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/Blog/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#盒子模型"><span class="nav-number">2.</span> <span class="nav-text">盒子模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#看透网页布局的本质"><span class="nav-number">2.1.</span> <span class="nav-text">看透网页布局的本质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#盒子模型-Box-Model"><span class="nav-number">2.2.</span> <span class="nav-text">盒子模型(Box Model)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#盒子边框"><span class="nav-number">2.3.</span> <span class="nav-text">盒子边框</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#盒子边框写法总结"><span class="nav-number">2.3.1.</span> <span class="nav-text">盒子边框写法总结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表格的细线边框"><span class="nav-number">2.3.2.</span> <span class="nav-text">表格的细线边框</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#圆角边框-CSS3"><span class="nav-number">2.3.3.</span> <span class="nav-text">圆角边框(CSS3)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内边距（padding）"><span class="nav-number">2.4.</span> <span class="nav-text">内边距（padding）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内边距的问题"><span class="nav-number">2.4.1.</span> <span class="nav-text">内边距的问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例"><span class="nav-number">2.5.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外边距（margin）"><span class="nav-number">2.6.</span> <span class="nav-text">外边距（margin）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#外边距实现盒子居中"><span class="nav-number">2.6.1.</span> <span class="nav-text">外边距实现盒子居中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文字盒子居中图片和背景区别"><span class="nav-number">2.6.2.</span> <span class="nav-text">文字盒子居中图片和背景区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#清除元素的默认内外边距"><span class="nav-number">2.6.3.</span> <span class="nav-text">清除元素的默认内外边距</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外边距合并"><span class="nav-number">2.7.</span> <span class="nav-text">外边距合并</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#相邻块元素垂直外边距的合并"><span class="nav-number">2.7.1.</span> <span class="nav-text">相邻块元素垂直外边距的合并</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#嵌套块元素垂直外边距的合并"><span class="nav-number">2.7.2.</span> <span class="nav-text">嵌套块元素垂直外边距的合并</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#content宽度和高度"><span class="nav-number">2.8.</span> <span class="nav-text">content宽度和高度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#盒子模型布局稳定性"><span class="nav-number">2.9.</span> <span class="nav-text">盒子模型布局稳定性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#高度剩余法"><span class="nav-number">2.9.1.</span> <span class="nav-text">高度剩余法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#宽度剩余法"><span class="nav-number">2.9.2.</span> <span class="nav-text">宽度剩余法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#盒子阴影"><span class="nav-number">2.10.</span> <span class="nav-text">盒子阴影</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮动-float"><span class="nav-number">3.</span> <span class="nav-text">浮动(float)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#普通流-normal-flow"><span class="nav-number">3.1.</span> <span class="nav-text">普通流(normal flow)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮动的意义"><span class="nav-number">3.2.</span> <span class="nav-text">浮动的意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮动的概念"><span class="nav-number">3.3.</span> <span class="nav-text">浮动的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮动的详细内幕特性"><span class="nav-number">3.4.</span> <span class="nav-text">浮动的详细内幕特性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版心和布局流程"><span class="nav-number">4.</span> <span class="nav-text">版心和布局流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#布局流程"><span class="nav-number">4.1.</span> <span class="nav-text">布局流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单列定宽且居中"><span class="nav-number">4.2.</span> <span class="nav-text">单列定宽且居中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两列左窄右宽"><span class="nav-number">4.3.</span> <span class="nav-text">两列左窄右宽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通栏平均分布"><span class="nav-number">4.4.</span> <span class="nav-text">通栏平均分布</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清除浮动"><span class="nav-number">5.</span> <span class="nav-text">清除浮动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要清除浮动"><span class="nav-number">5.1.</span> <span class="nav-text">为什么要清除浮动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清除浮动本质"><span class="nav-number">5.2.</span> <span class="nav-text">清除浮动本质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清除浮动的方法"><span class="nav-number">5.3.</span> <span class="nav-text">清除浮动的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#额外标签法"><span class="nav-number">5.3.1.</span> <span class="nav-text">额外标签法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#父级添加overflow属性方法"><span class="nav-number">5.3.2.</span> <span class="nav-text">父级添加overflow属性方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用after伪元素清除浮动"><span class="nav-number">5.3.3.</span> <span class="nav-text">使用after伪元素清除浮动</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用before和after双伪元素清除浮动"><span class="nav-number">5.3.4.</span> <span class="nav-text">使用before和after双伪元素清除浮动</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位（position）"><span class="nav-number">6.</span> <span class="nav-text">定位（position）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要用定位"><span class="nav-number">6.1.</span> <span class="nav-text">为什么要用定位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元素的定位属性"><span class="nav-number">6.2.</span> <span class="nav-text">元素的定位属性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#边偏移"><span class="nav-number">6.2.1.</span> <span class="nav-text">边偏移</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定位模式（定位的分类）"><span class="nav-number">6.2.2.</span> <span class="nav-text">定位模式（定位的分类）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态定位（static）"><span class="nav-number">6.3.</span> <span class="nav-text">静态定位（static）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相对定位relative-自恋型"><span class="nav-number">6.4.</span> <span class="nav-text">相对定位relative(自恋型)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对定位absolute-拼爹型"><span class="nav-number">6.5.</span> <span class="nav-text">绝对定位absolute (拼爹型)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#没有父级元素或者父级没有定位"><span class="nav-number">6.5.1.</span> <span class="nav-text">没有父级元素或者父级没有定位</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#父级有定位"><span class="nav-number">6.5.2.</span> <span class="nav-text">父级有定位</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子绝父相"><span class="nav-number">6.6.</span> <span class="nav-text">子绝父相</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对定位的盒子水平-垂直居中"><span class="nav-number">6.7.</span> <span class="nav-text">绝对定位的盒子水平/垂直居中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#固定定位fixed-认死理型"><span class="nav-number">6.8.</span> <span class="nav-text">固定定位fixed(认死理型)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#叠放次序（z-index）"><span class="nav-number">6.9.</span> <span class="nav-text">叠放次序（z-index）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#z-index的一个使用技巧"><span class="nav-number">6.10.</span> <span class="nav-text">z-index的一个使用技巧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四种定位总结"><span class="nav-number">6.11.</span> <span class="nav-text">四种定位总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaer</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
