@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/Blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/Blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/Blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/Blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/Blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSS,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CSS高级技巧元素的显示和隐藏在CSS中有三个显示和隐藏的单词比较常见，我们要区分开，他们分别是 display visibility 和 overflow。 他们的主要目的是让一个元素在页面中消失，但是不在文档源码中删除。 最常见的是网站广告，当我们点击类似关闭不见了，但是我们重新刷新页面，它们又会出现和你玩躲猫猫！！ display显示display 设置或检索对象是否及如何显示。 displ">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS入门（三）">
+<meta property="og:url" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/index.html">
+<meta property="og:site_name" content="二两五花肉">
+<meta property="og:description" content="CSS高级技巧元素的显示和隐藏在CSS中有三个显示和隐藏的单词比较常见，我们要区分开，他们分别是 display visibility 和 overflow。 他们的主要目的是让一个元素在页面中消失，但是不在文档源码中删除。 最常见的是网站广告，当我们点击类似关闭不见了，但是我们重新刷新页面，它们又会出现和你玩躲猫猫！！ display显示display 设置或检索对象是否及如何显示。 displ">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/outline.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/xian.jpg">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/1498467742995.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/line.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/1633.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/sina1.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/flow.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/sss.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/jds.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/comm-spr.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/s1.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/wxx.jpg">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/bg.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/slide.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/fontt.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/03.jpg">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/1513132290173.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/fontt1.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/fontt2.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/1498032122244.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/fontt5.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/ico.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/san.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/search.png">
+<meta property="og:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/title.png">
+<meta property="og:updated_time" content="2019-04-25T04:34:24.460Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS入门（三）">
+<meta name="twitter:description" content="CSS高级技巧元素的显示和隐藏在CSS中有三个显示和隐藏的单词比较常见，我们要区分开，他们分别是 display visibility 和 overflow。 他们的主要目的是让一个元素在页面中消失，但是不在文档源码中删除。 最常见的是网站广告，当我们点击类似关闭不见了，但是我们重新刷新页面，它们又会出现和你玩躲猫猫！！ display显示display 设置或检索对象是否及如何显示。 displ">
+<meta name="twitter:image" content="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/outline.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kaelinvoker.github.io/Blog/2017/01/19/CSS入门（三）/">
+
+
+
+
+
+  <title>CSS入门（三） | 二两五花肉</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">二两五花肉</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/Blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/Blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/Blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/Blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kaelinvoker.github.io/Blog/Blog/2017/01/19/CSS入门（三）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaer">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/Blog/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="二两五花肉">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSS入门（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-19T09:29:49+08:00">
+                2017-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/Blog/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="CSS高级技巧"><a href="#CSS高级技巧" class="headerlink" title="CSS高级技巧"></a>CSS高级技巧</h3><h4 id="元素的显示和隐藏"><a href="#元素的显示和隐藏" class="headerlink" title="元素的显示和隐藏"></a>元素的显示和隐藏</h4><p>在CSS中有三个显示和隐藏的单词比较常见，我们要区分开，他们分别是 display visibility 和 overflow。</p>
+<p>他们的主要目的是让一个元素在页面中消失，但是不在文档源码中删除。 最常见的是网站广告，当我们点击类似关闭不见了，但是我们重新刷新页面，它们又会出现和你玩躲猫猫！！</p>
+<h5 id="display显示"><a href="#display显示" class="headerlink" title="display显示"></a>display显示</h5><p>display 设置或检索对象是否及如何显示。</p>
+<p>display : none 隐藏对象 与它相反的是 display:block 除了转换为块级元素之外，同时还有显示元素的意思。</p>
+<p>特点： 隐藏之后，不再保留位置。</p>
+<a id="more"></a>
+<h5 id="visibility可见性"><a href="#visibility可见性" class="headerlink" title="visibility可见性"></a>visibility可见性</h5><p>设置或检索是否显示对象。</p>
+<p>visible : 　对象可视</p>
+<p>hidden : 　对象隐藏</p>
+<p>特点： 隐藏之后，继续保留原有位置。</p>
+<h5 id="overflow溢出"><a href="#overflow溢出" class="headerlink" title="overflow溢出"></a>overflow溢出</h5><p>检索或设置当对象的内容超过其指定高度及宽度时如何管理内容。</p>
+<p>visible : 　不剪切内容也不添加滚动条。</p>
+<p>auto : 　 超出自动显示滚动条，不超出不显示滚动条</p>
+<p>hidden : 　不显示超过对象尺寸的内容，超出的部分隐藏掉</p>
+<p>scroll : 　不管超出内容否，总是显示滚动条</p>
+<h4 id="CSS用户界面样式"><a href="#CSS用户界面样式" class="headerlink" title="CSS用户界面样式"></a>CSS用户界面样式</h4><p>所谓的界面样式， 就是更改一些用户操作样式， 比如 更改用户的鼠标样式， 表单轮廓等。但是比如滚动条的样式改动受到了很多浏览器的抵制，因此我们就放弃了。 防止表单域拖拽</p>
+<h5 id="鼠标样式cursor"><a href="#鼠标样式cursor" class="headerlink" title="鼠标样式cursor"></a>鼠标样式cursor</h5><p>设置或检索在对象上移动的鼠标指针采用何种系统预定义的光标形状。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cursor :  default  小白 | pointer  小手  | move  移动  |  text  文本</span><br></pre></td></tr></table></figure>
+<p>这几个属性是最常用的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">style</span>=<span class="string">"cursor:default"</span>&gt;</span>我是小白<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">style</span>=<span class="string">"cursor:pointer"</span>&gt;</span>我是小手<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">style</span>=<span class="string">"cursor:move"</span>&gt;</span>我是移动<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">style</span>=<span class="string">"cursor:text"</span>&gt;</span>我是文本<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="轮廓outline"><a href="#轮廓outline" class="headerlink" title="轮廓outline"></a>轮廓outline</h5><p>轮廓就是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用。</p>
+<p><img src="outline.png" alt=""></p>
+<p>比如输入框或者文本域中的鼠标放进去时，chrome浏览器会在周围显示蓝色。这条蓝色边线就是轮廓线</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outline : outline-color ||outline-style || outline-width</span><br></pre></td></tr></table></figure>
+<p>但是我们都不关心可以设置多少，我们平时都是去掉的。</p>
+<p>最直接的写法是 ：  outline: 0;   或者  outline: none;</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span>  <span class="attr">type</span>=<span class="string">"text"</span>  <span class="attr">style</span>=<span class="string">"outline: 0;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="防止拖拽文本域resize"><a href="#防止拖拽文本域resize" class="headerlink" title="防止拖拽文本域resize"></a>防止拖拽文本域resize</h5><p>resize：none    这个单词可以防止 火狐 谷歌等浏览器随意的拖动 文本域。</p>
+<p>默认的文本域右下角可以拖拽：</p>
+ <textarea></textarea>
+
+<p>右下角不可以拖拽： </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span>  <span class="attr">style</span>=<span class="string">"resize: none;"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="vertical-align-垂直对齐"><a href="#vertical-align-垂直对齐" class="headerlink" title="vertical-align 垂直对齐"></a>vertical-align 垂直对齐</h4><p>以前我们讲过让带有宽度的块级元素居中对齐，是margin: 0 auto;</p>
+<p>以前我们还讲过让文字居中对齐，是 text-align: center;</p>
+<p>但是我们从来没有讲过有垂直居中的属性， 我们的妈妈一直很担心我们的垂直居中怎么做。</p>
+<p>vertical-align 垂直对齐， 这个看上去很美好的一个属性， 实际有着不可捉摸的脾气.</p>
+<p><img src="xian.jpg" alt=""></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vertical-align : baseline |top |middle |bottom</span><br></pre></td></tr></table></figure>
+<p>设置或检索对象内容的垂直对其方式。 </p>
+<p>vertical-align 不影响块级元素中的内容对齐，它只针对于 行内元素或者行内块元素，特别是行内块元素， <strong>通常用来控制图片/表单与文字的对齐</strong></p>
+<p><img src="1498467742995.png" alt=""></p>
+<h5 id="图片、表单和文字对齐"><a href="#图片、表单和文字对齐" class="headerlink" title="图片、表单和文字对齐"></a>图片、表单和文字对齐</h5><p>所以我们知道，我们可以通过vertical-align 控制图片和文字的垂直关系了。 默认的图片会和文字基线对齐。</p>
+<p>如下：</p>
+<p><img src="line.png" alt=""></p>
+<p>可以看到文字底部超出文本域底部一部分了</p>
+<h5 id="去除图片底侧空白缝隙"><a href="#去除图片底侧空白缝隙" class="headerlink" title="去除图片底侧空白缝隙"></a>去除图片底侧空白缝隙</h5><p>有个很重要特性你要记住： 图片或者表单等行内块元素，他的底线会和父级盒子的基线对齐。这样会造成一个问题，就是图片底侧会有一个空白缝隙(无论有没有文字，所以做项目时CSS初始化时会去掉这个缝隙)。</p>
+<p>解决的方法就是：  </p>
+<p>1.给img vertical-align:middle | top等等。  让图片不要和基线对齐。</p>
+<p><img src="1633.png" alt=""></p>
+<p>2.给img 添加 display：block; 转换为块级元素就不会存在问题了。</p>
+<p><img src="sina1.png" alt=""></p>
+<h4 id="溢出的文字隐藏"><a href="#溢出的文字隐藏" class="headerlink" title="溢出的文字隐藏"></a>溢出的文字隐藏</h4><h5 id="强制单行white-space"><a href="#强制单行white-space" class="headerlink" title="强制单行white-space"></a>强制单行white-space</h5><p>white-space设置或检索对象内文本显示方式。通常我们使用于强制一行显示内容 </p>
+<p>normal : 　默认处理方式<br>nowrap : 　强制在同一行内显示所有文本，直到文本结束或者遭遇br标签对象才换行。</p>
+<p>可以处理中文</p>
+<p>如：给li标签设置了宽度，当文本过长时会到下一行</p>
+<p><img src="flow.png" alt=""></p>
+<h5 id="text-overflow-文字溢出"><a href="#text-overflow-文字溢出" class="headerlink" title="text-overflow 文字溢出"></a>text-overflow 文字溢出</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text-overflow : clip | ellipsis</span><br></pre></td></tr></table></figure>
+<p>设置或检索是否使用一个省略标记（…）标示对象内文本的溢出</p>
+<p>clip : 　不显示省略标记（…），而是简单的裁切 </p>
+<p>ellipsis : 　当对象内文本溢出时显示省略标记（…）</p>
+<p>注意一定要首先强制一行内显示，再次和overflow属性  搭配使用</p>
+<h5 id="文本过长单行显示并显示省略号"><a href="#文本过长单行显示并显示省略号" class="headerlink" title="文本过长单行显示并显示省略号"></a>文本过长单行显示并显示省略号</h5><p>这样的需求很常见，一般要用到下面的代码，三个属性必不可少</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span>&#123;</span><br><span class="line">   	<span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">   	<span class="attribute">height</span>: <span class="number">30px</span>;</span><br><span class="line">   	<span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">   	<span class="attribute">overflow</span>: hidden;</span><br><span class="line">   	<span class="attribute">white-space</span>: nowrap;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CSS精灵技术（sprite）"><a href="#CSS精灵技术（sprite）" class="headerlink" title="CSS精灵技术（sprite）"></a>CSS精灵技术（sprite）</h3><h4 id="精灵技术产生的背景"><a href="#精灵技术产生的背景" class="headerlink" title="精灵技术产生的背景"></a>精灵技术产生的背景</h4><p><img src="sss.png" alt=""></p>
+<p>图所示为网页的请求原理图，当用户访问一个网站时，需要向服务器发送请求，网页上的每张图像都要经过一次请求才能展现给用户。</p>
+<p>然而，一个网页中往往会应用很多小的背景图像作为修饰，当网页中的图像过多时，服务器就会频繁地接受和发送请求，这将大大降低页面的加载速度。<strong>为了有效地减少服务器接受和发送请求的次数，提高页面的加载速度，出现了CSS精灵技术</strong>（也称CSS Sprites、CSS雪碧）。</p>
+<h4 id="精灵技术本质"><a href="#精灵技术本质" class="headerlink" title="精灵技术本质"></a>精灵技术本质</h4><p>简单地说，CSS精灵是一种处理网页背景图像的方式。它将一个页面涉及到的所有零星背景图像都集中到一张大图中去，然后将大图应用于网页，这样，当用户访问该页面时，只需向服务发送一次请求，网页中的背景图像即可全部展示出来。</p>
+<p>通常情况下，这个由很多小的背景图像合成的大图被称为精灵图（雪碧图），如下图所示为京东网站中的一个精灵图。</p>
+<p><img src="jds.png" alt=""></p>
+<h4 id="精灵技术的使用"><a href="#精灵技术的使用" class="headerlink" title="精灵技术的使用"></a>精灵技术的使用</h4><p>CSS 精灵其实是将网页中的一些背景图像整合到一张大图中（精灵图），然而，各个网页元素通常只需要精灵图中不同位置的某个小图，要想精确定位到精灵图中的某个小图，就需要使用CSS的background-image、background-repeat和background-position属性进行背景定位，其中最关键的是使用background-position属性精确地定位。</p>
+<p>如下图是我从LOL官网找到的一张精灵图</p>
+<p><img src="comm-spr.png" alt=""></p>
+<p>首先用PS把这张图片打开，默认会将这张图片定位到原点坐标上。需要展示精灵图上的某张小图，只需要选中该图，或者用辅助线确定好该图的边线。按下F8，右侧会出现当前鼠标所在的坐标。</p>
+<p>如下图</p>
+<p><img src="s1.png" alt=""></p>
+<p>确定了x坐标，在用鼠标选中图片的顶侧，查看Y坐标。这样就可以通过background-position属性去定位该图了。</p>
+<p>因为给标签设置背景图默认都是以左上角对齐的，我们知道了目标切图距离左上角的坐标，就可以确定了</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">     <span class="attribute">width</span>: <span class="number">33px</span>;</span><br><span class="line">     <span class="attribute">height</span>: <span class="number">30px</span>;</span><br><span class="line">     <span class="attribute">background</span>: <span class="built_in">url</span>(images/comm-spr.png) no-repeat -<span class="number">192px</span> -<span class="number">12px</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>这里是负值，我们需要目标图往左移动，所以是负的</p>
+<h4 id="精灵图的制作"><a href="#精灵图的制作" class="headerlink" title="精灵图的制作"></a>精灵图的制作</h4><p>CSS 精灵其实是将网页中的一些背景图像整合到一张大图中（精灵图），那我们要做的，就是把小图拼合成一张大图。</p>
+<p>大部分情况下，精灵图都是网页美工做。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">我们精灵图上放的都是小的装饰性质的背景图片。 插入图片不能往上放。</span><br><span class="line">我们精灵图的宽度取决于最宽的那个背景。 </span><br><span class="line">我们可以横向摆放也可以纵向摆放，但是每个图片之间，间隔至少隔开偶数像素合适。</span><br><span class="line">在我们精灵图的最低端，留一片空隙，方便我们以后添加其他精灵图。</span><br></pre></td></tr></table></figure>
+<p>小公司，背景图片很少的情况，没有必要使用精灵技术，维护成本太高。 如果是背景图片比较多，可以建议使用精灵技术。</p>
+<h3 id="滑动门"><a href="#滑动门" class="headerlink" title="滑动门"></a>滑动门</h3><h4 id="滑动门出现的背景"><a href="#滑动门出现的背景" class="headerlink" title="滑动门出现的背景"></a>滑动门出现的背景</h4><p>制作网页时，为了美观，常常需要为网页元素设置特殊形状的背景，比如微信导航栏，有凸起和凹下去的感觉，最大的问题是里面的字数不一样多，咋办？</p>
+<p><img src="wxx.jpg" alt=""></p>
+<p><strong>为了使各种特殊形状的背景能够自适应元素中文本内容的多少，出现了CSS滑动门技术</strong>。它从新的角度构建页面，使各种特殊形状的背景能够自由拉伸滑动，以适应元素内部的文本内容，可用性更强。 最常见于各种导航栏的滑动门。</p>
+<h4 id="核心技术原理"><a href="#核心技术原理" class="headerlink" title="核心技术原理"></a>核心技术原理</h4><p>核心技术就是利用CSS精灵（主要是背景位置）和盒子padding撑开宽度, 以便能适应不同字数的导航栏。</p>
+<p>一般的经典布局都是这样的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	 1.a标签包着span 是因为整个导航栏都是可以点击的</span></span><br><span class="line"><span class="comment">	 2.内部使用span是由于文本大小不固定</span></span><br><span class="line"><span class="comment">	 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>导航栏内容<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">//cs</span><br></pre></td></tr></table></figure>
+<p>样式如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*a的高度就是背景图的高度，a是行内元素所以要有高度必须模式转换，又要和span在一行，而span也要有高度，所以必须是行内块。a设置背景，默认和图左上角对齐，</span></span><br><span class="line"><span class="comment">不能给宽度，因为文字不确定</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="selector-tag">a</span>&#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">33px</span>;</span><br><span class="line">	<span class="attribute">display</span>: inline-block;</span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(images/to.png) no-repeat;</span><br><span class="line">	<span class="attribute">margin</span>: <span class="number">100px</span>;</span><br><span class="line">	<span class="attribute">padding-left</span>: <span class="number">15px</span>;<span class="comment">/*文字要与图片有边距*/</span></span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">	<span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">	<span class="attribute">line-height</span>: <span class="number">33px</span><span class="comment">/*文字居中对齐*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">span</span>&#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">33px</span>;</span><br><span class="line">	<span class="attribute">display</span>: inline-block;</span><br><span class="line">	<span class="comment">/*span也设置这张图片为背景，但以右边对齐，这样当文字越来越大，图片会展示左边的部分*/</span></span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(images/to.png) no-repeat right;</span><br><span class="line">	<span class="attribute">padding-right</span>: <span class="number">15px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的背景图</p>
+<p><img src="bg.png" alt=""></p>
+<p>总结： </p>
+<ol>
+<li>a 设置 背景左侧，padding撑开合适宽度。    </li>
+<li>span 设置背景右侧， padding撑开合适宽度 剩下由文字继续撑开宽度。</li>
+<li>之所以a包含span就是因为 整个导航都是可以点击的。</li>
+</ol>
+<p>所以这种方式有个缺陷就是当文字超出了图片宽度时，就露馅了，会出现两张背景图。</p>
+<p><img src="slide.png" alt=""></p>
+<h3 id="Web字体"><a href="#Web字体" class="headerlink" title="Web字体"></a>Web字体</h3><h4 id="字体格式（了解）"><a href="#字体格式（了解）" class="headerlink" title="字体格式（了解）"></a>字体格式（了解）</h4><p>不同浏览器所支持的字体格式是不一样的，我们有必要了解一下有关字体格式的知识。</p>
+<p>1、TureType(.ttf)格式</p>
+<p>.ttf字体是Windows和Mac的最常见的字体，是一种RAW格式，支持这种字体的浏览器有IE9+、Firefox3.5+、Chrome4+、Safari3+、Opera10+、iOS Mobile、Safari4.2+；</p>
+<p>2、OpenType(.otf)格式</p>
+<p>.otf字体被认为是一种原始的字体格式，其内置在TureType的基础上，支持这种字体的浏览器有Firefox3.5+、Chrome4.0+、Safari3.1+、Opera10.0+、iOS Mobile、Safari4.2+；</p>
+<p>3、Web Open Font Format(.woff)格式</p>
+<p>woff字体是Web字体中最佳格式，他是一个开放的TrueType/OpenType的压缩版本，同时也支持元数据包的分离，支持这种字体的浏览器有IE9+、Firefox3.5+、Chrome6+、Safari3.6+、Opera11.1+；</p>
+<p>4、Embedded Open Type(.eot)格式</p>
+<p>.eot字体是IE专用字体，可以从TrueType创建此格式字体，支持这种字体的浏览器有IE4+；</p>
+<p>5、SVG(.svg)格式</p>
+<p>.svg字体是基于SVG字体渲染的一种格式，支持这种字体的浏览器有Chrome4+、Safari3.1+、Opera10.0+、iOS Mobile Safari3.2+；</p>
+<p>了解了上面的知识后，我们就需要为不同的浏览器准备不同格式的字体，通常我们会通过字体生成工具帮我们生成各种格式的字体，因此无需过于在意字体格式间的区别差异。</p>
+<h3 id="图标字体"><a href="#图标字体" class="headerlink" title="图标字体"></a>图标字体</h3><p>图片是有诸多优点的，但是缺点很明显，比如图片不但增加了总文件的大小，还增加了很多额外的”http请求”，这都会大大降低网页的性能的。更重要的是图片不能很好的进行“缩放”，因为图片放大和缩小会失真。 我们后面会学习移动端响应式，很多情况下希望我们的图标是可以缩放的。此时，一个非常重要的技术出现了，额不是出现了，是以前就有，是被从新”宠幸”啦。。 这就是图标字体（iconfont).</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>可以做出跟图片一样可以做的事情,改变透明度、旋转度，等..<br>但是本质其实是文字，可以很随意的改变颜色、产生阴影、透明效果等等…<br>本身体积更小，但携带的信息并没有削减。<br>几乎支持所有的浏览器<br>移动端设备必备良药…</p>
+<h4 id="字体图标使用流程"><a href="#字体图标使用流程" class="headerlink" title="字体图标使用流程"></a>字体图标使用流程</h4><p>总体来说，字体图标按照如下流程：</p>
+<p><img src="fontt.png" alt=""></p>
+<h4 id="设计字体图标"><a href="#设计字体图标" class="headerlink" title="设计字体图标"></a>设计字体图标</h4><p>假如图标是我们公司单独设计，那就需要第一步了，这个属于UI设计人员的工作， 他们在 illustrator 或 Sketch 这类矢量图形软件里创建 icon图标， 比如下图：</p>
+<p><img src="03.jpg" alt=""></p>
+<p> 之后保存为svg格式，然后给我们前端人员就好了。 </p>
+<p>其实第一步，我们不需要关心，只需要给我们这些图标就可以了，如果图标是大众的，网上本来就有的，可以直接跳过第一步，进入第三步。</p>
+<h4 id="上传生成字体包"><a href="#上传生成字体包" class="headerlink" title="上传生成字体包"></a>上传生成字体包</h4><p>当UI设计人员给我们svg文件的时候，我们需要转换成我们页面能使用的字体文件， 而且需要生成的是兼容性的适合各个浏览器的。</p>
+<p>​    推荐网站： <a href="http://icomoon.io" target="_blank" rel="noopener">http://icomoon.io</a></p>
+<p><strong>icomoon字库</strong></p>
+<p>IcoMoon成立于2011年，推出的第一个自定义图标字体生成器，它允许用户选择他们所需要的图标，使它们成一字型。 内容种类繁多，非常全面，唯一的遗憾是国外服务器，打开网速较慢。</p>
+<p>   推荐网站： <a href="http://www.iconfont.cn/" target="_blank" rel="noopener">http://www.iconfont.cn/</a></p>
+<p><strong>阿里icon font字库</strong></p>
+<p><a href="http://www.iconfont.cn/" target="_blank" rel="noopener">http://www.iconfont.cn/</a></p>
+<p>这个是阿里妈妈M2UX的一个icon font字体图标字库，包含了淘宝图标库和阿里妈妈图标库。可以使用AI制作图标上传生成。 一个字，免费，免费！！</p>
+<p><strong>fontello</strong></p>
+<p><a href="http://fontello.com/" target="_blank" rel="noopener">http://fontello.com/</a></p>
+<p>在线定制你自己的icon font字体图标字库，也可以直接从GitHub下载整个图标集，该项目也是开源的。</p>
+<p><strong>Font-Awesome</strong></p>
+<p><a href="http://fortawesome.github.io/Font-Awesome/" target="_blank" rel="noopener">http://fortawesome.github.io/Font-Awesome/</a></p>
+<p>这是我最喜欢的字库之一了，更新比较快。目前已经有369个图标了。</p>
+<p><strong>Glyphicon Halflings</strong></p>
+<p><a href="http://glyphicons.com/" target="_blank" rel="noopener">http://glyphicons.com/</a></p>
+<p>这个字体图标可以在Bootstrap下免费使用。自带了200多个图标。</p>
+<p><strong>Icons8</strong></p>
+<p><a href="https://icons8.com/" target="_blank" rel="noopener">https://icons8.com/</a></p>
+<p>提供PNG免费下载，像素大能到500PX</p>
+<p>如下是上传到icomoon字库里</p>
+<p><img src="1513132290173.png" alt=""></p>
+<p>当点击import icons后，会弹出对话框让我们选择上传的svg图片。选择后，网站就会自动生成相应的图标字体。然后点击下载就可以了。</p>
+<h4 id="下载兼容字体包"><a href="#下载兼容字体包" class="headerlink" title="下载兼容字体包"></a>下载兼容字体包</h4><p>刚才上传完毕， 网站会给我们把UI做的svg图片转换为我们的字体格式， 然后下载下来就好了</p>
+<p>当然，我们不需要自己专门的图标，是想网上找几个图标使用，以上2步可以直接省略了， 直接到刚才的网站上找喜欢的下载使用吧。</p>
+<p><img src="fontt1.png" alt=""></p>
+<p><img src="fontt2.png" alt=""></p>
+<h4 id="字体引入到HTML"><a href="#字体引入到HTML" class="headerlink" title="字体引入到HTML"></a>字体引入到HTML</h4><p>得到压缩包之后，最后一步，是最重要的一步了， 就是字体文件已经有了，我们需要引入到我们页面中。</p>
+<ol>
+<li><p>首先把 以下4个文件放入到 fonts文件夹里面。 通俗的做法</p>
+<p><img src="1498032122244.png" alt=""></p>
+</li>
+</ol>
+<h5 id="第一步：在样式里面声明字体："><a href="#第一步：在样式里面声明字体：" class="headerlink" title="第一步：在样式里面声明字体："></a>第一步：在样式里面声明字体：</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">'icomoon'</span>;<span class="comment">/*这个名字随意*/</span></span><br><span class="line">  <span class="attribute">src</span>:  <span class="built_in">url</span>(<span class="string">'fonts/icomoon.eot?7kkyc2'</span>);</span><br><span class="line">    <span class="comment">/*这里的路径一定要和实际放的位置对应*/</span></span><br><span class="line">  <span class="attribute">src</span>:  <span class="built_in">url</span>(<span class="string">'fonts/icomoon.eot?7kkyc2#iefix'</span>) <span class="built_in">format</span>(<span class="string">'embedded-opentype'</span>),</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">'fonts/icomoon.ttf?7kkyc2'</span>) <span class="built_in">format</span>(<span class="string">'truetype'</span>),</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">'fonts/icomoon.woff?7kkyc2'</span>) <span class="built_in">format</span>(<span class="string">'woff'</span>),</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">'fonts/icomoon.svg?7kkyc2#icomoon'</span>) <span class="built_in">format</span>(<span class="string">'svg'</span>);</span><br><span class="line">  <span class="attribute">font-weight</span>: normal;</span><br><span class="line">  <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码其实就是在下载后的文件里的styles.css文件中</p>
+<h5 id="第二步：给标签指明使用字体"><a href="#第二步：给标签指明使用字体" class="headerlink" title="第二步：给标签指明使用字体"></a>第二步：给标签指明使用字体</h5><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">span</span> &#123;</span><br><span class="line">		<span class="attribute">font-family</span>: <span class="string">"icomoon"</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="第三步：盒子里面添加结构"><a href="#第三步：盒子里面添加结构" class="headerlink" title="第三步：盒子里面添加结构"></a>第三步：盒子里面添加结构</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">span::before &#123;</span><br><span class="line">		 content: &quot;\e900&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">或者  </span><br><span class="line">&lt;span&gt;&lt;/span&gt;  &lt;!--这里中间的字符其实就是从下载的字体文件中，打开demo文件，复制的</span><br></pre></td></tr></table></figure>
+<h4 id="追加新图标到原来库里面"><a href="#追加新图标到原来库里面" class="headerlink" title="追加新图标到原来库里面"></a>追加新图标到原来库里面</h4><p>如果工作中，原来的字体图标不够用了，我们需要添加新的字体图标，但是原来的不能删除，继续使用，此时我们需要这样做</p>
+<p>把压缩包里面的<code>selection.json</code> 从新上传，然后，选中自己想要新的图标，从新下载压缩包，替换原来文件即可。</p>
+<p><img src="fontt5.png" alt=""></p>
+<h3 id="ICO图标"><a href="#ICO图标" class="headerlink" title="ICO图标"></a>ICO图标</h3><p>ico是Icon file的缩写，是Windows的图标文件格式的一种。一般作为浏览器首段图标显示，在浏览器收藏夹内收藏内容的前段显示小图标。</p>
+<p><img src="ico.png" alt=""></p>
+<p>一般所有的网站首页后面可以加上”/favicon.ico”就可以找到该网站的ico图标了</p>
+<p>比如京东<code>https://www.jd.com/favicon.ico</code></p>
+<h4 id="引入ICO图标"><a href="#引入ICO图标" class="headerlink" title="引入ICO图标"></a>引入ICO图标</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;shortcut icon&quot; href=&quot;favicon.ico&quot;  type=&quot;image/x-icon&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>这里必须要把这个ico图标放到项目的根目录下！</p>
+<h3 id="网站优化三大标签"><a href="#网站优化三大标签" class="headerlink" title="网站优化三大标签"></a>网站优化三大标签</h3><p><code>SEO</code>是由英文Search Engine Optimization缩写而来， 中文意译为“搜索引擎优化”！<code>SEO</code>是指通过对网站进行站内优化、网站结构调整、网站内容建设、网站代码优化等)和站外优化，从而提高网站的关键词排名以及公司产品的曝光度。 简单的说就是，把产品做好，搜索引擎就会介绍客户来。  </p>
+<p>我们现在阶段主要进行站内优化</p>
+<p><img src="san.png" alt=""></p>
+<p><img src="search.png" alt=""></p>
+<h4 id="网页标题-title"><a href="#网页标题-title" class="headerlink" title="网页标题(title)"></a>网页标题(title)</h4><p>title具有不可替代性，是我们的内页第一个重要标签，是搜索引擎了解网页的入口，和对网页主题归属的最佳判断点。</p>
+<p><img src="title.png" alt=""></p>
+<p>建议：</p>
+<p>首页标题：网站名（产品名）- 网站的介绍    </p>
+<p>例如：</p>
+<p>京东(JD.COM)-综合网购首选-正品低价、品质保障、配送及时、轻松购物！</p>
+<p>小米商城 - 小米5s、红米Note 4、小米MIX、小米笔记本官方网站</p>
+<h4 id="网站说明-Description"><a href="#网站说明-Description" class="headerlink" title="网站说明(Description)"></a>网站说明(Description)</h4><p>对于关键词的作用明显降低，但由于很多搜索引擎，仍然大量采用网页的MATA标签中描述部分作为搜索结果的“内容摘要”。 就是简要说明我们网站的主要做什么的。<br>我们提倡，Description作为网站的总体业务和主题概括，多采用“我们是…”“我们提供…”“×××网作为…”“电话：010…”之类语句。</p>
+<p>网页添加了description,搜索引擎会在搜索结果里展示</p>
+<p>京东网：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;description&quot; content=&quot;京东JD.COM-专业的综合网上购物商城,销售家电、数码通讯、电脑、家居百货、服装服饰、母婴、图书、食品等数万个品牌优质商品.便捷、诚信的服务，为您提供愉悦的网上购物体验!&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>注意点：</p>
+<ol>
+<li>描述中出现关键词，与正文内容相关，这部分内容是给人看的，所以要写的很详细，让人感兴趣， 吸引用户点击。</li>
+<li>同样遵循简短原则，字符数含空格在内不要超过 120  个汉字。</li>
+<li>补充在 title  和 keywords  中未能充分表述的说明.</li>
+<li>用英文逗号 关键词1,关键词2</li>
+</ol>
+<h4 id="关键字-Keywords"><a href="#关键字-Keywords" class="headerlink" title="关键字(Keywords )"></a>关键字(Keywords )</h4><p>Keywords是页面关键词，是搜索引擎关注点之一。Keywords应该限制在6～8个关键词左右，电商类网站可以多 少许。</p>
+<p>京东网：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;Keywords&quot; content=&quot;网上购物,网上商城,手机,笔记本,电脑,MP3,CD,VCD,DV,相机,数码,配件,手表,存储卡,京东&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="项目目录结构"><a href="#项目目录结构" class="headerlink" title="项目目录结构"></a>项目目录结构</h3><p>要实现结构和样式相分离的设计思想。 根目录下有这4个文件（目录）。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>css</td>
+<td>用于存放CSS文件</td>
+</tr>
+<tr>
+<td>images</td>
+<td>用于存放图片</td>
+</tr>
+<tr>
+<td>index</td>
+<td>首页 HTML</td>
+</tr>
+<tr>
+<td>js</td>
+<td>存放javascript文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="logo布局的写法"><a href="#logo布局的写法" class="headerlink" title="logo布局的写法"></a>logo布局的写法</h3><p>logo一般网页都是下面的写法</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"logo"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 必须用h1标签，表明最重要 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- logo一般都可以点击 所以用a标签 注明title属性 标题不能省 即便是不可见--&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">title</span>=<span class="string">"京东网"</span>&gt;</span>京东<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>样式如下:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.logo</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">190px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">170px</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(../iamges/logo.jpg);</span><br><span class="line">    <span class="comment">/*一般文字要求隐藏,可以设置字体大小为0*/</span></span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="comment">/*或者设置负的首行缩进 还可以再加上overflow: hidden*/</span></span><br><span class="line">    <span class="comment">/*text-indent: -999999em*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CSS的初始化"><a href="#CSS的初始化" class="headerlink" title="CSS的初始化"></a>CSS的初始化</h3><p>css reset就是CSS的初始化，很多标签的样式都会有兼容性问题。所以为了解决这个问题，就需要CSS的初始化，让各个浏览器的样式统一。</p>
+<h4 id="normalize-css库"><a href="#normalize-css库" class="headerlink" title="normalize.css库"></a>normalize.css库</h4><p><code>normalize.css</code>   只是一个很小的CSS文件，但它在默认的HTML元素样式上提供了跨浏览器的高度一致性。相比于传统的<code>CSS reset</code>，<code>Normalize.css</code>是一种现代的、为<code>HTML5</code>准备的优质替代方案。<code>Normalize.css</code>现在已经被用于<code>Twitter Bootstrap</code>、<code>HTML5 Boilerplate</code>、<code>GOV.UK</code>、<code>Rdio</code>、<code>CSS Tricks</code> 以及许许多多其他框架、工具和网站上。</p>
+<ul>
+<li><p>保护有用的浏览器默认样式而不是完全去掉它们</p>
+</li>
+<li><p>一般化的样式：为大部分HTML元素提供</p>
+</li>
+<li><p>修复浏览器自身的bug并保证各浏览器的一致性</p>
+</li>
+<li><p>优化CSS可用性：用一些小技巧</p>
+</li>
+<li><p>解释代码：用注释和详细的文档来</p>
+</li>
+</ul>
+<h3 id="CSS-W3C-统一验证工具"><a href="#CSS-W3C-统一验证工具" class="headerlink" title="CSS W3C 统一验证工具"></a>CSS W3C 统一验证工具</h3><p>CssStats 是一个在线的 CSS 代码分析工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">网址是：  http://www.cssstats.com/</span><br></pre></td></tr></table></figure>
+<p>还有一个网站支持上传本地文件进行检测分析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">W3C 统一验证工具：    http://validator.w3.org/unicorn/</span><br></pre></td></tr></table></figure>
+<h3 id="CSS代码压缩"><a href="#CSS代码压缩" class="headerlink" title="CSS代码压缩"></a>CSS代码压缩</h3><p>我们写的CSS代码里面都会格式化，包含了很多空格、注释。在项目上线的时候，我们都会把CSS代码进行压缩的，去掉对于的空行和注释。下面的网站可以做CSS代码压缩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://tool.chinaz.com/Tools/CssFormat.aspx</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2017/01/15/CSS入门（二）/" rel="next" title="CSS入门（二）">
+                <i class="fa fa-chevron-left"></i> CSS入门（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2017/03/02/多页面分享成功回调重复的坑/" rel="prev" title="多页面分享成功回调重复的坑">
+                多页面分享成功回调重复的坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/Blog/images/avatar.jpg" alt="kaer">
+            
+              <p class="site-author-name" itemprop="name">kaer</p>
+              <p class="site-description motion-element" itemprop="description">锐情书卷，烹煮江山</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/Blog/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/Blog/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/Blog/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS高级技巧"><span class="nav-number">1.</span> <span class="nav-text">CSS高级技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#元素的显示和隐藏"><span class="nav-number">1.1.</span> <span class="nav-text">元素的显示和隐藏</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#display显示"><span class="nav-number">1.1.1.</span> <span class="nav-text">display显示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#visibility可见性"><span class="nav-number">1.1.2.</span> <span class="nav-text">visibility可见性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#overflow溢出"><span class="nav-number">1.1.3.</span> <span class="nav-text">overflow溢出</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS用户界面样式"><span class="nav-number">1.2.</span> <span class="nav-text">CSS用户界面样式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#鼠标样式cursor"><span class="nav-number">1.2.1.</span> <span class="nav-text">鼠标样式cursor</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#轮廓outline"><span class="nav-number">1.2.2.</span> <span class="nav-text">轮廓outline</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#防止拖拽文本域resize"><span class="nav-number">1.2.3.</span> <span class="nav-text">防止拖拽文本域resize</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vertical-align-垂直对齐"><span class="nav-number">1.3.</span> <span class="nav-text">vertical-align 垂直对齐</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#图片、表单和文字对齐"><span class="nav-number">1.3.1.</span> <span class="nav-text">图片、表单和文字对齐</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#去除图片底侧空白缝隙"><span class="nav-number">1.3.2.</span> <span class="nav-text">去除图片底侧空白缝隙</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#溢出的文字隐藏"><span class="nav-number">1.4.</span> <span class="nav-text">溢出的文字隐藏</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#强制单行white-space"><span class="nav-number">1.4.1.</span> <span class="nav-text">强制单行white-space</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#text-overflow-文字溢出"><span class="nav-number">1.4.2.</span> <span class="nav-text">text-overflow 文字溢出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文本过长单行显示并显示省略号"><span class="nav-number">1.4.3.</span> <span class="nav-text">文本过长单行显示并显示省略号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS精灵技术（sprite）"><span class="nav-number">2.</span> <span class="nav-text">CSS精灵技术（sprite）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#精灵技术产生的背景"><span class="nav-number">2.1.</span> <span class="nav-text">精灵技术产生的背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#精灵技术本质"><span class="nav-number">2.2.</span> <span class="nav-text">精灵技术本质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#精灵技术的使用"><span class="nav-number">2.3.</span> <span class="nav-text">精灵技术的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#精灵图的制作"><span class="nav-number">2.4.</span> <span class="nav-text">精灵图的制作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滑动门"><span class="nav-number">3.</span> <span class="nav-text">滑动门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#滑动门出现的背景"><span class="nav-number">3.1.</span> <span class="nav-text">滑动门出现的背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#核心技术原理"><span class="nav-number">3.2.</span> <span class="nav-text">核心技术原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web字体"><span class="nav-number">4.</span> <span class="nav-text">Web字体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字体格式（了解）"><span class="nav-number">4.1.</span> <span class="nav-text">字体格式（了解）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图标字体"><span class="nav-number">5.</span> <span class="nav-text">图标字体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">5.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字体图标使用流程"><span class="nav-number">5.2.</span> <span class="nav-text">字体图标使用流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设计字体图标"><span class="nav-number">5.3.</span> <span class="nav-text">设计字体图标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传生成字体包"><span class="nav-number">5.4.</span> <span class="nav-text">上传生成字体包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载兼容字体包"><span class="nav-number">5.5.</span> <span class="nav-text">下载兼容字体包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字体引入到HTML"><span class="nav-number">5.6.</span> <span class="nav-text">字体引入到HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一步：在样式里面声明字体："><span class="nav-number">5.6.1.</span> <span class="nav-text">第一步：在样式里面声明字体：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二步：给标签指明使用字体"><span class="nav-number">5.6.2.</span> <span class="nav-text">第二步：给标签指明使用字体</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三步：盒子里面添加结构"><span class="nav-number">5.6.3.</span> <span class="nav-text">第三步：盒子里面添加结构</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#追加新图标到原来库里面"><span class="nav-number">5.7.</span> <span class="nav-text">追加新图标到原来库里面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ICO图标"><span class="nav-number">6.</span> <span class="nav-text">ICO图标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入ICO图标"><span class="nav-number">6.1.</span> <span class="nav-text">引入ICO图标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网站优化三大标签"><span class="nav-number">7.</span> <span class="nav-text">网站优化三大标签</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网页标题-title"><span class="nav-number">7.1.</span> <span class="nav-text">网页标题(title)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网站说明-Description"><span class="nav-number">7.2.</span> <span class="nav-text">网站说明(Description)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键字-Keywords"><span class="nav-number">7.3.</span> <span class="nav-text">关键字(Keywords )</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目目录结构"><span class="nav-number">8.</span> <span class="nav-text">项目目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logo布局的写法"><span class="nav-number">9.</span> <span class="nav-text">logo布局的写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS的初始化"><span class="nav-number">10.</span> <span class="nav-text">CSS的初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#normalize-css库"><span class="nav-number">10.1.</span> <span class="nav-text">normalize.css库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-W3C-统一验证工具"><span class="nav-number">11.</span> <span class="nav-text">CSS W3C 统一验证工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS代码压缩"><span class="nav-number">12.</span> <span class="nav-text">CSS代码压缩</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaer</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
